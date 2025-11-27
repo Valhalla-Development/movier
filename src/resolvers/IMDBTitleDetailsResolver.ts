@@ -167,10 +167,19 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
   }
 
   get casts(): ICastDetails[] {
+    const titleStartYear = this.titleApiRawData.releaseYear?.year ?? 0;
     return (
       this.titleApiRawData.casts.edges
         .map((i) => i.node)
-        .map((i) => ({
+        .map((i) => {
+          const rawStartYear = i.episodeCredits?.yearRange?.year ?? 0;
+          const normalizedStartYear =
+            rawStartYear && titleStartYear
+              ? Math.max(rawStartYear, titleStartYear)
+              : rawStartYear || titleStartYear || 0;
+          const endYear =
+            i.episodeCredits?.yearRange?.endYear ?? normalizedStartYear;
+          return {
           name: i.name?.nameText.text ?? "",
           roles:
             i.characters?.map((i) => ({
@@ -178,8 +187,8 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
             })) ?? [],
           ...(i.episodeCredits && {
             episodeCredits: {
-              endYear: i.episodeCredits.yearRange?.endYear ?? 0,
-              startYear: i.episodeCredits.yearRange?.year ?? 0,
+                endYear,
+                startYear: normalizedStartYear,
               totalEpisodes: i.episodeCredits.total ?? 0,
             },
           }),
@@ -187,7 +196,8 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
           otherNames: i.name?.akas.edges.map((i) => i.node.text) ?? [],
           source: this.extractSourceFromId(i.name?.id ?? ""),
           // thumbnailImageUrl TODO: add the image
-        })) ?? []
+          };
+        }) ?? []
     );
   }
 

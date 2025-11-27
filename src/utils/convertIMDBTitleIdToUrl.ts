@@ -5,6 +5,7 @@ export function convertIMDBTitleIdToUrl(
   titleId: string,
   type: IMDBPathType = IMDBPathType.Title
 ) {
-  const path = `/${type}/${titleId}`;
+  const normalizedTitleId = titleId?.replace(/\/+$/, "") ?? "";
+  const path = `/${type}/${normalizedTitleId}/`;
   return convertIMDBPathToIMDBUrl(path);
 }

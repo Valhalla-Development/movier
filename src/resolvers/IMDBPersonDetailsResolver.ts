@@ -21,12 +21,14 @@ import { getRequest, graphqlRequest } from "../requestClient";
 import { PersonDetailsNextData } from "../externalInterfaces/IMDBPersonNextDataInterface";
 import { convertIMDBTitleIdToUrl } from "../utils/convertIMDBTitleIdToUrl";
 import { personDetailsQuery } from "../gql/personDetailsQuery";
+import { extractNextDataFromHTML } from "../utils/extractNextDataFromHTML";
 
 export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
   private url: string;
   private resolverCacheManager = new ResolverCacheManager();
   private mainPageHTMLData!: string;
   private mediaIndexPageHTMLData!: string;
+  private mediaIndexNextData?: MediaIndexNextData;
 
   // cheerio loaded instances
   private mainPageCheerio!: CheerioAPI;
@@ -63,6 +65,9 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
     const apiResult = await getRequest(url);
     this.mediaIndexPageHTMLData = apiResult.data;
     this.mediaIndexPageCheerio = loadCheerio(apiResult.data);
+    this.mediaIndexNextData = extractNextDataFromHTML<MediaIndexNextData>(
+      apiResult.data
+    );
   }
 
   async getPersonDetailsFromApi() {
@@ -302,6 +307,10 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
     if (cacheDataManager.hasData) {
       return cacheDataManager.data as IImageDetails[];
     }
+    const imagesFromNextData = this.getImagesFromMediaIndexNextData();
+    if (imagesFromNextData.length) {
+      return cacheDataManager.cacheAndReturnData(imagesFromNextData);
+    }
     const $ = this.mediaIndexPageCheerio;
     const images: IImageDetails[] = [];
     $(".image-item-wrapper img.ipc-image").each((i, el) => {
@@ -311,6 +320,49 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
     });
 
     return cacheDataManager.cacheAndReturnData(images);
+  }
+
+  private getImagesFromMediaIndexNextData(): IImageDetails[] {
+    const edges =
+      this.mediaIndexNextData?.props?.pageProps?.contentData?.data?.name
+        ?.all_images?.edges;
+    if (!Array.isArray(edges) || !edges.length) {
+      return [];
+    }
+    return edges
+      .map((edge) => edge.node)
+      .filter((node): node is MediaIndexImageNode => !!node?.url)
+      .map((node) => this.createImageDetailsFromMediaIndexNode(node));
+  }
+
+  private createImageDetailsFromMediaIndexNode(
+    node: MediaIndexImageNode
+  ): IImageDetails {
+    const title = node.caption?.plainText ?? "";
+    const size =
+      node.width && node.height
+        ? {
+            width: node.width,
+            height: node.height,
+          }
+        : undefined;
+    const thumbnail: IImageDetails = {
+      isThumbnail: true,
+      sourceType: Source.IMDB,
+      title,
+      type: ImageType.Other,
+      url: node.url,
+      size,
+    };
+    return {
+      isThumbnail: false,
+      sourceType: Source.IMDB,
+      title,
+      type: ImageType.Other,
+      url: node.url,
+      size,
+      thumbnails: [thumbnail],
+    };
   }
 
   get personalDetails(): IPersonalDetailItem[] {
@@ -411,4 +463,31 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
 
     return cacheDataManager.cacheAndReturnData(formatHTMLText(deathLocation));
   }
+}
+
+interface MediaIndexNextData {
+  props?: {
+    pageProps?: {
+      contentData?: {
+        data?: {
+          name?: {
+            all_images?: {
+              edges?: {
+                node?: MediaIndexImageNode;
+              }[];
+            };
+          };
+        };
+      };
+    };
+  };
+}
+
+interface MediaIndexImageNode {
+  url: string;
+  caption?: {
+    plainText?: string;
+  };
+  width?: number;
+  height?: number;
 }

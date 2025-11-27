@@ -81,7 +81,7 @@ export interface ITitleTestData {
 
 const titlesToTest: ITitleTestData[] = [
   {
-    url: "https://www.imdb.com/title/tt0499549",
+    url: "https://www.imdb.com/title/tt0499549/",
     name: "avatar",
     worldWideName: "avatar",
     sourceId: "tt0499549",
@@ -163,7 +163,7 @@ const titlesToTest: ITitleTestData[] = [
     goofsLength: 60,
   },
   {
-    url: "https://www.imdb.com/title/tt0944947",
+    url: "https://www.imdb.com/title/tt0944947/",
     name: "game of thrones",
     worldWideName: "game of thrones",
     sourceId: "tt0944947",
@@ -229,14 +229,15 @@ const titlesToTest: ITitleTestData[] = [
     boxofficeBudget: 0,
     worldWideSellMin: 0,
     mainCountriesSellMin: 0,
-    firstProductionCompanyName: "home box office (hbo)",
+    // HBO Entertainment is now the first production company listed on IMDb.
+    firstProductionCompanyName: "hbo entertainment",
     productionCompaniesLength: 5,
     taglinesMinLength: 5,
     firstTagline: "winter is coming.",
     runtimeTitle: "1h",
     runtimeSeconds: 3300,
     keywordsMinLength: 5,
-    onOfKeywords: "based on novel",
+    onOfKeywords: "dragon",
     postersMinLength: 48,
     stillFrameMinLength: 48,
     awardsMinLength: 200,
@@ -247,13 +248,13 @@ const titlesToTest: ITitleTestData[] = [
     goofsLength: 0,
   },
   {
-    url: "https://www.imdb.com/title/tt14544192",
+    url: "https://www.imdb.com/title/tt14544192/",
     name: "bo burnham: inside",
     mainType: TitleMainType.TVSpecial,
     sourceId: "tt14544192",
   },
   {
-    url: "https://www.imdb.com/title/tt0000041",
+    url: "https://www.imdb.com/title/tt0000041/",
     sourceId: "tt0000041",
     name: "bataille de neige",
     genres: [Genre.Documentary, Genre.Comedy, Genre.Short],

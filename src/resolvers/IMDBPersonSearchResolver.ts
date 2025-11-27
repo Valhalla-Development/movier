@@ -7,15 +7,18 @@ import {
 import { ResolverCacheManager } from "../utils/ResolverCacheManager";
 import { load as loadCheerio, CheerioAPI } from "cheerio";
 import { formatHTMLText } from "../utils/formatHTMLText";
-import { Source } from "../enums";
+import { Source, IMDBPathType } from "../enums";
 import { convertIMDBPathToIMDBUrl } from "../utils/convertIMDBPathToIMDBUrl";
 import { extractIMDBIdFromUrl } from "../utils/extractIMDBIdFromUrl";
 import { getRequest } from "../requestClient";
+import { convertIMDBTitleIdToUrl } from "../utils/convertIMDBTitleIdToUrl";
+import { extractNextDataFromHTML } from "../utils/extractNextDataFromHTML";
 
 export class IMDBPersonSearchResolver implements IPersonSearchResolver {
   private queryName: string;
   private exactMatch: boolean;
   public searchPageHTMLData!: string;
+  private searchPageNextData?: PersonSearchNextData;
 
   private resolverCacheManager = new ResolverCacheManager();
 
@@ -53,17 +56,45 @@ export class IMDBPersonSearchResolver implements IPersonSearchResolver {
     // parse page content for jquery like
     this.searchPageHTMLData = result.data;
     this.searchPageCheerio = loadCheerio(this.searchPageHTMLData);
+    this.searchPageNextData =
+      extractNextDataFromHTML<PersonSearchNextData>(this.searchPageHTMLData);
   }
 
   get originalResultList(): IFoundedPersonDetails[] {
+    const nextDataResults = this.originalResultListFromNextData;
+    if (nextDataResults?.length) {
+      return nextDataResults;
+    }
     const $ = this.searchPageCheerio;
-
     const isType1 = !!$(".find-name-result").length;
 
     if (isType1) {
       return this.originalResultListType1;
     }
     return this.originalResultListType2;
+  }
+
+  get originalResultListFromNextData():
+    | IFoundedPersonDetails[]
+    | undefined {
+    const cacheDataManager = this.resolverCacheManager.load(
+      "originalResultListFromNextData"
+    );
+    if (cacheDataManager.hasData) {
+      return cacheDataManager.data as IFoundedPersonDetails[];
+    }
+    const results =
+      this.searchPageNextData?.props?.pageProps?.nameResults?.results;
+    if (!Array.isArray(results) || !results.length) {
+      return;
+    }
+    const mapped = results
+      .map((result, index) => this.mapNextDataResultToPerson(result, index))
+      .filter(Boolean) as IFoundedPersonDetails[];
+    if (!mapped.length) {
+      return;
+    }
+    return cacheDataManager.cacheAndReturnData(mapped.slice(0, 25));
   }
 
   get originalResultListType1(): IFoundedPersonDetails[] {
@@ -129,4 +160,51 @@ export class IMDBPersonSearchResolver implements IPersonSearchResolver {
 
     return cacheDataManager.cacheAndReturnData(result);
   }
+
+  private mapNextDataResultToPerson(
+    result: PersonSearchNextDataResult,
+    index: number
+  ): IFoundedPersonDetails | undefined {
+    const listItem = result.listItem;
+    if (!listItem) {
+      return;
+    }
+    const personId = listItem.nameId ?? result.index ?? "";
+    if (!personId) {
+      return;
+    }
+    const url = convertIMDBTitleIdToUrl(personId, IMDBPathType.Name);
+    return {
+      matchScore: Math.max(1, 20 - index),
+      name: formatHTMLText(listItem.nameText ?? ""),
+      source: {
+        sourceType: Source.IMDB,
+        sourceUrl: url,
+        sourceId: personId,
+      },
+      thumbnailImageUrl: listItem.primaryImage?.url ?? "",
+      url,
+    };
+  }
+}
+
+interface PersonSearchNextData {
+  props?: {
+    pageProps?: {
+      nameResults?: {
+        results?: PersonSearchNextDataResult[];
+      };
+    };
+  };
+}
+
+interface PersonSearchNextDataResult {
+  index?: string;
+  listItem?: {
+    nameId?: string;
+    nameText?: string;
+    primaryImage?: {
+      url?: string;
+    };
+  };
 }

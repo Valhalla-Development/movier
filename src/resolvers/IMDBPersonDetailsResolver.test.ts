@@ -29,7 +29,7 @@ const dataToTest: TestDataType[] = [
     deathDate: "2004-07-01",
     deathPlace: "Westwood, Los Angeles, California, USA",
     filmographyData: {
-      actor: 48,
+      actor: 46,
       director: 1,
       cinematographer: 1,
       soundtrack: 5,
@@ -38,7 +38,7 @@ const dataToTest: TestDataType[] = [
     },
     knownFormFirstItemDetails: {
       name: "Apocalypse Now",
-      role: "Col. Walter E. Kurtz",
+      role: "Colonel Kurtz",
       startYear: 1979,
     },
     personalDetails: {

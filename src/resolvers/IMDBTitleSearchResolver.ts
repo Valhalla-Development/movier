@@ -8,12 +8,15 @@ import { convertIMDBPathToIMDBUrl } from "../utils/convertIMDBPathToIMDBUrl";
 import { SearchTitleByNameOptions } from "../titleSearcher";
 import { extractIMDBIdFromUrl } from "../utils/extractIMDBIdFromUrl";
 import { getRequest } from "../requestClient";
+import { convertIMDBTitleIdToUrl } from "../utils/convertIMDBTitleIdToUrl";
+import { extractNextDataFromHTML } from "../utils/extractNextDataFromHTML";
 
 export class IMDBTitleSearchResolver implements ITitleSearchResolver {
   private queryName: string;
   private exactMatch: boolean;
   private specificType?: TitleMainType;
   private searchPageHTMLData!: string;
+  private searchPageNextData?: TitleSearchNextData;
 
   private resolverCacheManager = new ResolverCacheManager();
 
@@ -60,6 +63,8 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
     // parse page content for jquery like
     this.searchPageHTMLData = result.data;
     this.searchPageCheerio = loadCheerio(this.searchPageHTMLData);
+    this.searchPageNextData =
+      extractNextDataFromHTML<TitleSearchNextData>(this.searchPageHTMLData);
   }
 
   get nameWithoutYearAndRequestedYearFromQuery(): {
@@ -88,6 +93,10 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
   }
 
   get originalResultList(): IFoundedTitleDetails[] {
+    const nextDataResults = this.originalResultListFromNextData;
+    if (nextDataResults?.length) {
+      return nextDataResults;
+    }
     const $ = this.searchPageCheerio;
     const isType1 = !!$("[data-testid='find-results-section-title']")
       .first()
@@ -96,6 +105,38 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
       return this.originalResultListType1;
     }
     return this.originalResultListType2;
+  }
+
+  get originalResultListFromNextData():
+    | IFoundedTitleDetails[]
+    | undefined {
+    const cacheDataManager = this.resolverCacheManager.load(
+      "originalResultListFromNextData"
+    );
+    if (cacheDataManager.hasData) {
+      return cacheDataManager.data as IFoundedTitleDetails[];
+    }
+    const results =
+      this.searchPageNextData?.props?.pageProps?.titleResults?.results;
+    if (!Array.isArray(results) || !results.length) {
+      return;
+    }
+    const { nameWithoutYear, requestedYear } =
+      this.nameWithoutYearAndRequestedYearFromQuery;
+    const mappedResults = results
+      .map((result, index) =>
+        this.convertNextDataResultToFoundedDetails(
+          result,
+          index,
+          nameWithoutYear,
+          requestedYear
+        )
+      )
+      .filter(Boolean) as IFoundedTitleDetails[];
+    if (!mappedResults.length) {
+      return;
+    }
+    return cacheDataManager.cacheAndReturnData(mappedResults.slice(0, 25));
   }
 
   get originalResultListType1(): IFoundedTitleDetails[] {
@@ -229,4 +270,107 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
 
     return moviesList.slice(0, 25);
   }
+
+  private convertNextDataResultToFoundedDetails(
+    result: TitleSearchNextDataResult,
+    index: number,
+    nameWithoutYear: string,
+    requestedYear: number | null
+  ): IFoundedTitleDetails | undefined {
+    const listItem = result.listItem;
+    if (!listItem) {
+      return;
+    }
+    const titleId = listItem.titleId ?? result.index ?? "";
+    if (!titleId) {
+      return;
+    }
+    const url = convertIMDBTitleIdToUrl(titleId);
+    const displayName = formatHTMLText(
+      listItem.titleText ?? listItem.originalTitleText ?? ""
+    );
+    const akaText = formatHTMLText(listItem.originalTitleText ?? "");
+    const aka = akaText !== displayName ? akaText : "";
+    const releaseYear = listItem.releaseYear ?? listItem.releaseDate?.year;
+    const titleYear = releaseYear ?? 0;
+    let matchScore = Math.max(1, 20 - index);
+    const normalizedName = nameWithoutYear.toLowerCase();
+    if (
+      displayName.toLowerCase() === normalizedName ||
+      aka.toLowerCase() === normalizedName
+    ) {
+      matchScore += 4;
+    }
+    if (releaseYear && requestedYear === releaseYear) {
+      matchScore += 4;
+    }
+    const titleType = this.mapTitleTypeIdToEnum(listItem.titleType?.id);
+    if ([TitleMainType.Movie, TitleMainType.Series].includes(titleType)) {
+      matchScore += 3;
+    }
+    return {
+      source: {
+        sourceId: titleId,
+        sourceType: Source.IMDB,
+        sourceUrl: url,
+      },
+      name: displayName,
+      aka,
+      titleYear,
+      url,
+      titleType,
+      matchScore,
+      thumbnailImageUrl: listItem.primaryImage?.url ?? "",
+    };
+  }
+
+  private mapTitleTypeIdToEnum(
+    titleTypeId?: string
+  ): TitleMainType {
+    switch (titleTypeId) {
+      case "tvSeries":
+        return TitleMainType.Series;
+      case "tvEpisode":
+        return TitleMainType.SeriesEpisode;
+      case "tvSpecial":
+        return TitleMainType.TVSpecial;
+      case "tvShort":
+        return TitleMainType.TVShort;
+      case "tvMovie":
+        return TitleMainType.TVMovie;
+      case "video":
+        return TitleMainType.Video;
+      default:
+        return TitleMainType.Movie;
+    }
+  }
+}
+
+interface TitleSearchNextData {
+  props?: {
+    pageProps?: {
+      titleResults?: {
+        results?: TitleSearchNextDataResult[];
+      };
+    };
+  };
+}
+
+interface TitleSearchNextDataResult {
+  index?: string;
+  listItem?: {
+    titleId?: string;
+    titleText?: string;
+    originalTitleText?: string;
+    releaseYear?: number;
+    releaseDate?: {
+      year?: number;
+    };
+    titleType?: {
+      id?: string;
+    };
+    primaryImage?: {
+      url?: string;
+    };
+  };
 }
