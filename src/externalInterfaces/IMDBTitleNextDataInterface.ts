@@ -10,7 +10,7 @@ export type IMDBNextData = {
     dynamicIDS?: number[];
     gssp?: boolean;
     customServer?: boolean;
-    scriptLoader?: any[];
+    scriptLoader?: unknown[];
 };
 
 type Props = {
@@ -61,7 +61,7 @@ type AboveTheFoldData = {
     triviaTotal?: Credits;
     meta?: Meta;
     castPageTitle?: CastPageTitle;
-    creatorsPageTitle?: any[];
+    creatorsPageTitle?: unknown[];
     directorsPageTitle?: DirectorsPageTitle[];
     countriesOfOrigin?: AboveTheFoldDataCountriesOfOrigin;
     production?: Production;
@@ -199,7 +199,7 @@ type CurrentProductionStage = {
     id?: string;
     typename?: string;
     event?: PrimaryImageElement;
-    attributes?: any[];
+    attributes?: unknown[];
 };
 
 enum GenresTypename {
@@ -583,7 +583,7 @@ type MainColumnData = {
     canHaveEpisodes?: boolean;
     cast?: Cast;
     principalCast?: PrincipalCast[];
-    creators?: any[];
+    creators?: unknown[];
     directors?: Director[];
     writers?: Director[];
     isAdult?: boolean;
@@ -755,7 +755,7 @@ type SeriesSeries = {
 
 type ContributionQuestions = {
     contributionLink?: Link;
-    edges?: any[];
+    edges?: unknown[];
     typename?: string;
 };
 
@@ -1084,7 +1084,7 @@ type AspectRatios = {
 
 type AspectRatiosItem = {
     aspectRatio?: string;
-    attributes?: any[];
+    attributes?: unknown[];
     typename?: string;
 };
 
@@ -1096,7 +1096,7 @@ type Colorations = {
 type ColorationsItem = {
     conceptID?: string;
     text?: string;
-    attributes?: any[];
+    attributes?: unknown[];
     typename?: string;
 };
 
