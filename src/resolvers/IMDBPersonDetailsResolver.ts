@@ -193,7 +193,7 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
 
     extractImageFullDetailsFromImgElement(
         thumbnailImgEl: Cheerio<Element>,
-        type = ImageType.Poster
+        type: ImageType = ImageType.Poster
     ): IImageDetails {
         const thumbnailUrl = thumbnailImgEl.attr("src");
 
