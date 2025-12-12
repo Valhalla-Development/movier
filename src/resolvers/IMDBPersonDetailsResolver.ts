@@ -1,5 +1,6 @@
-import { type Cheerio, type CheerioAPI, type Element, load as loadCheerio } from "cheerio";
+import { type Cheerio, type CheerioAPI, load as loadCheerio } from "cheerio";
 import dayjs from "dayjs";
+import type { Element } from "domhandler";
 import type { PersonApiDetailsInterface } from "../externalInterfaces/IMDBPersonApiDetailsInterface";
 import type { PersonDetailsNextData } from "../externalInterfaces/IMDBPersonNextDataInterface";
 import { personDetailsQuery } from "../gql/personDetailsQuery";
