@@ -151,7 +151,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
                 const desc = formatHTMLText(
                     $this.find(".ipc-metadata-list-summary-item__tl").text()
                 );
-                let titleType = TitleMainType.Movie;
+                let titleType: TitleMainType = TitleMainType.Movie;
                 if (/.*episode.*\s*$/i.test(desc)) {
                     titleType = TitleMainType.SeriesEpisode;
                 } else if (/.*series.*\s*$/i.test(desc)) {
@@ -173,7 +173,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
                 if (titleYear && requestedYear === titleYear) {
                     matchScore += 4;
                 }
-                if ([TitleMainType.Movie, TitleMainType.Series].includes(titleType)) {
+                if (titleType === TitleMainType.Movie || titleType === TitleMainType.Series) {
                     matchScore += 3;
                 }
 
@@ -213,7 +213,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
                 const text = formatHTMLText($movieTexts.text());
                 const name = formatHTMLText($movieTexts.find("a").text());
                 const aka = formatHTMLText(/aka\s"(.+)"/.exec(text)?.[1]);
-                let titleType = TitleMainType.Movie;
+                let titleType: TitleMainType = TitleMainType.Movie;
                 if (/(.*episode.*)\s*$/i.test(text)) {
                     titleType = TitleMainType.SeriesEpisode;
                 } else if (/(.*series.*)\s*$/i.test(text)) {
@@ -233,7 +233,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
                 if (titleYear && requestedYear === titleYear) {
                     matchScore += 4;
                 }
-                if ([TitleMainType.Movie, TitleMainType.Series].includes(titleType)) {
+                if (titleType === TitleMainType.Movie || titleType === TitleMainType.Series) {
                     matchScore += 3;
                 }
 
@@ -286,7 +286,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
             matchScore += 4;
         }
         const titleType = this.mapTitleTypeIdToEnum(listItem.titleType?.id);
-        if ([TitleMainType.Movie, TitleMainType.Series].includes(titleType)) {
+        if (titleType === TitleMainType.Movie || titleType === TitleMainType.Series) {
             matchScore += 3;
         }
         return {
