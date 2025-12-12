@@ -8,7 +8,7 @@ export type PersonDetailsNextData = {
     isFallback?: boolean;
     gssp?: boolean;
     customServer?: boolean;
-    scriptLoader?: any[];
+    scriptLoader?: unknown[];
 };
 
 export type Props = {
