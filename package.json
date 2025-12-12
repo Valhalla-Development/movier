@@ -22,7 +22,10 @@
   ],
   "scripts": {
     "test": "jest --config jest.config.ts --detectOpenHandles",
-    "prepublish": "tsc"
+    "prepublish": "tsc",
+    "lint": "tsc --noEmit -p tsconfig.json && biome check --files-ignore-unknown=true --diagnostic-level=error --no-errors-on-unmatched src",
+    "lint:fix": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true src",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@types/node": "^20.1.0",
