@@ -6,12 +6,14 @@
     "lib": ["es2020", "DOM"],
     "module": "commonjs",
     "target": "es2020",
+    "allowJs": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "isolatedModules": true
   },
   "exclude": ["node_modules", "dist"]
 }
