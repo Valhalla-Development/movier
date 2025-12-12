@@ -14,7 +14,7 @@ import { ResolverCacheManager } from "../utils/ResolverCacheManager";
 export class IMDBPersonSearchResolver implements IPersonSearchResolver {
     private readonly queryName: string;
     private readonly exactMatch: boolean;
-    public searchPageHTMLData!: string;
+    searchPageHTMLData!: string;
     private searchPageNextData?: PersonSearchNextData;
 
     private readonly resolverCacheManager = new ResolverCacheManager();
