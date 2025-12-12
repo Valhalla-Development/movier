@@ -1,29 +1,25 @@
-import { IMDBPersonSearchResolver } from "./resolvers/IMDBPersonSearchResolver";
 import { Source } from "./enums";
-import { IFoundedPersonDetails, IPersonSearchResolver } from "./interfaces";
+import type { IFoundedPersonDetails, IPersonSearchResolver } from "./interfaces";
+import { IMDBPersonSearchResolver } from "./resolvers/IMDBPersonSearchResolver";
 
 export type SearchPersonByNameOptions = {
-  exactMatch?: boolean;
-  sourceType?: Source;
+    exactMatch?: boolean;
+    sourceType?: Source;
 };
 
 export async function searchPersonByName(
-  queryName: string,
-  {
-    exactMatch = false,
-    sourceType = Source.IMDB,
-  }: SearchPersonByNameOptions = {}
+    queryName: string,
+    { exactMatch = false, sourceType = Source.IMDB }: SearchPersonByNameOptions = {}
 ): Promise<IFoundedPersonDetails[]> {
-  //  select the resolver
-  let resolver: IPersonSearchResolver;
-  switch (sourceType) {
-    case Source.IMDB:
-    default:
-      resolver = new IMDBPersonSearchResolver(queryName, {
-        exactMatch,
-      });
-  }
+    //  select the resolver
+    let resolver: IPersonSearchResolver;
+    switch (sourceType) {
+        default:
+            resolver = new IMDBPersonSearchResolver(queryName, {
+                exactMatch,
+            });
+    }
 
-  // get details from resolver
-  return await resolver.getResult();
+    // get details from resolver
+    return await resolver.getResult();
 }
