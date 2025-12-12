@@ -70,20 +70,20 @@ export class IMDBPersonSearchResolver implements IPersonSearchResolver {
         return this.originalResultListType2;
     }
 
-    get originalResultListFromNextData(): IFoundedPersonDetails[] | undefined {
+    get originalResultListFromNextData(): IFoundedPersonDetails[] {
         const cacheDataManager = this.resolverCacheManager.load("originalResultListFromNextData");
         if (cacheDataManager.hasData) {
             return cacheDataManager.data as IFoundedPersonDetails[];
         }
         const results = this.searchPageNextData?.props?.pageProps?.nameResults?.results;
         if (!(Array.isArray(results) && results.length)) {
-            return;
+            return [];
         }
         const mapped = results
             .map((result, index) => this.mapNextDataResultToPerson(result, index))
             .filter(Boolean) as IFoundedPersonDetails[];
         if (!mapped.length) {
-            return;
+            return [];
         }
         return cacheDataManager.cacheAndReturnData(mapped.slice(0, 25));
     }
