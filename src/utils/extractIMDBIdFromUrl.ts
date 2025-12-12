@@ -6,6 +6,6 @@ export function extractIMDBIdFromUrl(fullUrl: string, idPrefix: string): string 
             .replace(/\?.+$/, "")
             .split("/")
             .filter((i) => matchRegexp.test(i))
-            .at(-1) || ""
+            .pop() || ""
     );
 }
