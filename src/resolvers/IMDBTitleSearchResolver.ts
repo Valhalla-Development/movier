@@ -105,14 +105,14 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
         return this.originalResultListType2;
     }
 
-    get originalResultListFromNextData(): IFoundedTitleDetails[] | undefined {
+    get originalResultListFromNextData(): IFoundedTitleDetails[] {
         const cacheDataManager = this.resolverCacheManager.load("originalResultListFromNextData");
         if (cacheDataManager.hasData) {
             return cacheDataManager.data as IFoundedTitleDetails[];
         }
         const results = this.searchPageNextData?.props?.pageProps?.titleResults?.results;
         if (!(Array.isArray(results) && results.length)) {
-            return;
+            return [];
         }
         const { nameWithoutYear, requestedYear } = this.nameWithoutYearAndRequestedYearFromQuery;
         const mappedResults = results
@@ -126,7 +126,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
             )
             .filter(Boolean) as IFoundedTitleDetails[];
         if (!mappedResults.length) {
-            return;
+            return [];
         }
         return cacheDataManager.cacheAndReturnData(mappedResults.slice(0, 25));
     }
@@ -151,11 +151,12 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
                 const desc = formatHTMLText(
                     $this.find(".ipc-metadata-list-summary-item__tl").text()
                 );
-                const titleType = /.*episode.*\s*$/i.test(desc)
-                    ? TitleMainType.SeriesEpisode
-                    : /.*series.*\s*$/i.test(desc)
-                      ? TitleMainType.Series
-                      : TitleMainType.Movie;
+                let titleType = TitleMainType.Movie;
+                if (/.*episode.*\s*$/i.test(desc)) {
+                    titleType = TitleMainType.SeriesEpisode;
+                } else if (/.*series.*\s*$/i.test(desc)) {
+                    titleType = TitleMainType.Series;
+                }
                 const titleYear = Number(
                     /-(\d{4})/.exec(desc)?.[1] || /(\d{4})/.exec(desc)?.[1] || ""
                 );
@@ -212,11 +213,12 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
                 const text = formatHTMLText($movieTexts.text());
                 const name = formatHTMLText($movieTexts.find("a").text());
                 const aka = formatHTMLText(/aka\s"(.+)"/.exec(text)?.[1]);
-                const titleType = /(.*episode.*)\s*$/i.test(text)
-                    ? TitleMainType.SeriesEpisode
-                    : /(.*series.*)\s*$/i.test(text)
-                      ? TitleMainType.Series
-                      : TitleMainType.Movie;
+                let titleType = TitleMainType.Movie;
+                if (/(.*episode.*)\s*$/i.test(text)) {
+                    titleType = TitleMainType.SeriesEpisode;
+                } else if (/(.*series.*)\s*$/i.test(text)) {
+                    titleType = TitleMainType.Series;
+                }
                 const titleYear = Number(/(\d{4})/.exec(text)?.[1] || "");
                 const url = convertIMDBPathToIMDBUrl($movieTexts.find("a").attr("href"));
 
