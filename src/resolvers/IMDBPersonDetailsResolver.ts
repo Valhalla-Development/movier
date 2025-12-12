@@ -26,7 +26,6 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
     private readonly url: string;
     private readonly resolverCacheManager = new ResolverCacheManager();
     private mediaIndexNextData?: MediaIndexNextData;
-
     // cheerio loaded instances
     private mainPageCheerio!: CheerioAPI;
     private mediaIndexPageCheerio!: CheerioAPI;
@@ -49,7 +48,6 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
 
     async getMainPageHTMLData() {
         const apiResult = await getRequest(this.url);
-        this.mainPageHTMLData = apiResult.data;
         this.mainPageCheerio = loadCheerio(apiResult.data);
         const nextDataString = this.mainPageCheerio("#__NEXT_DATA__")?.html()?.trim() || "{}";
 
@@ -59,7 +57,6 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
     async getMediaIndexPageHTMLData() {
         const url = this.addToPathOfUrl(this.url, "/mediaindex");
         const apiResult = await getRequest(url);
-        this.mediaIndexPageHTMLData = apiResult.data;
         this.mediaIndexPageCheerio = loadCheerio(apiResult.data);
         this.mediaIndexNextData = extractNextDataFromHTML<MediaIndexNextData>(apiResult.data);
     }
