@@ -35,7 +35,7 @@ const gqlClient = new GraphQLClient(IMDB_API_BASE_URL, {
     },
 });
 
-export async function graphqlRequest(query: string, variables: Object) {
+export async function graphqlRequest(query: string, variables: Record<string, unknown>) {
     const result = await gqlClient.request(query, variables);
     return result;
 }
