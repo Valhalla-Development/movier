@@ -78,9 +78,9 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
     ): string {
         const urlInstance = new URL(originalPath);
         urlInstance.pathname = urlInstance.pathname.replace(/\/$/, "") + joinPath;
-        Object.keys(query).forEach((key) => {
+        for (const key of Object.keys(query)) {
             urlInstance.searchParams.set(key, query[key]);
-        });
+        }
         return urlInstance.href;
     }
 
@@ -398,11 +398,9 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
         }
         const birthPlace =
             this.mainPageNextData?.props?.pageProps?.mainColumnData?.birthLocation?.text ?? "";
-        if (!birthPlace.length) {
-            return;
-        }
-
-        return cacheDataManager.cacheAndReturnData(formatHTMLText(birthPlace));
+        return birthPlace.length
+            ? cacheDataManager.cacheAndReturnData(formatHTMLText(birthPlace))
+            : undefined;
     }
 
     get deathDate(): Date | undefined {
@@ -412,15 +410,14 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
         }
         const deathDateRaw =
             this.mainPageNextData?.props?.pageProps?.mainColumnData?.deathDate?.dateComponents;
-        if (!deathDateRaw) {
-            return;
-        }
-        const deathDate = dayjs(
-            `${deathDateRaw.year}-${deathDateRaw.month}-${deathDateRaw.day}`,
-            "YYYY-M-D"
-        ).toDate();
-
-        return cacheDataManager.cacheAndReturnData(deathDate);
+        return deathDateRaw
+            ? cacheDataManager.cacheAndReturnData(
+                  dayjs(
+                      `${deathDateRaw.year}-${deathDateRaw.month}-${deathDateRaw.day}`,
+                      "YYYY-M-D"
+                  ).toDate()
+              )
+            : undefined;
     }
 
     get deathPlace(): string | undefined {
@@ -430,11 +427,9 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
         }
         const deathLocation =
             this.mainPageNextData?.props?.pageProps?.mainColumnData?.deathLocation?.text ?? "";
-        if (!deathLocation.length) {
-            return;
-        }
-
-        return cacheDataManager.cacheAndReturnData(formatHTMLText(deathLocation));
+        return deathLocation.length
+            ? cacheDataManager.cacheAndReturnData(formatHTMLText(deathLocation))
+            : undefined;
     }
 }
 
