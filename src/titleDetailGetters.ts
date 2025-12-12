@@ -22,7 +22,7 @@ export async function getTitleDetailsByUrl(
     }
 
     // get details from resolver
-    let result;
+    let result: ITitle | undefined;
     try {
         result = await resolver.getDetails(opts);
     } catch (e) {
@@ -36,7 +36,7 @@ export async function getTitleDetailsByUrl(
     return result;
 }
 
-export async function getTitleDetailsByFoundedTitleDetails(
+export function getTitleDetailsByFoundedTitleDetails(
     foundedTitleDetails: IFoundedTitleDetails,
     opts?: ITitleDetailsResolverOptions
 ): Promise<ITitle> {
@@ -58,7 +58,7 @@ export async function getTitleDetailsByName(
     return getTitleDetailsByFoundedTitleDetails(allResults[0], opts);
 }
 
-export async function getTitleDetailsByIMDBId(
+export function getTitleDetailsByIMDBId(
     titleId: string,
     opts?: ITitleDetailsResolverOptions
 ): Promise<ITitle> {
