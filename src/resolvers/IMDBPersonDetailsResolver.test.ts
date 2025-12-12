@@ -92,7 +92,7 @@ const dataToTest: TestDataType[] = [
 ];
 
 describe("test imdb name details resolver", () => {
-    dataToTest.forEach((testData) => {
+    for (const testData of dataToTest) {
         it(
             `check ${testData.name} details`,
             async () => {
@@ -120,12 +120,12 @@ describe("test imdb name details resolver", () => {
                 }
 
                 const filmoGraphyData = testData.filmographyData;
-                for (const category in filmoGraphyData) {
+                for (const category of Object.keys(filmoGraphyData)) {
                     const result = nameDetails.filmography.filter((i) => i.category === category);
                     expect(result.length).toBeGreaterThanOrEqual(
                         filmoGraphyData[category as keyof typeof filmoGraphyData]
                     );
-                    result.forEach((dataOfCategory) => {
+                    for (const dataOfCategory of result) {
                         expect(typeof dataOfCategory.startYear).toBe("number");
                         if (
                             ["actor", "actress"].includes(dataOfCategory.category) &&
@@ -134,14 +134,14 @@ describe("test imdb name details resolver", () => {
                             expect(dataOfCategory.startYear).not.toBe(0);
                         }
                         expect(dataOfCategory.name.length).toBeGreaterThanOrEqual(1);
-                    });
+                    }
                 }
                 expect(nameDetails.allImages.length).toBeGreaterThanOrEqual(
                     testData.allImagesCount ?? 30
                 );
-                nameDetails.allImages.forEach((image) => {
+                for (const image of nameDetails.allImages) {
                     expect(image.url.length).toBeGreaterThan(1);
-                });
+                }
                 expect(nameDetails.profileImage?.url.length).toBeGreaterThan(1);
                 expect(nameDetails.knownFor.length).toBeGreaterThanOrEqual(4);
                 if (typeof testData.knownFormFirstItemDetails.name === "string") {
@@ -165,10 +165,10 @@ describe("test imdb name details resolver", () => {
                     testData.knownFormFirstItemDetails.endYear ??
                         testData.knownFormFirstItemDetails.startYear
                 );
-                nameDetails.knownFor.forEach((film) => {
+                for (const film of nameDetails.knownFor) {
                     expect(film.name.length).toBeGreaterThanOrEqual(1);
                     expect(film.posterImage.url.length).toBeGreaterThanOrEqual(1);
-                });
+                }
                 expect(nameDetails.miniBio.length).toBeGreaterThan(0);
                 expect(nameDetails.miniBio[0].length).toBeGreaterThan(20);
                 expect(nameDetails.personalDetails.length).toBeGreaterThanOrEqual(
@@ -177,5 +177,5 @@ describe("test imdb name details resolver", () => {
             },
             200 * 1000
         );
-    });
+    }
 });
