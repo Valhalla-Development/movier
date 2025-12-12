@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import type { IPerson } from "../interfaces";
 import { IMDBPersonDetailsResolver } from "./IMDBPersonDetailsResolver";
 
-export type TestDataType = {
+type TestDataType = {
     name: string;
     url: string;
     birthDate?: string;
