@@ -1,5 +1,5 @@
-import { Genre, Language, Source, TitleMainType } from "../enums";
 import type { IPersonDetails } from "../interfaces";
+import { Genre, Language, Source, TitleMainType } from "../literals";
 import { IMDBTitleDetailsResolver } from "./IMDBTitleDetailsResolver";
 
 type ITitleTestData = {

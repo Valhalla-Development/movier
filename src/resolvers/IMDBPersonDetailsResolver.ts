@@ -1,6 +1,5 @@
 import { type Cheerio, type CheerioAPI, type Element, load as loadCheerio } from "cheerio";
 import dayjs from "dayjs";
-import { IMDBPathType, ImageType, Language, Source, TitleMainType } from "../enums";
 import type { PersonApiDetailsInterface } from "../externalInterfaces/IMDBPersonApiDetailsInterface";
 import type { PersonDetailsNextData } from "../externalInterfaces/IMDBPersonNextDataInterface";
 import { personDetailsQuery } from "../gql/personDetailsQuery";
@@ -13,6 +12,7 @@ import type {
     IPersonDetailsResolver,
     ISourceDetails,
 } from "../interfaces";
+import { IMDBPathType, ImageType, Language, Source, TitleMainType } from "../literals";
 import { getRequest, graphqlRequest } from "../requestClient";
 import { convertIMDBPathToIMDBUrl } from "../utils/convertIMDBPathToIMDBUrl";
 import { convertIMDBTitleIdToUrl } from "../utils/convertIMDBTitleIdToUrl";

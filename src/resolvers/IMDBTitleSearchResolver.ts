@@ -1,7 +1,7 @@
 import { type CheerioAPI, load as loadCheerio } from "cheerio";
 import { IMDB_TITLE_SEARCH_URL } from "../constants";
-import { Source, TitleMainType } from "../enums";
 import type { IFoundedTitleDetails, ITitleSearchResolver } from "../interfaces";
+import { Source, TitleMainType } from "../literals";
 import { getRequest } from "../requestClient";
 import type { SearchTitleByNameOptions } from "../titleSearcher";
 import { convertIMDBPathToIMDBUrl } from "../utils/convertIMDBPathToIMDBUrl";

@@ -1,5 +1,5 @@
-import { IMDBPathType } from "./enums";
 import type { IFoundedPersonDetails, IPerson, IPersonDetailsResolver } from "./interfaces";
+import { IMDBPathType } from "./literals";
 import { type SearchPersonByNameOptions, searchPersonByName } from "./personSearcher";
 import { IMDBPersonDetailsResolver } from "./resolvers/IMDBPersonDetailsResolver";
 import { convertIMDBTitleIdToUrl } from "./utils/convertIMDBTitleIdToUrl";

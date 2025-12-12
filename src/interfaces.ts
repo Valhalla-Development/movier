@@ -1,4 +1,4 @@
-import type { AwardOutcome, Genre, Language, Source, TitleMainType } from "./enums";
+import type { AwardOutcome, Genre, Language, Source, TitleMainType } from "./literals";
 
 export type ITitle = {
     detailsLang: Language;

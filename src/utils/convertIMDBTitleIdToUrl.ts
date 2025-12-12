@@ -1,4 +1,4 @@
-import { IMDBPathType } from "./../enums";
+import { IMDBPathType } from "./../literals";
 import { convertIMDBPathToIMDBUrl } from "./convertIMDBPathToIMDBUrl";
 
 export function convertIMDBTitleIdToUrl(titleId: string, type: IMDBPathType = IMDBPathType.Title) {

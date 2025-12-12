@@ -58,9 +58,7 @@ export type CaptionClass = {
     __typename?: TextTypename;
 };
 
-export enum TextTypename {
-    Markdown = "Markdown",
-}
+export type TextTypename = "Markdown";
 
 export type AboveTheFoldBirthDate = {
     displayableProperty?: DisplayableProperty;
@@ -113,12 +111,7 @@ export type NameText = {
     __typename?: NameTextTypename;
 };
 
-export enum NameTextTypename {
-    CreditCategory = "CreditCategory",
-    Genre = "Genre",
-    NameText = "NameText",
-    TitleText = "TitleText",
-}
+export type NameTextTypename = "CreditCategory" | "Genre" | "NameText" | "TitleText";
 
 export type PurpleTitle = {
     titleText?: NameText;
@@ -152,9 +145,7 @@ export type PrimaryImage = {
     __typename?: PrimaryImageTypename;
 };
 
-export enum PrimaryImageTypename {
-    Image = "Image",
-}
+export type PrimaryImageTypename = "Image";
 
 export type AboveTheFoldPrimaryProfession = {
     category?: NameText;
@@ -222,9 +213,7 @@ export type ReleaseYear = {
     __typename?: ReleaseYearTypename;
 };
 
-export enum ReleaseYearTypename {
-    YearRange = "YearRange",
-}
+export type ReleaseYearTypename = "YearRange";
 
 export type PrimaryTitleTitleType = {
     canHaveEpisodes?: boolean;
@@ -384,12 +373,11 @@ export type Award = {
     event?: SubNavBio;
 };
 
-export enum AwardTypename {
-    AwardDetails = "AwardDetails",
-    CreditCategory = "CreditCategory",
-    NameRelationType = "NameRelationType",
-    ProductionStage = "ProductionStage",
-}
+export type AwardTypename =
+    | "AwardDetails"
+    | "CreditCategory"
+    | "NameRelationType"
+    | "ProductionStage";
 
 export type Character = {
     name?: string;

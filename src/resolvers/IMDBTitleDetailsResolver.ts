@@ -1,6 +1,5 @@
 import { camelCase } from "change-case";
 import dayjs from "dayjs";
-import { AwardOutcome, Genre, IMDBPathType, Language, Source, TitleMainType } from "../enums";
 import type { IMDBTitleApiRawData } from "../externalInterfaces/IMDBTitleApiRawData";
 import { titleDetailsQuery } from "../gql/titleDetailsQuery";
 import type {
@@ -20,6 +19,7 @@ import type {
     ITitleQuoteItem,
 } from "./../interfaces";
 import type { ITitle, ITitleDetailsResolver } from "../interfaces";
+import { AwardOutcome, Genre, IMDBPathType, Language, Source, TitleMainType } from "../literals";
 import { graphqlRequest } from "../requestClient";
 import { convertIMDBTitleIdToUrl } from "../utils/convertIMDBTitleIdToUrl";
 import { extractIMDBIdFromUrl } from "../utils/extractIMDBIdFromUrl";

@@ -128,11 +128,7 @@ export type CurrentProductionStage = {
     id?: ID;
 };
 
-export enum ID {
-    PostProduction = "post_production",
-    PreProduction = "pre_production",
-    Released = "released",
-}
+export type ID = "post_production" | "pre_production" | "released";
 
 export type PageInfo = {
     hasNextPage?: boolean;

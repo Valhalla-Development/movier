@@ -74,9 +74,7 @@ type CanRate = {
     typename?: CanRateTypename;
 };
 
-enum CanRateTypename {
-    CanRate = "CanRate",
-}
+type CanRateTypename = "CanRate";
 
 type CastPageTitle = {
     edges?: CastPageTitleEdge[];
@@ -103,28 +101,18 @@ type OriginalTitleText = {
     typename?: string;
 };
 
-enum FluffyTypename {
-    Name = "Name",
-}
+type FluffyTypename = "Name";
 
-enum PurpleTypename {
-    CreditEdge = "CreditEdge",
-}
+type PurpleTypename = "CreditEdge";
 
 type AboveTheFoldDataCertificate = {
     rating?: Rating;
     typename?: CertificateTypename;
 };
 
-enum Rating {
-    PG = "PG",
-    PG13 = "PG-13",
-    R = "R",
-}
+type Rating = "PG" | "PG-13" | "R";
 
-enum CertificateTypename {
-    Certificate = "Certificate",
-}
+type CertificateTypename = "Certificate";
 
 type AboveTheFoldDataCountriesOfOrigin = {
     countries?: PrimaryImageElement[];
@@ -185,9 +173,7 @@ type PlotText = {
     typename?: PlotTextTypename;
 };
 
-enum PlotTextTypename {
-    Markdown = "Markdown",
-}
+type PlotTextTypename = "Markdown";
 
 type Genres = {
     genres?: CurrentProductionStage[];
@@ -202,9 +188,7 @@ type CurrentProductionStage = {
     attributes?: unknown[];
 };
 
-enum GenresTypename {
-    Genres = "Genres",
-}
+type GenresTypename = "Genres";
 
 type Keywords = {
     total?: number;
@@ -265,10 +249,7 @@ type NodeClass = {
     typename?: PrimaryImageTypename;
 };
 
-enum PrimaryImageTypename {
-    Image = "Image",
-    Thumbnail = "Thumbnail",
-}
+type PrimaryImageTypename = "Image" | "Thumbnail";
 
 type PrimaryVideos = {
     edges?: PrimaryVideosEdge[];
@@ -304,13 +285,9 @@ type NameClass = {
     typename?: DisplayNameTypename;
 };
 
-enum DisplayNameTypename {
-    LocalizedString = "LocalizedString",
-}
+type DisplayNameTypename = "LocalizedString";
 
-enum ContentTypeTypename {
-    VideoContentType = "VideoContentType",
-}
+type ContentTypeTypename = "VideoContentType";
 
 type Description = {
     value?: string;
@@ -330,17 +307,11 @@ type PurpleRuntime = {
     typename?: IndigoTypename;
 };
 
-enum IndigoTypename {
-    VideoRuntime = "VideoRuntime",
-}
+type IndigoTypename = "VideoRuntime";
 
-enum StickyTypename {
-    Video = "Video",
-}
+type StickyTypename = "Video";
 
-enum TentacledTypename {
-    VideoEdge = "VideoEdge",
-}
+type TentacledTypename = "VideoEdge";
 
 type PrincipalCredit = {
     totalCredits?: number;
@@ -395,9 +366,7 @@ type ProductionStatusHistory = {
     typename?: ProductionStatusHistoryTypename;
 };
 
-enum ProductionStatusHistoryTypename {
-    ProductionStatusHistory = "ProductionStatusHistory",
-}
+type ProductionStatusHistoryTypename = "ProductionStatusHistory";
 
 type AboveTheFoldDataRatingsSummary = {
     aggregateRating?: number | null;
@@ -405,9 +374,7 @@ type AboveTheFoldDataRatingsSummary = {
     typename?: RatingsSummaryTypename;
 };
 
-enum RatingsSummaryTypename {
-    RatingsSummary = "RatingsSummary",
-}
+type RatingsSummaryTypename = "RatingsSummary";
 
 type ReleaseDate = {
     day?: number;
@@ -423,18 +390,14 @@ type AboveTheFoldDataReleaseYear = {
     typename?: ReleaseYearTypename;
 };
 
-enum ReleaseYearTypename {
-    YearRange = "YearRange",
-}
+type ReleaseYearTypename = "YearRange";
 
 type AboveTheFoldDataRuntime = {
     seconds?: number;
     typename?: IndecentTypename;
 };
 
-enum IndecentTypename {
-    Runtime = "Runtime",
-}
+type IndecentTypename = "Runtime";
 
 type TitleType = {
     text?: string;
@@ -444,9 +407,7 @@ type TitleType = {
     typename?: string;
 };
 
-enum AboveTheFoldDataTypename {
-    Title = "Title",
-}
+type AboveTheFoldDataTypename = "Title";
 
 type CMSContext = {
     transformedPlacements?: TransformedPlacements;
@@ -684,9 +645,7 @@ type NodeCharacter = {
     typename?: CharacterTypename;
 };
 
-enum CharacterTypename {
-    Character = "Character",
-}
+type CharacterTypename = "Character";
 
 type EpisodeCredits = {
     total?: number;
@@ -697,13 +656,9 @@ type EpisodeCredits = {
     typename?: EpisodeCreditsTypename;
 };
 
-enum EpisodeCreditsTypename {
-    EpisodeCastConnection = "EpisodeCastConnection",
-}
+type EpisodeCreditsTypename = "EpisodeCastConnection";
 
-enum CreditTypename {
-    Cast = "Cast",
-}
+type CreditTypename = "Cast";
 
 type MainColumnDataCertificate = {
     rating?: Rating;
@@ -891,18 +846,14 @@ type PrimaryWatchOption = {
     typename?: PrimaryWatchOptionTypename;
 };
 
-enum PrimaryWatchOptionTypename {
-    PrimaryWatchOption = "PrimaryWatchOption",
-}
+type PrimaryWatchOptionTypename = "PrimaryWatchOption";
 
 type TitleCardGenres = {
     genres?: OriginalTitleText[];
     typename?: GenresTypename;
 };
 
-enum HilariousTypename {
-    MoreLikeThisEdge = "MoreLikeThisEdge",
-}
+type HilariousTypename = "MoreLikeThisEdge";
 
 type News = {
     edges?: NewsEdge[];
@@ -1116,9 +1067,7 @@ type TitleMainImagesEdge = {
     typename?: AmbitiousTypename;
 };
 
-enum AmbitiousTypename {
-    ImageEdge = "ImageEdge",
-}
+type AmbitiousTypename = "ImageEdge";
 
 type Trivia = {
     edges?: TriviaEdge[];

@@ -1,7 +1,7 @@
 import { type CheerioAPI, load as loadCheerio } from "cheerio";
 import { IMDB_TITLE_SEARCH_URL } from "../constants";
-import { IMDBPathType, Source } from "../enums";
 import type { IFoundedPersonDetails, IPersonSearchResolver } from "../interfaces";
+import { IMDBPathType, Source } from "../literals";
 import type { SearchPersonByNameOptions } from "../personSearcher";
 import { getRequest } from "../requestClient";
 import { convertIMDBPathToIMDBUrl } from "../utils/convertIMDBPathToIMDBUrl";

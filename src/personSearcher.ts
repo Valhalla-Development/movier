@@ -1,5 +1,5 @@
-import { Source } from "./enums";
 import type { IFoundedPersonDetails, IPersonSearchResolver } from "./interfaces";
+import { Source } from "./literals";
 import { IMDBPersonSearchResolver } from "./resolvers/IMDBPersonSearchResolver";
 
 export type SearchPersonByNameOptions = {

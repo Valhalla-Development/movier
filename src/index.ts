@@ -1,5 +1,5 @@
-export * from "./enums";
 export * from "./interfaces";
+export * from "./literals";
 export * from "./personDetailGetter";
 export * from "./personSearcher";
 export * from "./resolvers/IMDBTitleDetailsResolver";

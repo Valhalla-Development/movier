@@ -1,5 +1,5 @@
-import { Source, type TitleMainType } from "./enums";
 import type { IFoundedTitleDetails, ITitleSearchResolver } from "./interfaces";
+import { Source, type TitleMainType } from "./literals";
 import { IMDBTitleSearchResolver } from "./resolvers/IMDBTitleSearchResolver";
 
 export type SearchTitleByNameOptions = {
