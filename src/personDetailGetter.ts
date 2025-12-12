@@ -15,7 +15,7 @@ export async function getPersonDetailsByUrl(titleUrl: string): Promise<IPerson> 
     }
 
     // get details from resolver
-    let result;
+    let result: IPerson | undefined;
     try {
         result = await resolver.getDetails();
     } catch (e) {
