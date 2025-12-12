@@ -2,7 +2,7 @@ import { Genre, Language, Source, TitleMainType } from "../enums";
 import type { IPersonDetails } from "../interfaces";
 import { IMDBTitleDetailsResolver } from "./IMDBTitleDetailsResolver";
 
-export type ITitleTestData = {
+type ITitleTestData = {
     url: string;
     name: string;
     worldWideName?: string;
@@ -260,7 +260,7 @@ const titlesToTest: ITitleTestData[] = [
 ];
 
 describe("imdb title details resolver", () => {
-    titlesToTest.forEach((testData) => {
+    for (const testData of titlesToTest) {
         test(
             `check ${testData.name} ${testData.titleYear} result`,
             async () => {
@@ -292,7 +292,9 @@ describe("imdb title details resolver", () => {
                 }
                 if (testData.genres !== undefined) {
                     expect(result.genres).toHaveLength(testData.genres.length);
-                    testData.genres.forEach((item) => expect(result.genres).toContain(item));
+                    for (const item of testData.genres) {
+                        expect(result.genres).toContain(item);
+                    }
                 }
                 if (testData.directors !== undefined) {
                     expect(result.directors.length).toBeGreaterThanOrEqual(
@@ -492,24 +494,26 @@ describe("imdb title details resolver", () => {
                         testData.spoilerQuotes
                     );
 
-                    result.quotes.forEach((i) => {
-                        expect(i.lines.length).toBeGreaterThan(0);
-                        i.lines.forEach((l) => {
-                            expect(l.characters.length > 0);
-                            expect(l.line?.length || l.stageDirection?.length || 0 > 0);
-                        });
-                    });
+                    for (const quote of result.quotes) {
+                        expect(quote.lines.length).toBeGreaterThan(0);
+                        for (const line of quote.lines) {
+                            expect(line.characters.length).toBeGreaterThan(0);
+                            expect(
+                                line.line?.length ?? line.stageDirection?.length ?? 0
+                            ).toBeGreaterThan(0);
+                        }
+                    }
                 }
                 if (testData.goofsLength !== undefined) {
                     expect(result.goofs.length).toBeGreaterThanOrEqual(testData.goofsLength);
 
-                    result.goofs.forEach((i) => {
-                        expect(i.details.length).toBeGreaterThan(0);
-                        expect(i.groupName.length).toBeGreaterThan(0);
-                    });
+                    for (const goof of result.goofs) {
+                        expect(goof.details.length).toBeGreaterThan(0);
+                        expect(goof.groupName.length).toBeGreaterThan(0);
+                    }
                 }
             },
             200 * 1000
         );
-    });
+    }
 });
