@@ -22,10 +22,6 @@ export function getRequest(
     });
 }
 
-type graphqlResponse = {
-    data: unknown;
-};
-
 const gqlClient = new GraphQLClient(IMDB_API_BASE_URL, {
     headers: {
         "Accept-language": "en-US,en",
