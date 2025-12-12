@@ -29,7 +29,7 @@ export async function getPersonDetailsByUrl(titleUrl: string): Promise<IPerson> 
     return result;
 }
 
-export async function getPersonDetailsByFoundedPersonDetails(
+export function getPersonDetailsByFoundedPersonDetails(
     foundedTitleDetails: IFoundedPersonDetails
 ): Promise<IPerson> {
     return getPersonDetailsByUrl(foundedTitleDetails.url);
@@ -48,6 +48,6 @@ export async function getPersonDetailsByName(
     return getPersonDetailsByFoundedPersonDetails(allResults[0]);
 }
 
-export async function getPersonDetailsByIMDBId(personId: string): Promise<IPerson> {
+export function getPersonDetailsByIMDBId(personId: string): Promise<IPerson> {
     return getPersonDetailsByUrl(convertIMDBTitleIdToUrl(personId, IMDBPathType.Name));
 }
