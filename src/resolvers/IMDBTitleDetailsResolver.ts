@@ -89,7 +89,7 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
         };
     }
 
-    getEnumItemFromString<T extends Object>(
+    getEnumItemFromString<T extends object>(
         enumObject: T,
         value: string,
         defaultValue?: T
@@ -162,29 +162,31 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
         return (
             this.titleApiRawData.casts.edges
                 .map((i) => i.node)
-                .map((i) => {
-                    const rawStartYear = i.episodeCredits?.yearRange?.year ?? 0;
+                .map((castNode) => {
+                    const rawStartYear = castNode.episodeCredits?.yearRange?.year ?? 0;
                     const normalizedStartYear =
                         rawStartYear && titleStartYear
                             ? Math.max(rawStartYear, titleStartYear)
                             : rawStartYear || titleStartYear || 0;
-                    const endYear = i.episodeCredits?.yearRange?.endYear ?? normalizedStartYear;
+                    const endYear =
+                        castNode.episodeCredits?.yearRange?.endYear ?? normalizedStartYear;
                     return {
-                        name: i.name?.nameText.text ?? "",
+                        name: castNode.name?.nameText.text ?? "",
                         roles:
-                            i.characters?.map((i) => ({
-                                name: i.name ?? "",
+                            castNode.characters?.map((character) => ({
+                                name: character.name ?? "",
                             })) ?? [],
-                        ...(i.episodeCredits && {
+                        ...(castNode.episodeCredits && {
                             episodeCredits: {
                                 endYear,
                                 startYear: normalizedStartYear,
-                                totalEpisodes: i.episodeCredits.total ?? 0,
+                                totalEpisodes: castNode.episodeCredits.total ?? 0,
                             },
                         }),
-                        extraInfo: i.category?.text ?? "",
-                        otherNames: i.name?.akas.edges.map((i) => i.node.text) ?? [],
-                        source: this.extractSourceFromId(i.name?.id ?? ""),
+                        extraInfo: castNode.category?.text ?? "",
+                        otherNames:
+                            castNode.name?.akas.edges.map((akaEdge) => akaEdge.node.text) ?? [],
+                        source: this.extractSourceFromId(castNode.name?.id ?? ""),
                         // thumbnailImageUrl TODO: add the image
                     };
                 }) ?? []
@@ -274,18 +276,18 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
 
     get quotes(): ITitleQuoteItem[] {
         return this.titleApiRawData.quotes?.edges
-            .map((i) => i.node)
-            .map((i) => ({
-                isSpoiler: i.isSpoiler ?? false,
-                lines: i.lines?.map((i) => ({
+            .map((edge) => edge.node)
+            .map((quote) => ({
+                isSpoiler: quote.isSpoiler ?? false,
+                lines: quote.lines?.map((line) => ({
                     characters:
-                        i.characters?.map((i) => ({
-                            name: i.character ?? "",
-                            playerName: i.name?.nameText.text ?? "",
-                            playerSource: this.extractSourceFromId(i.name?.id ?? ""),
+                        line.characters?.map((character) => ({
+                            name: character.character ?? "",
+                            playerName: character.name?.nameText.text ?? "",
+                            playerSource: this.extractSourceFromId(character.name?.id ?? ""),
                         })) ?? [],
-                    line: i.text,
-                    stageDirection: i.stageDirection,
+                    line: line.text,
+                    stageDirection: line.stageDirection,
                 })),
             }));
     }
@@ -314,22 +316,22 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
             ...(this.titleApiRawData.posterImages?.edges ?? []),
             ...(this.titleApiRawData.stillFrameImages?.edges ?? []),
         ]
-            .map((i) => i.node)
-            .map((i) => ({
+            .map((edge) => edge.node)
+            .map((imageNode) => ({
                 isThumbnail: false,
                 sourceType: Source.IMDB,
-                title: i.caption?.plainText ?? "",
-                type: i.type ?? "",
-                url: i.url ?? "",
-                names: i.names?.map((i) => ({
-                    source: this.extractSourceFromId(i.id ?? ""),
-                    name: i.nameText?.text ?? "",
+                title: imageNode.caption?.plainText ?? "",
+                type: imageNode.type ?? "",
+                url: imageNode.url ?? "",
+                names: imageNode.names?.map((nameEntry) => ({
+                    source: this.extractSourceFromId(nameEntry.id ?? ""),
+                    name: nameEntry.nameText?.text ?? "",
                 })),
-                ...(!!i.width &&
-                    !!i.height && {
+                ...(!!imageNode.width &&
+                    !!imageNode.height && {
                         size: {
-                            width: i.width,
-                            height: i.height,
+                            width: imageNode.width,
+                            height: imageNode.height,
                         },
                     }),
             }));
