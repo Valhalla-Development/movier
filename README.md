@@ -1,182 +1,128 @@
-![movier npm package image](https://raw.githubusercontent.com/Zoha/files/master/movier/images/movier%20image%20v1.jpg)
+<div align="center">
+  <img id="top" src="https://raw.githubusercontent.com/Zoha/files/master/movier/images/movier%20image%20v1.jpg" width="100%" alt="movier package image">
 
-[![Zoha - movier](https://img.shields.io/static/v1?label=Zoha&message=movier&color=green&logo=github)](https://github.com/Zoha/movier "Go to GitHub repo")
-[![stars - movier](https://img.shields.io/github/stars/Zoha/movier?style=social)](https://github.com/Zoha/movier)
-[![forks - movier](https://img.shields.io/github/forks/Zoha/movier?style=social)](https://github.com/Zoha/movier)
+# 🎥 Movier: Lightweight IMDb scraping helpers for movies, series, and celeb data inside your Node.js app 🚀
 
-[![GitHub tag](https://img.shields.io/github/tag/Zoha/movier?include_prereleases=&sort=semver&color=green)](https://github.com/Zoha/movier/releases/)
-[![License](https://img.shields.io/badge/License-MIT-green)](#license)
-[![issues - movier](https://img.shields.io/github/issues/Zoha/movier)](https://github.com/Zoha/movier/issues)
+  <p>
+    <a href="https://discord.gg/Q3ZhdRJ"><img src="https://img.shields.io/discord/495602800802398212.svg?colorB=5865F2&logo=discord&logoColor=white&style=for-the-badge" alt="Discord"></a>
+    <a href="https://github.com/Valhalla-Development/movier/stargazers"><img src="https://img.shields.io/github/stars/Valhalla-Development/movier.svg?style=for-the-badge&color=yellow" alt="Stars"></a>
+    <a href="https://github.com/Valhalla-Development/movier/network/members"><img src="https://img.shields.io/github/forks/Valhalla-Development/movier.svg?style=for-the-badge&color=orange" alt="Forks"></a>
+    <a href="https://github.com/Valhalla-Development/movier/issues"><img src="https://img.shields.io/github/issues/Valhalla-Development/movier.svg?style=for-the-badge&color=red" alt="Issues"></a>
+    <a href="https://github.com/Valhalla-Development/movier/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Valhalla-Development/movier.svg?style=for-the-badge&color=blue" alt="License"></a>
+    <br>
+    <a href="https://app.codacy.com/gh/Valhalla-Development/movier/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://img.shields.io/codacy/grade/27577e1b6cdd4706b3135a2574859d3d?style=for-the-badge&color=brightgreen" alt="Codacy"></a>
+    <a href="https://www.imdb.com/"><img src="https://img.shields.io/badge/Data%20from-IMDb-F5C518?style=for-the-badge&logoColor=000000" alt="Data from IMDb"></a>
+    <a href="#"><img src="https://img.shields.io/badge/Made%20with-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="Made with TypeScript"></a>
+  </p>
+</div>
 
-# Movier
+---
+## 🌟 Welcome to movier, an IMDb Data Scraping Library!
 
-with movier package, you can get movie titles information from IMDB like name, dates, casts, images, and all other details that you will need in your Nodejs app
+> **Note:** We recommend not using this package directly in production, as it scrapes IMDB page content. Requests can take a couple of seconds to complete. Instead, use this package to fetch and cache the information in your local database for faster retrieval.
 
-> note: we suggest to don't use this package directly on production, because we are getting information from IMDB pages content, so these requests are a little bit slow and will get a couple of seconds to complete, instead use this package to save the information in your local/DB
+## 🛠️ Installation
 
-## Installation
+Install movier using your preferred package manager:
 
-simply install this package using yarn or npm
-
-    $ npm install movier --save
-
-or using yarn
-
-    $ yarn add movier
-
-## Usage
-
-### Title information (movies/series)
-get title complete details
-
-note that all these methods will return a [title details result object](https://raw.githubusercontent.com/Zoha/movier/main/examples/results/interstellarTitleResults.json)
-```JAVASCRIPT
-    // find a title and returns the first matched title data
-    movier.getTitleDetailsByName("interstellar 2014")
-    // get title info by its url
-    movier.getTitleDetailsByUrl("https://www.imdb.com/title/tt0816692")
-    // get title details by its IMDB id
-    movier.getTitleDetailsByIMDBId("tt0816692")
-    // find title by returned object from searchTitleByName function
-    movier.getTitleDetailsByFoundedTitleDetails(foundedDetails)
+**Bun:**
+```bash
+bun add @valhalladev/movier
 ```
 
-all these methods will return an object like the below or will throw an error if the title is not found, you can see a complete example of the result object [here](https://raw.githubusercontent.com/Zoha/movier/main/examples/results/interstellarTitleResults.json)
-
-
-```JAVASCRIPT
-{
-    detailsLang : "...", 
-    mainSource : {...}, 
-    allSources : [...], 
-    name : "...", 
-    worldWideName : "...",
-    otherNames : [...],
-    titleYear : ...,
-    genres : [...],
-    directors : [...],
-    writers : [...], 
-    mainType : "...",
-    plot : "...",
-    casts : [...],
-    producers : [...],
-    mainRate : {...},
-    allRates : [...],
-    allReleaseDates : [...],
-    dates : {...},
-    ageCategoryTitle : "...",
-    languages : [...],
-    countriesOfOrigin : [...],
-    posterImage : {...},
-    allImages : [...],
-    boxOffice : {...},
-    productionCompanies : [...],
-    taglines : [...],
-    runtime : {...},
-    keywords : [...],
-    awards : [...],
-    awardsSummary : {...},
-    quotes: [...],
-    goofs: [...],
-}
+**Yarn:**
+```bash
+yarn add @valhalladev/movier
 ```
 
-### Search for titles (movies/series)
-
-you can search for a title by its name using this method
-```JAVASCRIPT
-    // search for title
-    movier.searchTitleByName("interstellar 2014")
+**npm:**
+```bash
+npm install @valhalladev/movier --save
 ```
 
-this method returns an [array of found items details](https://raw.githubusercontent.com/Zoha/movier/main/examples/results/interstellarTitleSearchResults.json), that its structure would be like this 
+## 🚀 Usage
 
-```JAVASCRIPT
-[ 
-    {
-        source: {...},
-        name: "...",
-        aka: "...",
-        titleYear: ...,
-        url: "...",
-        titleType: "...",
-        matchScore: ...,
-        thumbnailImageUrl: "..."
-   },
-   ...
-]
+```javascript
+const movier = require("@valhalladev/movier");
 ```
 
-### get person details (celebs)
+### Title details (movie/series)
 
-```JAVASCRIPT
-    // find a person and returns the first matched data
-    movier.getPersonDetailsByName("jennifer lawrence")
-    // get person details by url
-    movier.getPersonDetailsByUrl("https://www.imdb.com/name/nm2225369")
-    // get person details by IMDB id
-    movier.getPersonDetailsByIMDBId("nm2225369")
-    // get name details by returned object from searchPersonByName function
-    movier.getPersonDetailsByFoundedPersonDetails(foundedDetails)
+Pull every detail from an IMDB title page—plot, ratings, cast, crew, release info, keywords, images, awards, and more.
+
+```javascript
+movier.getTitleDetailsByName("interstellar 2014");
+movier.getTitleDetailsByUrl("https://www.imdb.com/title/tt0816692/");
+movier.getTitleDetailsByIMDBId("tt0816692");
+movier.getTitleDetailsByFoundedTitleDetails(foundedDetails);
 ```
 
-all these methods will return an object like the below or will throw an error if the person is not found, you can see a complete example of the result object [here](https://raw.githubusercontent.com/Zoha/movier/main/examples/results/jenniferLawrencePersonResults.json)
+Each call resolves to a structured title object. See the example in [examples/results/interstellarTitleResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/interstellarTitleResults.json) for the full schema.
 
-```JAVASCRIPT
-{
-  detailsLang: "...",
-  mainSource: {...},
-  name: "...",
-  birthDate: DATE,
-  birthPlace: "...",
-  miniBio: [...],
-  knownFor: [...],
-  filmography: [...],
-  personalDetails: [...],
-  profileImage: {...},
-  allImages: [...]
-}
+### Search for titles
+
+Search by name and receive match metadata (IMDB url, score, thumbnail) so you can select the correct entry before fetching the full payload.
+
+```javascript
+movier.searchTitleByName("interstellar 2014");
 ```
 
-### search for people (celebs)
+Results match the shape shown in [examples/results/interstellarTitleSearchResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/interstellarTitleSearchResults.json).
 
-you can search for people by their name using this method
-```JAVASCRIPT
-    // search for title
-    movier.searchPersonByName("jennifer lawrence")
+### Person (celebrity) details
+
+Grab bios, birth info, filmography, personal details, and imagery for any celebrity page.
+
+```javascript
+movier.getPersonDetailsByName("jennifer lawrence");
+movier.getPersonDetailsByUrl("https://www.imdb.com/name/nm2225369/");
+movier.getPersonDetailsByIMDBId("nm2225369");
+movier.getPersonDetailsByFoundedPersonDetails(foundedDetails);
 ```
 
-this method returns an [array of found items details](https://raw.githubusercontent.com/Zoha/movier/main/examples/results/jenniferLawrencePersonSerachResults.json), that its structure would be like this 
+Each method resolves to a consistent person object. Reference [examples/results/jenniferLawrencePersonResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/jenniferLawrencePersonResults.json) for the payload structure.
 
-```JAVASCRIPT
-[ 
-    {
-        source: {...},
-        name: "...",
-        url: "...",
-        matchScore: ...,
-        thumbnailImageUrl: "..."
-   },
-   ...
-]
+### Search for people
+
+```javascript
+movier.searchPersonByName("jennifer lawrence");
 ```
 
+Returns a shortlist of profiles with match scores and URLs (see [examples/results/jenniferLawrencePersonSerachResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/jenniferLawrencePersonSerachResults.json)).
 
+## 🧪 Test
 
-## Test
+Execute the test suite after installing dependencies:
 
-execute tests via `yarn test` command after installing packages
+```bash
+bun test
+```
 
-## Support
+## 🤝 Contributing
 
-for supporting this package just buy me a coffee :)
+We welcome contributions that help movier stay useful and reliable. Before you start work, please review our [CONTRIBUTING guide](https://github.com/Valhalla-Development/movier/blob/main/CONTRIBUTING.md) so you understand the workflow, Code of Conduct, and release expectations. Follow the listed steps (fork, branch, commit, push, open a PR) and keep your PR description detailed so reviewers can follow the changes you made.
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/zoha)
+## 📜 License
 
-## contributing
+This project is licensed under the [MIT License](https://github.com/Valhalla-Development/movier/blob/main/LICENSE) – feel free to fork, adapt, and redistribute with attribution.
 
-please read [this](https://github.com/Zoha/movier/blob/main/CONTRIBUTING.md) for more information
+## 🙏 Acknowledgements
 
-## license
+- [IMDb](https://www.imdb.com/) for the data that powers movier’s lookups
+- [Zoha](https://github.com/Zoha) for the original movier project and parser work
+- Everyone who tests, files issues, or contributes to movier’s continued usefulness
 
-this package is published under MIT license
+## 📬 Support & Community
+
+Got questions or need help? Join our [Discord server](https://discord.gg/Q3ZhdRJ) for support and to connect with other bot developers!
+
+---
+
+<div align="center">
+
+💻 Crafted with ❤️ by [Valhalla-Development](https://github.com/Valhalla-Development) & [Zoha](https://github.com/Zoha/movier)
+
+[🐛 Spotted an issue?](https://github.com/Valhalla-Development/movier/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBUG%5D+Short+Description) | [💡 Got an idea?](https://github.com/Valhalla-Development/movier/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFeature%5D+Short+Description) | [🤔 Need help?](https://discord.gg/Q3ZhdRJ)
+
+<a href="#top">🔝 Back to Top</a>
+</div>

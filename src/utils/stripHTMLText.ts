@@ -1,3 +1,3 @@
 export function stripHTMLText(htmlText = "") {
-  return htmlText.replace(/(<([^>]+)>)/gi, "");
+    return htmlText.replace(/(<([^>]+)>)/gi, "");
 }
