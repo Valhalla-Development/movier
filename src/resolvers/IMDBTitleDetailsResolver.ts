@@ -277,19 +277,31 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
     get quotes(): ITitleQuoteItem[] {
         return this.titleApiRawData.quotes?.edges
             .map((edge) => edge.node)
-            .map((quote) => ({
-                isSpoiler: quote.isSpoiler ?? false,
-                lines: quote.lines?.map((line) => ({
-                    characters:
-                        line.characters?.map((character) => ({
-                            name: character.character ?? "",
-                            playerName: character.name?.nameText.text ?? "",
-                            playerSource: this.extractSourceFromId(character.name?.id ?? ""),
-                        })) ?? [],
-                    line: line.text,
-                    stageDirection: line.stageDirection,
-                })),
-            }));
+            .map((quote) => {
+                const lines =
+                    quote.lines
+                        ?.map((line) => ({
+                            characters:
+                                line.characters?.map((character) => ({
+                                    name: character.character ?? "",
+                                    playerName: character.name?.nameText.text ?? "",
+                                    playerSource: this.extractSourceFromId(
+                                        character.name?.id ?? ""
+                                    ),
+                                })) ?? [],
+                            line: line.text,
+                            stageDirection: line.stageDirection,
+                        }))
+                        .filter((line) => (line.characters?.length ?? 0) > 0) ?? [];
+
+                return lines.length
+                    ? {
+                          isSpoiler: quote.isSpoiler ?? false,
+                          lines,
+                      }
+                    : null;
+            })
+            .filter(Boolean) as ITitleQuoteItem[];
     }
 
     get awards(): IAwardDetails[] {
