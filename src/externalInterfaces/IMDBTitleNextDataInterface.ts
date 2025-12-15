@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type IMDBNextData = {
     props?: Props;
     page?: string;
