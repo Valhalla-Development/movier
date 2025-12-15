@@ -1,3 +1,5 @@
+import http from "node:http";
+import https from "node:https";
 import axios from "axios";
 import { GraphQLClient } from "graphql-request";
 import { IMDB_API_BASE_URL } from "./constants";
@@ -6,6 +8,9 @@ type getRequestResponse = {
     data: string;
     status: number;
 };
+
+const httpAgent = new http.Agent({ keepAlive: false });
+const httpsAgent = new https.Agent({ keepAlive: false });
 
 export function getRequest(
     url: string,
@@ -19,6 +24,8 @@ export function getRequest(
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         },
         params,
+        httpAgent,
+        httpsAgent,
     });
 }
 
