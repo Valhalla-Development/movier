@@ -42,6 +42,31 @@ npm install @valhalladev/movier --save
 
 ## 🚀 Usage
 
+Import the functions you need:
+
+```typescript
+import {
+  getTitleDetailsByName,
+  getTitleDetailsByUrl,
+  getTitleDetailsByIMDBId,
+  getTitleDetailsByFoundedTitleDetails,
+  searchTitleByName,
+  getPersonDetailsByName,
+  getPersonDetailsByUrl,
+  getPersonDetailsByIMDBId,
+  getPersonDetailsByFoundedPersonDetails,
+  searchPersonByName,
+  TitleMainType,
+} from "@valhalladev/movier";
+```
+
+Or use the default export:
+
+```typescript
+import movier from "@valhalladev/movier";
+```
+
+**CommonJS (legacy):**
 ```javascript
 const movier = require("@valhalladev/movier");
 ```
@@ -50,11 +75,17 @@ const movier = require("@valhalladev/movier");
 
 Pull every detail from an IMDB title page—plot, ratings, cast, crew, release info, keywords, images, awards, and more.
 
-```javascript
-movier.getTitleDetailsByName("interstellar 2014");
-movier.getTitleDetailsByUrl("https://www.imdb.com/title/tt0816692/");
-movier.getTitleDetailsByIMDBId("tt0816692");
-movier.getTitleDetailsByFoundedTitleDetails(foundedDetails);
+```typescript
+// Search and get details by name
+const title = await getTitleDetailsByName("interstellar 2014");
+
+// Or get details directly by URL or IMDB ID
+await getTitleDetailsByUrl("https://www.imdb.com/title/tt0816692/");
+await getTitleDetailsByIMDBId("tt0816692");
+
+// Or use search results
+const searchResults = await searchTitleByName("interstellar 2014");
+const titleFromSearch = await getTitleDetailsByFoundedTitleDetails(searchResults[0]);
 ```
 
 Each call resolves to a structured title object. See the example in [examples/results/interstellarTitleResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/interstellarTitleResults.json) for the full schema.
@@ -63,8 +94,13 @@ Each call resolves to a structured title object. See the example in [examples/re
 
 Search by name and receive match metadata (IMDB url, score, thumbnail) so you can select the correct entry before fetching the full payload.
 
-```javascript
-movier.searchTitleByName("interstellar 2014");
+```typescript
+const results = await searchTitleByName("interstellar 2014");
+// Optionally filter by exact match or specific type
+const movieResults = await searchTitleByName("interstellar", {
+  exactMatch: false,
+  specificType: TitleMainType.Movie
+});
 ```
 
 Results match the shape shown in [examples/results/interstellarTitleSearchResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/interstellarTitleSearchResults.json).
@@ -73,19 +109,29 @@ Results match the shape shown in [examples/results/interstellarTitleSearchResult
 
 Grab bios, birth info, filmography, personal details, and imagery for any celebrity page.
 
-```javascript
-movier.getPersonDetailsByName("jennifer lawrence");
-movier.getPersonDetailsByUrl("https://www.imdb.com/name/nm2225369/");
-movier.getPersonDetailsByIMDBId("nm2225369");
-movier.getPersonDetailsByFoundedPersonDetails(foundedDetails);
+```typescript
+// Search and get details by name
+const person = await getPersonDetailsByName("jennifer lawrence");
+
+// Or get details directly by URL or IMDB ID
+await getPersonDetailsByUrl("https://www.imdb.com/name/nm2225369/");
+await getPersonDetailsByIMDBId("nm2225369");
+
+// Or use search results
+const searchResults = await searchPersonByName("jennifer lawrence");
+const personFromSearch = await getPersonDetailsByFoundedPersonDetails(searchResults[0]);
 ```
 
 Each method resolves to a consistent person object. Reference [examples/results/jenniferLawrencePersonResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/jenniferLawrencePersonResults.json) for the payload structure.
 
 ### Search for people
 
-```javascript
-movier.searchPersonByName("jennifer lawrence");
+```typescript
+const results = await searchPersonByName("jennifer lawrence");
+// Optionally filter by exact match
+const exactResults = await searchPersonByName("jennifer lawrence", {
+  exactMatch: true
+});
 ```
 
 Returns a shortlist of profiles with match scores and URLs (see [examples/results/jenniferLawrencePersonSerachResults.json](https://raw.githubusercontent.com/Valhalla-Development/movier/main/examples/results/jenniferLawrencePersonSerachResults.json)).
