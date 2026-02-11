@@ -3,56 +3,350 @@
     "source": {
       "sourceId": "tt0816692",
       "sourceType": "IMDB",
-      "sourceUrl": "https://www.imdb.com/title/tt0816692/?ref_=fn_tt_tt_1"
+      "sourceUrl": "https://www.imdb.com/title/tt0816692/"
     },
-    "name": "interstellar",
+    "name": "Interstellar",
     "aka": "",
     "titleYear": 2014,
-    "url": "https://www.imdb.com/title/tt0816692/?ref_=fn_tt_tt_1",
+    "url": "https://www.imdb.com/title/tt0816692/",
     "titleType": "movie",
-    "matchScore": 17,
-    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX32_CR0,0,32,44_AL_.jpg"
+    "matchScore": 31,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_.jpg"
   },
   {
     "source": {
-      "sourceId": "tt10728262",
+      "sourceId": "tt4415360",
       "sourceType": "IMDB",
-      "sourceUrl": "https://www.imdb.com/title/tt10728262/?ref_=fn_tt_tt_2"
+      "sourceUrl": "https://www.imdb.com/title/tt4415360/"
     },
-    "name": "interstellar",
+    "name": "The Science of Interstellar",
     "aka": "",
-    "titleYear": 2018,
-    "url": "https://www.imdb.com/title/tt10728262/?ref_=fn_tt_tt_2",
+    "titleYear": 2014,
+    "url": "https://www.imdb.com/title/tt4415360/",
     "titleType": "movie",
-    "matchScore": 11,
-    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BMTNmZjA1NWYtM2RhYi00YWY2LWJkNDQtNWY5MGE5N2I4ZWIwXkEyXkFqcGdeQXVyNzg5OTk2OA@@._V1_UY44_CR32,0,32,44_AL_.jpg"
-  },
-  {
-    "source": {
-      "sourceId": "tt12227440",
-      "sourceType": "IMDB",
-      "sourceUrl": "https://www.imdb.com/title/tt12227440/?ref_=fn_tt_tt_3"
-    },
-    "name": "interstellar",
-    "aka": "",
-    "titleYear": 2020,
-    "url": "https://www.imdb.com/title/tt12227440/?ref_=fn_tt_tt_3",
-    "titleType": "movie",
-    "matchScore": 9,
-    "thumbnailImageUrl": "https://m.media-amazon.com/images/S/sash/85lhIiFCmSScRzu.png"
+    "matchScore": 25,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZDU5NTJkMjQtNGYyZC00NjYwLWJlNWMtODk5NDI5MDE3NDJiXkEyXkFqcGc@._V1_.jpg"
   },
   {
     "source": {
       "sourceId": "tt4172224",
       "sourceType": "IMDB",
-      "sourceUrl": "https://www.imdb.com/title/tt4172224/?ref_=fn_tt_tt_8"
+      "sourceUrl": "https://www.imdb.com/title/tt4172224/"
     },
-    "name": "interstellar: nolan's odyssey",
+    "name": "Interstellar: Nolan's Odyssey",
     "aka": "",
     "titleYear": 2014,
-    "url": "https://www.imdb.com/title/tt4172224/?ref_=fn_tt_tt_8",
+    "url": "https://www.imdb.com/title/tt4172224/",
+    "titleType": "tvMovie",
+    "matchScore": 23,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZGYzMGY0ZjctNDY3ZC00MDEzLTgzN2YtYWM1OTQyOTI1NDMxXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt11236038",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt11236038/"
+    },
+    "name": "Interstellar Ranger Commence",
+    "aka": "",
+    "titleYear": 2022,
+    "url": "https://www.imdb.com/title/tt11236038/",
+    "titleType": "series",
+    "matchScore": 20,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BMGM5YWQzNzQtYjJkOS00MjFmLTk3MDYtMWZiMWJiZjdiYWNiXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt26699362",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt26699362/"
+    },
+    "name": "Interstellar Ella",
+    "aka": "",
+    "titleYear": 2022,
+    "url": "https://www.imdb.com/title/tt26699362/",
+    "titleType": "series",
+    "matchScore": 19,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BMjUyOTMyZTEtYzgwZS00YTM0LThmODYtNDgzYWI0NzNkMDY3XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt3506492",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt3506492/"
+    },
+    "name": "Lolita from Interstellar Space",
+    "aka": "",
+    "titleYear": 2014,
+    "url": "https://www.imdb.com/title/tt3506492/",
+    "titleType": "tvMovie",
+    "matchScore": 19,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BNTg2NWM1ODEtMWY5ZC00NTE5LThlM2MtNTE2ZmVkOTgzZTdjXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt5056352",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt5056352/"
+    },
+    "name": "Interstellar Civil War: Shadows of the Empire",
+    "aka": "Interstellar Civil War",
+    "titleYear": 2017,
+    "url": "https://www.imdb.com/title/tt5056352/",
+    "titleType": "movie",
+    "matchScore": 17,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZTExZTMzZmEtMDFmMC00MzE0LThlYTItMDY0ZWYyMWJmMDM2XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt5083736",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt5083736/"
+    },
+    "name": "Interstellar Wars",
+    "aka": "",
+    "titleYear": 2016,
+    "url": "https://www.imdb.com/title/tt5083736/",
+    "titleType": "movie",
+    "matchScore": 15,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZjZhOTliNGEtZGY2Mi00ZDI0LWFjMjUtNTYyZWRjY2MwNGJhXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt32060514",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt32060514/"
+    },
+    "name": "Interstellar to Proxima",
+    "aka": "",
+    "titleYear": 2024,
+    "url": "https://www.imdb.com/title/tt32060514/",
+    "titleType": "movie",
+    "matchScore": 14,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BYWFjNmFlMDctM2FiOS00ZDljLWI2ZDgtNDNjMDlhZjJiMWQ0XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt0758429",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt0758429/"
+    },
+    "name": "Interstellar",
+    "aka": "",
+    "titleYear": 2005,
+    "url": "https://www.imdb.com/title/tt0758429/",
+    "titleType": "movie",
+    "matchScore": 14,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BMTgyNzUyMTQ3OV5BMl5BanBnXkFtZTgwNDg0OTE2MzE@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt5297406",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt5297406/"
+    },
+    "name": "Inside 'Interstellar'",
+    "aka": "",
+    "titleYear": 2015,
+    "url": "https://www.imdb.com/title/tt5297406/",
+    "titleType": "video",
+    "matchScore": 13,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZmUwNzhhY2QtYWM5My00MzM3LWEyYTUtMWU0ZGY3OTg1MGRhXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt35962085",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt35962085/"
+    },
+    "name": "Primus Interstellar Drum Derby",
+    "aka": "",
+    "titleYear": 2025,
+    "url": "https://www.imdb.com/title/tt35962085/",
+    "titleType": "series",
+    "matchScore": 13,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BM2EyODU3MzQtOGJiYi00NjQxLWI0MDYtZWFmMzRmNmY0MGE4XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt10728262",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt10728262/"
+    },
+    "name": "Interstellar",
+    "aka": "",
+    "titleYear": 2018,
+    "url": "https://www.imdb.com/title/tt10728262/",
+    "titleType": "movie",
+    "matchScore": 13,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZDY2YzQzNjctZjYyMS00ZDYzLWE4ZTctOTkxNzZjOTcxMzVjXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt36330801",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt36330801/"
+    },
+    "name": "Interstellar (Special Version)",
+    "aka": "",
+    "titleYear": 2025,
+    "url": "https://www.imdb.com/title/tt36330801/",
+    "titleType": "movie",
+    "matchScore": 12,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BZGU5ZjM2Y2MtOTE1NC00NDJkLTgwYjEtZGQ1YTQwZDYyNWUwXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt32422802",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt32422802/"
+    },
+    "name": "Super Interstellar Detectives",
+    "aka": "Super Interstellar Detective",
+    "titleYear": 2016,
+    "url": "https://www.imdb.com/title/tt32422802/",
+    "titleType": "series",
+    "matchScore": 11,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BMDFlYWI2NTAtZGJlYy00MjBiLTk5NWItZDNmYzY0YTg1MTU2XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt5709892",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt5709892/"
+    },
+    "name": "Interstelar 2: Operation Terra 2040",
+    "aka": "",
+    "titleYear": 2016,
+    "url": "https://www.imdb.com/title/tt5709892/",
+    "titleType": "movie",
+    "matchScore": 8,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BNjIxYjlkNDgtMmM1Ny00ZjY1LTkyOGEtNjViZjU2NjkxZDIyXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt6046050",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt6046050/"
+    },
+    "name": "Transformers: Interstellar",
+    "aka": "",
+    "titleYear": 2014,
+    "url": "https://www.imdb.com/title/tt6046050/",
+    "titleType": "series",
+    "matchScore": 8,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BYmQ2NjUxMjEtNTgzNy00ZjY3LTkwNjctNDRlN2I4MGVmNGU0XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt6223974",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt6223974/"
+    },
+    "name": "The Farthest",
+    "aka": "",
+    "titleYear": 2017,
+    "url": "https://www.imdb.com/title/tt6223974/",
     "titleType": "movie",
     "matchScore": 7,
-    "thumbnailImageUrl": "https://m.media-amazon.com/images/S/sash/85lhIiFCmSScRzu.png"
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BODY5Y2FiOWQtMjVhNi00YTgwLWJmMWMtNjQyYzMzZTk3ZmQyXkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt35725827",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt35725827/"
+    },
+    "name": "Faster Than Light: The Dream of Interstellar Flight",
+    "aka": "",
+    "titleYear": 2017,
+    "url": "https://www.imdb.com/title/tt35725827/",
+    "titleType": "movie",
+    "matchScore": 6,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BMjljYWVhNDUtNDRhMi00YzhkLWJlNjItZTJlYjc2NTdhNjc5XkEyXkFqcGc@._V1_.jpg"
+  },
+  {
+    "source": {
+      "sourceId": "tt5187424",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt5187424/"
+    },
+    "name": "Interstellar: The New Frontier",
+    "aka": "",
+    "titleYear": 2014,
+    "url": "https://www.imdb.com/title/tt5187424/",
+    "titleType": "video",
+    "matchScore": 6,
+    "thumbnailImageUrl": ""
+  },
+  {
+    "source": {
+      "sourceId": "tt0925090",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt0925090/"
+    },
+    "name": "Interstellar Stella",
+    "aka": "",
+    "titleYear": 2006,
+    "url": "https://www.imdb.com/title/tt0925090/",
+    "titleType": "movie",
+    "matchScore": 4,
+    "thumbnailImageUrl": ""
+  },
+  {
+    "source": {
+      "sourceId": "tt28468089",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt28468089/"
+    },
+    "name": "Interstellar Bestseller",
+    "aka": "",
+    "titleYear": 0,
+    "url": "https://www.imdb.com/title/tt28468089/",
+    "titleType": "movie",
+    "matchScore": 4,
+    "thumbnailImageUrl": ""
+  },
+  {
+    "source": {
+      "sourceId": "tt31722591",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt31722591/"
+    },
+    "name": "Gg Bond: Interstellar Action",
+    "aka": "",
+    "titleYear": 2024,
+    "url": "https://www.imdb.com/title/tt31722591/",
+    "titleType": "movie",
+    "matchScore": 4,
+    "thumbnailImageUrl": ""
+  },
+  {
+    "source": {
+      "sourceId": "tt23090116",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt23090116/"
+    },
+    "name": "Transformers: Interstellar: 5th Anniversary Remake",
+    "aka": "",
+    "titleYear": 2019,
+    "url": "https://www.imdb.com/title/tt23090116/",
+    "titleType": "movie",
+    "matchScore": 4,
+    "thumbnailImageUrl": ""
+  },
+  {
+    "source": {
+      "sourceId": "tt1671674",
+      "sourceType": "IMDB",
+      "sourceUrl": "https://www.imdb.com/title/tt1671674/"
+    },
+    "name": "Only Interstellar Pinball Lives Forever",
+    "aka": "",
+    "titleYear": 2010,
+    "url": "https://www.imdb.com/title/tt1671674/",
+    "titleType": "movie",
+    "matchScore": 4,
+    "thumbnailImageUrl": "https://m.media-amazon.com/images/M/MV5BMjE5NDk1MzkwN15BMl5BanBnXkFtZTcwNzAwMDQ2Mw@@._V1_.jpg"
   }
 ]
