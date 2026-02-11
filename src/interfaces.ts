@@ -1,5 +1,16 @@
 import type { AwardOutcome, Genre, Language, Source, TitleMainType } from "./literals";
 
+export type ITrailerDetails = {
+    id?: string;
+    name?: string;
+    description?: string;
+    contentType?: string;
+    runtimeSeconds?: number;
+    thumbnailUrl?: string;
+    sourceUrl?: string;
+    playbackUrls?: string[];
+};
+
 export type ITitle = {
     detailsLang: Language;
     mainSource: ISourceDetails;
@@ -33,6 +44,7 @@ export type ITitle = {
     awardsSummary: IAwardsSummaryDetails;
     quotes: ITitleQuoteItem[];
     goofs: ITitleGoofItem[];
+    trailers: ITrailerDetails[];
 };
 
 export type ITitleKey = keyof ITitle;
