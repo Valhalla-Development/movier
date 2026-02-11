@@ -1,6 +1,7 @@
 import { camelCase } from "change-case";
 import dayjs from "dayjs";
 import type { IMDBTitleApiRawData } from "../externalInterfaces/IMDBTitleApiRawData";
+import type { IMDBNextData as IMDBTitleNextData } from "../externalInterfaces/IMDBTitleNextDataInterface";
 import { titleDetailsQuery } from "../gql/titleDetailsQuery";
 import type {
     IAwardDetails,
@@ -18,23 +19,41 @@ import type {
     ITitleGoofItem,
     ITitleQuoteItem,
 } from "./../interfaces";
-import type { ITitle, ITitleDetailsResolver } from "../interfaces";
+import type { ITitle, ITitleDetailsResolver, ITrailerDetails } from "../interfaces";
 import { AwardOutcome, Genre, IMDBPathType, Language, Source, TitleMainType } from "../literals";
-import { graphqlRequest } from "../requestClient";
+import { getRequest, graphqlRequest } from "../requestClient";
 import { convertIMDBTitleIdToUrl } from "../utils/convertIMDBTitleIdToUrl";
 import { extractIMDBIdFromUrl } from "../utils/extractIMDBIdFromUrl";
+import { extractNextDataFromHTML } from "../utils/extractNextDataFromHTML";
+
+type ITrailerNode = {
+    id?: string;
+    name?: { value?: string };
+    description?: { value?: string };
+    contentType?: { displayName?: { value?: string } };
+    runtime?: { value?: number };
+    thumbnail?: { url?: string };
+    playbackURLs?: Array<{ url?: string }>;
+};
+
+type IPrimaryVideoNode = {
+    id?: string;
+    description?: { value?: string };
+    playbackURLs?: Array<{ url?: string }>;
+};
 
 export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
     private readonly url: string;
 
     private titleApiRawData!: IMDBTitleApiRawData;
+    private mainPageNextData?: IMDBTitleNextData;
 
     constructor(url: string) {
         this.url = url;
     }
 
     async getDetails(): Promise<ITitle> {
-        await this.getTitleRawDetails();
+        await Promise.all([this.getTitleRawDetails(), this.loadMainPageData()]);
 
         return {
             detailsLang: Language.English,
@@ -69,6 +88,7 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
             countriesOfOrigin: this.countriesOfOrigin,
             allReleaseDates: this.allReleaseDates,
             ageCategoryTitle: this.ageCategoryTitle,
+            trailers: this.trailers,
         };
     }
 
@@ -78,6 +98,44 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
             titleId,
         });
         this.titleApiRawData = rawData.title;
+    }
+
+    async loadMainPageData() {
+        const htmlResult = await getRequest(this.url);
+        this.mainPageNextData = extractNextDataFromHTML<IMDBTitleNextData>(htmlResult.data);
+    }
+
+    get trailers(): ITrailerDetails[] {
+        const stripEdges =
+            this.mainPageNextData?.props?.pageProps?.mainColumnData?.videoStrip?.edges ?? [];
+        const primaryVideoEdges =
+            this.mainPageNextData?.props?.pageProps?.aboveTheFoldData?.primaryVideos?.edges ?? [];
+        const primaryVideoById = new Map(
+            primaryVideoEdges
+                .map((edge) => edge.node as IPrimaryVideoNode | undefined)
+                .filter((node): node is IPrimaryVideoNode => Boolean(node?.id))
+                .map((node) => [node.id as string, node] as const)
+        );
+        return stripEdges
+            .map((edge) => edge.node)
+            .map((node) => {
+                const trailerNode = node as ITrailerNode | undefined;
+                const trailerId = trailerNode?.id;
+                const primaryVideo = trailerId ? primaryVideoById.get(trailerId) : undefined;
+                return {
+                    id: trailerId,
+                    name: trailerNode?.name?.value,
+                    description: primaryVideo?.description?.value,
+                    contentType: trailerNode?.contentType?.displayName?.value,
+                    runtimeSeconds: trailerNode?.runtime?.value,
+                    thumbnailUrl: trailerNode?.thumbnail?.url,
+                    sourceUrl: trailerId ? `https://www.imdb.com/video/${trailerId}/` : undefined,
+                    playbackUrls: primaryVideo?.playbackURLs
+                        ?.map((urlEntry) => urlEntry?.url)
+                        .filter((url): url is string => Boolean(url)),
+                };
+            })
+            .filter((trailer) => !!trailer.id);
     }
 
     extractSourceFromId(id: string): ISourceDetails {
