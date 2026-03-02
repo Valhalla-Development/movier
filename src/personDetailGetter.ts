@@ -37,10 +37,11 @@ export function getPersonDetailsByFoundedPersonDetails(
 
 export async function getPersonDetailsByName(
     personName: string,
-    { exactMatch = false }: SearchPersonByNameOptions = {}
+    { exactMatch = false, tmdbReadAccessToken }: SearchPersonByNameOptions = {}
 ): Promise<IPerson> {
     const allResults = await searchPersonByName(personName, {
         exactMatch,
+        tmdbReadAccessToken,
     });
     if (!allResults.length) {
         throw new Error(`there wasn't any matched person with the given name : '${personName}'`);
