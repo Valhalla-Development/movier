@@ -1,7 +1,6 @@
 import { camelCase } from "change-case";
 import dayjs from "dayjs";
 import type { IMDBTitleApiRawData } from "../externalInterfaces/IMDBTitleApiRawData";
-import type { IMDBNextData as IMDBTitleNextData } from "../externalInterfaces/IMDBTitleNextDataInterface";
 import { titleDetailsQuery } from "../gql/titleDetailsQuery";
 import type {
     IAwardDetails,
@@ -19,41 +18,29 @@ import type {
     ITitleGoofItem,
     ITitleQuoteItem,
 } from "./../interfaces";
-import type { ITitle, ITitleDetailsResolver, ITrailerDetails } from "../interfaces";
+import type {
+    ITitle,
+    ITitleDetailsResolver,
+    ITitleDetailsResolverOptions,
+    ITrailerDetails,
+} from "../interfaces";
 import { AwardOutcome, Genre, IMDBPathType, Language, Source, TitleMainType } from "../literals";
-import { getRequest, graphqlRequest } from "../requestClient";
+import { graphqlRequest, tmdbGetRequest } from "../requestClient";
 import { convertIMDBTitleIdToUrl } from "../utils/convertIMDBTitleIdToUrl";
 import { extractIMDBIdFromUrl } from "../utils/extractIMDBIdFromUrl";
-import { extractNextDataFromHTML } from "../utils/extractNextDataFromHTML";
-
-type ITrailerNode = {
-    id?: string;
-    name?: { value?: string };
-    description?: { value?: string };
-    contentType?: { displayName?: { value?: string } };
-    runtime?: { value?: number };
-    thumbnail?: { url?: string };
-    playbackURLs?: Array<{ url?: string }>;
-};
-
-type IPrimaryVideoNode = {
-    id?: string;
-    description?: { value?: string };
-    playbackURLs?: Array<{ url?: string }>;
-};
 
 export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
     private readonly url: string;
 
     private titleApiRawData!: IMDBTitleApiRawData;
-    private mainPageNextData?: IMDBTitleNextData;
 
     constructor(url: string) {
         this.url = url;
     }
 
-    async getDetails(): Promise<ITitle> {
-        await Promise.all([this.getTitleRawDetails(), this.loadMainPageData()]);
+    async getDetails(opts?: ITitleDetailsResolverOptions): Promise<ITitle> {
+        await this.getTitleRawDetails();
+        const trailers = await this.getTrailersFromTMDB(opts?.tmdbReadAccessToken);
 
         return {
             detailsLang: Language.English,
@@ -88,7 +75,7 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
             countriesOfOrigin: this.countriesOfOrigin,
             allReleaseDates: this.allReleaseDates,
             ageCategoryTitle: this.ageCategoryTitle,
-            trailers: this.trailers,
+            trailers,
         };
     }
 
@@ -100,42 +87,47 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
         this.titleApiRawData = rawData.title;
     }
 
-    async loadMainPageData() {
-        const htmlResult = await getRequest(this.url);
-        this.mainPageNextData = extractNextDataFromHTML<IMDBTitleNextData>(htmlResult.data);
-    }
-
-    get trailers(): ITrailerDetails[] {
-        const stripEdges =
-            this.mainPageNextData?.props?.pageProps?.mainColumnData?.videoStrip?.edges ?? [];
-        const primaryVideoEdges =
-            this.mainPageNextData?.props?.pageProps?.aboveTheFoldData?.primaryVideos?.edges ?? [];
-        const primaryVideoById = new Map(
-            primaryVideoEdges
-                .map((edge) => edge.node as IPrimaryVideoNode | undefined)
-                .filter((node): node is IPrimaryVideoNode => Boolean(node?.id))
-                .map((node) => [node.id as string, node] as const)
+    private async getTrailersFromTMDB(tmdbReadAccessToken?: string): Promise<ITrailerDetails[]> {
+        if (!tmdbReadAccessToken?.trim()) {
+            return [];
+        }
+        const imdbId = this.mainSource.sourceId;
+        const findByImdb = await tmdbGetRequest<TMDBFindByImdbResponse>(
+            `/find/${imdbId}`,
+            tmdbReadAccessToken,
+            { external_source: "imdb_id" }
         );
-        return stripEdges
-            .map((edge) => edge.node)
-            .map((node) => {
-                const trailerNode = node as ITrailerNode | undefined;
-                const trailerId = trailerNode?.id;
-                const primaryVideo = trailerId ? primaryVideoById.get(trailerId) : undefined;
-                return {
-                    id: trailerId,
-                    name: trailerNode?.name?.value,
-                    description: primaryVideo?.description?.value,
-                    contentType: trailerNode?.contentType?.displayName?.value,
-                    runtimeSeconds: trailerNode?.runtime?.value,
-                    thumbnailUrl: trailerNode?.thumbnail?.url,
-                    sourceUrl: trailerId ? `https://www.imdb.com/video/${trailerId}/` : undefined,
-                    playbackUrls: primaryVideo?.playbackURLs
-                        ?.map((urlEntry) => urlEntry?.url)
-                        .filter((url): url is string => Boolean(url)),
-                };
-            })
-            .filter((trailer) => !!trailer.id);
+        const movieMatch = findByImdb.movie_results?.[0];
+        const tvMatch = findByImdb.tv_results?.[0];
+        const matchedId = movieMatch?.id ?? tvMatch?.id;
+        let matchedType: "movie" | "tv" | undefined;
+        if (movieMatch) {
+            matchedType = "movie";
+        } else if (tvMatch) {
+            matchedType = "tv";
+        }
+        if (!(matchedId && matchedType)) {
+            return [];
+        }
+        const videos = await tmdbGetRequest<TMDBVideosResponse>(
+            `/${matchedType}/${matchedId}/videos`,
+            tmdbReadAccessToken
+        );
+        const youtubeVideos = (videos.results ?? []).filter((video) => video.site === "YouTube");
+        const trailersOnly = youtubeVideos.filter((video) => video.type === "Trailer");
+        const trailerCandidates = trailersOnly.length
+            ? trailersOnly
+            : youtubeVideos.filter((video) => video.type === "Teaser");
+        return trailerCandidates.map((video) => ({
+            id: video.id,
+            name: video.name,
+            description: video.name,
+            contentType: video.type,
+            sourceUrl: video.key ? `https://www.youtube.com/watch?v=${video.key}` : undefined,
+            thumbnailUrl: video.key
+                ? `https://img.youtube.com/vi/${video.key}/hqdefault.jpg`
+                : undefined,
+        }));
     }
 
     extractSourceFromId(id: string): ISourceDetails {
@@ -477,3 +469,18 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
         ];
     }
 }
+
+type TMDBFindByImdbResponse = {
+    movie_results?: Array<{ id?: number }>;
+    tv_results?: Array<{ id?: number }>;
+};
+
+type TMDBVideosResponse = {
+    results?: Array<{
+        id?: string;
+        key?: string;
+        name?: string;
+        site?: string;
+        type?: string;
+    }>;
+};
