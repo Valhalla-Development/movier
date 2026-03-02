@@ -160,23 +160,23 @@ export class TMDBTitleSearchResolver implements ITitleSearchResolver {
     }
 }
 
-type TMDBMultiSearchResponse = {
+interface TMDBMultiSearchResponse {
     results?: TMDBMultiSearchResult[];
-};
+}
 
-type TMDBMultiSearchResult = {
+interface TMDBMultiSearchResult {
+    first_air_date?: string;
     id: number;
     media_type?: "movie" | "tv" | "person";
-    title?: string;
     name?: string;
-    original_title?: string;
     original_name?: string;
-    release_date?: string;
-    first_air_date?: string;
-    poster_path?: string | null;
+    original_title?: string;
     popularity?: number;
-};
+    poster_path?: string | null;
+    release_date?: string;
+    title?: string;
+}
 
-type TMDBExternalIdsResponse = {
+interface TMDBExternalIdsResponse {
     imdb_id?: string | null;
-};
+}

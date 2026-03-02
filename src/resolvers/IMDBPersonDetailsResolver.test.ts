@@ -2,11 +2,12 @@ import dayjs from "dayjs";
 import type { IPerson } from "../interfaces";
 import { IMDBPersonDetailsResolver } from "./IMDBPersonDetailsResolver";
 
-type TestDataType = {
-    name: string;
-    url: string;
+interface TestDataType {
+    allImagesCount?: number;
     birthDate?: string;
     birthPlace?: string;
+    deathDate?: string;
+    deathPlace?: string;
     filmographyData: object;
     knownFormFirstItemDetails: {
         name: string | string[];
@@ -14,11 +15,10 @@ type TestDataType = {
         startYear: number;
         endYear?: number;
     };
+    name: string;
     personalDetails: object;
-    allImagesCount?: number;
-    deathDate?: string;
-    deathPlace?: string;
-};
+    url: string;
+}
 
 const dataToTest: TestDataType[] = [
     {

@@ -1,310 +1,310 @@
-export type IMDBNextData = {
-    props?: Props;
-    page?: string;
-    query?: Query;
-    buildID?: string;
+export interface IMDBNextData {
     assetPrefix?: string;
-    runtimeConfig?: RuntimeConfig;
-    isFallback?: boolean;
+    buildID?: string;
+    customServer?: boolean;
     dynamicIDS?: number[];
     gssp?: boolean;
-    customServer?: boolean;
+    isFallback?: boolean;
+    page?: string;
+    props?: Props;
+    query?: Query;
+    runtimeConfig?: RuntimeConfig;
     scriptLoader?: unknown[];
-};
+}
 
-type Props = {
-    pageProps?: PageProps;
+interface Props {
     nSSP?: boolean;
-};
+    pageProps?: PageProps;
+}
 
-type PageProps = {
-    tconst?: string;
+interface PageProps {
     aboveTheFoldData?: AboveTheFoldData;
+    cmsContext?: CMSContext;
+    fetchState?: null;
     mainColumnData?: MainColumnData;
     requestContext?: RequestContext;
-    cmsContext?: CMSContext;
+    tconst?: string;
     translationContext?: TranslationContext;
     urqlState?: null;
-    fetchState?: null;
-};
+}
 
-type AboveTheFoldData = {
-    id?: string;
-    productionStatus?: ProductionStatus;
+interface AboveTheFoldData {
     canHaveEpisodes?: boolean;
+    canRate?: CanRate;
+    castPageTitle?: CastPageTitle;
+    certificate?: AboveTheFoldDataCertificate;
+    countriesOfOrigin?: AboveTheFoldDataCountriesOfOrigin;
+    creatorsPageTitle?: unknown[];
+    credits?: Credits;
+    criticReviewsTotal?: Credits;
+    directorsPageTitle?: DirectorsPageTitle[];
+    externalLinks?: Credits;
+    featuredReviews?: AboveTheFoldDataFeaturedReviews;
+    genres?: Genres;
+    id?: string;
+    images?: Credits;
+    keywords?: Keywords;
+    meta?: Meta;
+    metacritic?: Metacritic;
+    meterRanking?: MeterRanking;
+    originalTitleText?: OriginalTitleText;
+    plot?: Plot;
+    plotContributionLink?: Link;
+    primaryImage?: NodeClass;
+    primaryVideos?: PrimaryVideos;
+    principalCredits?: PrincipalCredit[];
+    production?: Production;
+    productionStatus?: ProductionStatus;
+    ratingsSummary?: AboveTheFoldDataRatingsSummary;
+    releaseDate?: ReleaseDate;
+    releaseYear?: AboveTheFoldDataReleaseYear;
+    reviews?: Credits;
+    runtime?: AboveTheFoldDataRuntime;
     series?: null;
     titleText?: OriginalTitleText;
     titleType?: TitleType;
-    originalTitleText?: OriginalTitleText;
-    certificate?: AboveTheFoldDataCertificate;
-    releaseYear?: AboveTheFoldDataReleaseYear;
-    releaseDate?: ReleaseDate;
-    runtime?: AboveTheFoldDataRuntime;
-    canRate?: CanRate;
-    ratingsSummary?: AboveTheFoldDataRatingsSummary;
-    meterRanking?: MeterRanking;
-    primaryImage?: NodeClass;
-    images?: Credits;
-    videos?: Credits;
-    primaryVideos?: PrimaryVideos;
-    externalLinks?: Credits;
-    metacritic?: Metacritic;
-    keywords?: Keywords;
-    genres?: Genres;
-    plot?: Plot;
-    plotContributionLink?: Link;
-    credits?: Credits;
-    principalCredits?: PrincipalCredit[];
-    reviews?: Credits;
-    criticReviewsTotal?: Credits;
     triviaTotal?: Credits;
-    meta?: Meta;
-    castPageTitle?: CastPageTitle;
-    creatorsPageTitle?: unknown[];
-    directorsPageTitle?: DirectorsPageTitle[];
-    countriesOfOrigin?: AboveTheFoldDataCountriesOfOrigin;
-    production?: Production;
-    featuredReviews?: AboveTheFoldDataFeaturedReviews;
     typename?: AboveTheFoldDataTypename;
-};
+    videos?: Credits;
+}
 
-type CanRate = {
+interface CanRate {
     isRatable?: boolean;
     typename?: CanRateTypename;
-};
+}
 
 type CanRateTypename = "CanRate";
 
-type CastPageTitle = {
+interface CastPageTitle {
     edges?: CastPageTitleEdge[];
     typename?: string;
-};
+}
 
-type CastPageTitleEdge = {
+interface CastPageTitleEdge {
     node?: DirectorsPageTitleNode;
     typename?: PurpleTypename;
-};
+}
 
-type DirectorsPageTitleNode = {
+interface DirectorsPageTitleNode {
     name?: PurpleName;
     typename?: string;
-};
+}
 
-type PurpleName = {
+interface PurpleName {
     nameText?: OriginalTitleText;
     typename?: FluffyTypename;
-};
+}
 
-type OriginalTitleText = {
+interface OriginalTitleText {
     text?: string;
     typename?: string;
-};
+}
 
 type FluffyTypename = "Name";
 
 type PurpleTypename = "CreditEdge";
 
-type AboveTheFoldDataCertificate = {
+interface AboveTheFoldDataCertificate {
     rating?: Rating;
     typename?: CertificateTypename;
-};
+}
 
 type Rating = "PG" | "PG-13" | "R";
 
 type CertificateTypename = "Certificate";
 
-type AboveTheFoldDataCountriesOfOrigin = {
+interface AboveTheFoldDataCountriesOfOrigin {
     countries?: PrimaryImageElement[];
     typename?: string;
-};
+}
 
-type PrimaryImageElement = {
+interface PrimaryImageElement {
     id?: string;
     typename?: string;
-};
+}
 
-type Credits = {
+interface Credits {
     total?: number;
     typename?: string;
-};
+}
 
-type DirectorsPageTitle = {
+interface DirectorsPageTitle {
     credits?: DirectorsPageTitleNode[];
     typename?: string;
-};
+}
 
-type AboveTheFoldDataFeaturedReviews = {
+interface AboveTheFoldDataFeaturedReviews {
     edges?: PurpleEdge[];
     typename?: string;
-};
+}
 
-type PurpleEdge = {
+interface PurpleEdge {
     node?: PurpleNode;
     typename?: string;
-};
+}
 
-type PurpleNode = {
+interface PurpleNode {
     author?: PurpleAuthor;
-    summary?: Summary;
-    text?: PurpleText;
     authorRating?: number;
     submissionDate?: Date;
+    summary?: Summary;
+    text?: PurpleText;
     typename?: string;
-};
+}
 
-type PurpleAuthor = {
+interface PurpleAuthor {
     nickName?: string;
     typename?: string;
-};
+}
 
-type Summary = {
+interface Summary {
     originalText?: string;
     typename?: string;
-};
+}
 
-type PurpleText = {
+interface PurpleText {
     originalText?: PlotText;
     typename?: string;
-};
+}
 
-type PlotText = {
+interface PlotText {
     plainText?: string;
     typename?: PlotTextTypename;
-};
+}
 
 type PlotTextTypename = "Markdown";
 
-type Genres = {
+interface Genres {
     genres?: CurrentProductionStage[];
     typename?: GenresTypename;
-};
+}
 
-type CurrentProductionStage = {
-    text?: string;
-    id?: string;
-    typename?: string;
-    event?: PrimaryImageElement;
+interface CurrentProductionStage {
     attributes?: unknown[];
-};
+    event?: PrimaryImageElement;
+    id?: string;
+    text?: string;
+    typename?: string;
+}
 
 type GenresTypename = "Genres";
 
-type Keywords = {
-    total?: number;
+interface Keywords {
     edges?: KeywordsEdge[];
+    total?: number;
     typename?: string;
-};
+}
 
-type KeywordsEdge = {
+interface KeywordsEdge {
     node?: OriginalTitleText;
     typename?: string;
-};
+}
 
-type Meta = {
+interface Meta {
     canonicalID?: string;
     publicationStatus?: string;
     typename?: string;
-};
+}
 
-type Metacritic = {
+interface Metacritic {
     metascore?: Metascore;
     typename?: string;
-};
+}
 
-type Metascore = {
+interface Metascore {
     score?: number;
     typename?: string;
-};
+}
 
-type MeterRanking = {
+interface MeterRanking {
     currentRank?: number;
     rankChange?: RankChange;
     typename?: string;
-};
+}
 
-type RankChange = {
+interface RankChange {
     changeDirection?: string;
     difference?: number;
     typename?: string;
-};
+}
 
-type Plot = {
-    plotText?: PlotText;
+interface Plot {
     language?: PrimaryImageElement;
+    plotText?: PlotText;
     typename?: string;
-};
+}
 
-type Link = {
-    url?: string;
+interface Link {
     typename?: string;
-};
-
-type NodeClass = {
-    id?: string;
-    width?: number;
-    height?: number;
     url?: string;
+}
+
+interface NodeClass {
     caption?: PlotText;
+    height?: number;
+    id?: string;
     typename?: PrimaryImageTypename;
-};
+    url?: string;
+    width?: number;
+}
 
 type PrimaryImageTypename = "Image" | "Thumbnail";
 
-type PrimaryVideos = {
+interface PrimaryVideos {
     edges?: PrimaryVideosEdge[];
     typename?: string;
-};
+}
 
-type PrimaryVideosEdge = {
+interface PrimaryVideosEdge {
     node?: FluffyNode;
     typename?: TentacledTypename;
-};
+}
 
-type FluffyNode = {
+interface FluffyNode {
+    contentType?: PurpleContentType;
+    description?: Description;
     id?: string;
     isMature?: boolean;
-    contentType?: PurpleContentType;
-    thumbnail?: NodeClass;
-    runtime?: PurpleRuntime;
-    description?: Description;
     name?: Description;
     playbackURLs?: URL[];
     previewURLs?: URL[];
+    runtime?: PurpleRuntime;
+    thumbnail?: NodeClass;
     typename?: StickyTypename;
-};
+}
 
-type PurpleContentType = {
-    id?: string;
+interface PurpleContentType {
     displayName?: NameClass;
+    id?: string;
     typename?: ContentTypeTypename;
-};
+}
 
-type NameClass = {
-    value?: string;
+interface NameClass {
     typename?: DisplayNameTypename;
-};
+    value?: string;
+}
 
 type DisplayNameTypename = "LocalizedString";
 
 type ContentTypeTypename = "VideoContentType";
 
-type Description = {
-    value?: string;
+interface Description {
     language?: string;
     typename?: DisplayNameTypename;
-};
+    value?: string;
+}
 
-type URL = {
+interface URL {
     displayName?: Description;
     mimeType?: string;
-    url?: string;
     typename?: string;
-};
+    url?: string;
+}
 
-type PurpleRuntime = {
-    value?: number;
+interface PurpleRuntime {
     typename?: IndigoTypename;
-};
+    value?: number;
+}
 
 type IndigoTypename = "VideoRuntime";
 
@@ -312,955 +312,955 @@ type StickyTypename = "Video";
 
 type TentacledTypename = "VideoEdge";
 
-type PrincipalCredit = {
-    totalCredits?: number;
+interface PrincipalCredit {
     category?: CurrentProductionStage;
     credits?: Credit[];
+    totalCredits?: number;
     typename?: string;
-};
+}
 
-type Credit = {
-    name?: FluffyName;
+interface Credit {
     attributes?: null;
+    name?: FluffyName;
     typename?: string;
-};
+}
 
-type FluffyName = {
-    nameText?: OriginalTitleText;
+interface FluffyName {
     id?: string;
-    typename?: FluffyTypename;
+    nameText?: OriginalTitleText;
     primaryImage?: NodeClass | null;
-};
+    typename?: FluffyTypename;
+}
 
-type Production = {
+interface Production {
     edges?: ProductionEdge[];
     typename?: string;
-};
+}
 
-type ProductionEdge = {
+interface ProductionEdge {
     node?: TentacledNode;
     typename?: string;
-};
+}
 
-type TentacledNode = {
+interface TentacledNode {
     company?: Company;
     typename?: string;
-};
+}
 
-type Company = {
-    id?: string;
+interface Company {
     companyText?: OriginalTitleText;
+    id?: string;
     typename?: string;
-};
+}
 
-type ProductionStatus = {
+interface ProductionStatus {
     currentProductionStage?: CurrentProductionStage;
     productionStatusHistory?: ProductionStatusHistory[];
     restriction?: null;
     typename?: string;
-};
+}
 
-type ProductionStatusHistory = {
+interface ProductionStatusHistory {
     status?: CurrentProductionStage;
     typename?: ProductionStatusHistoryTypename;
-};
+}
 
 type ProductionStatusHistoryTypename = "ProductionStatusHistory";
 
-type AboveTheFoldDataRatingsSummary = {
+interface AboveTheFoldDataRatingsSummary {
     aggregateRating?: number | null;
-    voteCount?: number;
     typename?: RatingsSummaryTypename;
-};
+    voteCount?: number;
+}
 
 type RatingsSummaryTypename = "RatingsSummary";
 
-type ReleaseDate = {
+interface ReleaseDate {
+    country?: CurrentProductionStage;
     day?: number;
     month?: number;
-    year?: number;
     typename?: string;
-    country?: CurrentProductionStage;
-};
-
-type AboveTheFoldDataReleaseYear = {
     year?: number;
+}
+
+interface AboveTheFoldDataReleaseYear {
     endYear?: null;
     typename?: ReleaseYearTypename;
-};
+    year?: number;
+}
 
 type ReleaseYearTypename = "YearRange";
 
-type AboveTheFoldDataRuntime = {
+interface AboveTheFoldDataRuntime {
     seconds?: number;
     typename?: IndecentTypename;
-};
+}
 
 type IndecentTypename = "Runtime";
 
-type TitleType = {
-    text?: string;
+interface TitleType {
     id?: string;
-    isSeries?: boolean;
     isEpisode?: boolean;
+    isSeries?: boolean;
+    text?: string;
     typename?: string;
-};
+}
 
 type AboveTheFoldDataTypename = "Title";
 
-type CMSContext = {
-    transformedPlacements?: TransformedPlacements;
+interface CMSContext {
     isDebug?: boolean;
-};
+    transformedPlacements?: TransformedPlacements;
+}
 
-type TransformedPlacements = {
+interface TransformedPlacements {
     right3?: TransformedPlacementsRight3;
     right5?: TransformedPlacementsRight5;
-};
+}
 
-type TransformedPlacementsRight3 = {
-    componentName?: string;
+interface TransformedPlacementsRight3 {
     arguments?: ContextClass;
+    componentName?: string;
     symphonyMetadata?: SymphonyMetadata;
     transformedArguments?: TransformedArguments;
-};
+}
 
-type ContextClass = {
-    the03_ImageTargetURL?: string;
-    urlLabel?: string;
-    the03_ImageSize?: string;
-    heading?: string;
+interface ContextClass {
     blurbContent?: string;
     blurbPosition?: string;
-    widgetref?: string;
-    widgetType?: string;
+    generatedPrefix?: string;
+    heading?: string;
+    slotName?: string;
     targetURL?: string;
     the03_ImageImageID?: string;
-    generatedPrefix?: string;
-    slotName?: string;
-};
+    the03_ImageSize?: string;
+    the03_ImageTargetURL?: string;
+    urlLabel?: string;
+    widgetref?: string;
+    widgetType?: string;
+}
 
-type SymphonyMetadata = {
-    requestID?: string;
-    marketplaceID?: string;
-    merchantID?: string;
-    customerID?: string;
-    sessionID?: string;
+interface SymphonyMetadata {
     contentID?: string;
     creativeID?: string;
-    placementID?: string;
+    customerID?: string;
+    marketplaceID?: string;
+    merchantID?: string;
     msoGroupName?: null;
     msoSlotOrder?: null;
-};
+    placementID?: string;
+    requestID?: string;
+    sessionID?: string;
+}
 
-type TransformedArguments = {
-    the03_ImageTargetURL?: string;
-    urlLabel?: string;
-    the03_ImageSize?: string;
-    heading?: string;
+interface TransformedArguments {
     blurbContent?: string;
     blurbPosition?: string;
-    widgetref?: string;
-    widgetType?: string;
-    targetURL?: string;
-    the03_ImageImageID?: string;
-    generatedPrefix?: string;
-    slotName?: string;
-    refTag?: string;
-    errors?: Error[];
-    displayTitle?: string;
-    iconName?: string;
-    description?: string;
-    overlayCaption?: string;
     callToActionText?: string;
     callToActionURL?: string;
+    description?: string;
+    displayTitle?: string;
+    errors?: Error[];
+    generatedPrefix?: string;
+    heading?: string;
+    iconName?: string;
     linkedImages?: LinkedImage[];
-    the01_ImageSize?: string;
+    overlayCaption?: string;
+    refTag?: string;
+    slotName?: string;
+    targetURL?: string;
     the01_ImageImageID?: string;
     the01_ImageImageIDOverride?: string;
     the01_ImageRelatedListID?: string;
-};
+    the01_ImageSize?: string;
+    the03_ImageImageID?: string;
+    the03_ImageSize?: string;
+    the03_ImageTargetURL?: string;
+    urlLabel?: string;
+    widgetref?: string;
+    widgetType?: string;
+}
 
-type Error = {
+interface Error {
     code?: string;
     context?: ContextClass;
-};
+}
 
-type LinkedImage = {
+interface LinkedImage {
     imageModel?: ImageModel;
     link?: string;
-};
+}
 
-type ImageModel = {
-    url?: string;
+interface ImageModel {
     caption?: string;
     maxHeight?: number;
     maxWidth?: number;
-};
+    url?: string;
+}
 
-type TransformedPlacementsRight5 = {
-    componentName?: string;
+interface TransformedPlacementsRight5 {
     arguments?: Right5_Arguments;
+    componentName?: string;
+    queryTypeFlags?: QueryTypeFlags;
     symphonyMetadata?: SymphonyMetadata;
     transformedArguments?: TransformedArguments;
-    queryTypeFlags?: QueryTypeFlags;
-};
+}
 
-type Right5_Arguments = {
-    urlLabel?: string;
-    the01_ImageSize?: string;
-    the01_ImageImageID?: string;
-    heading?: string;
+interface Right5_Arguments {
     blurbContent?: string;
     blurbPosition?: string;
+    generatedPrefix?: string;
+    heading?: string;
+    slotName?: string;
+    targetURL?: string;
+    the01_ImageImageID?: string;
     the01_ImageImageIDOverride?: string;
     the01_ImageRelatedListID?: string;
+    the01_ImageSize?: string;
+    urlLabel?: string;
     widgetref?: string;
     widgetType?: string;
-    targetURL?: string;
-    generatedPrefix?: string;
-    slotName?: string;
-};
+}
 
-type QueryTypeFlags = {
+interface QueryTypeFlags {
     video?: boolean;
-};
+}
 
-type MainColumnData = {
-    id?: string;
-    wins?: Credits;
-    nominations?: Credits;
-    prestigiousAwardSummary?: PrestigiousAwardSummary;
-    ratingsSummary?: MainColumnDataRatingsSummary;
-    episodes?: null;
-    videos?: Credits;
-    videoStrip?: VideoStrip;
-    titleMainImages?: TitleMainImages;
-    productionStatus?: ProductionStatus;
-    primaryImage?: PrimaryImageElement;
-    imageUploadLink?: Link;
-    titleType?: PrimaryImageElement;
-    canHaveEpisodes?: boolean;
-    cast?: Cast;
-    principalCast?: PrincipalCast[];
-    creators?: unknown[];
-    directors?: Director[];
-    writers?: Director[];
-    isAdult?: boolean;
-    moreLikeThisTitles?: MoreLikeThisTitles;
-    summaries?: Summaries;
-    outlines?: Outlines;
-    synopses?: Outlines;
-    storylineKeywords?: StorylineKeywords;
-    taglines?: Keywords;
-    genres?: Genres;
-    certificate?: MainColumnDataCertificate;
-    parentsGuide?: ParentsGuide;
-    triviaTotal?: Credits;
-    trivia?: Trivia;
-    goofsTotal?: Credits;
-    goofs?: CrazyCredits;
-    quotesTotal?: Credits;
-    quotes?: Quotes;
-    crazyCredits?: CrazyCredits;
+interface MainColumnData {
+    akas?: Akas;
     alternateVersions?: AlternateVersions;
+    canHaveEpisodes?: boolean;
+    canRate?: CanRate;
+    cast?: Cast;
+    certificate?: MainColumnDataCertificate;
+    companies?: Credits;
     connections?: Connections;
-    soundtrack?: Soundtrack;
-    titleText?: OriginalTitleText;
+    contributionQuestions?: ContributionQuestions;
+    countriesOfOrigin?: MainColumnDataCountriesOfOrigin;
+    crazyCredits?: CrazyCredits;
+    creators?: unknown[];
+    detailsExternalLinks?: DetailsExternalLinks;
+    directors?: Director[];
+    episodes?: null;
+    faqs?: Faqs;
+    faqsTotal?: Credits;
+    featuredReviews?: MainColumnDataFeaturedReviews;
+    filmingLocations?: Keywords;
+    genres?: Genres;
+    goofs?: CrazyCredits;
+    goofsTotal?: Credits;
+    id?: string;
+    iframeAddReviewLink?: Link;
+    imageUploadLink?: Link;
+    isAdult?: boolean;
+    lifetimeGross?: Gross;
+    moreLikeThisTitles?: MoreLikeThisTitles;
+    news?: News;
+    nominations?: Credits;
+    openingWeekendGross?: OpeningWeekendGross;
     originalTitleText?: OriginalTitleText;
+    outlines?: Outlines;
+    parentsGuide?: ParentsGuide;
+    prestigiousAwardSummary?: PrestigiousAwardSummary;
+    primaryImage?: PrimaryImageElement;
+    principalCast?: PrincipalCast[];
+    production?: Production;
+    productionBudget?: ProductionBudget;
+    productionStatus?: ProductionStatus;
+    quotes?: Quotes;
+    quotesTotal?: Credits;
+    ratingsSummary?: MainColumnDataRatingsSummary;
+    releaseDate?: ReleaseDate;
     releaseYear?: AssociatedTitleReleaseYear;
     reviews?: Credits;
-    featuredReviews?: MainColumnDataFeaturedReviews;
-    canRate?: CanRate;
-    iframeAddReviewLink?: Link;
-    faqsTotal?: Credits;
-    faqs?: Faqs;
-    releaseDate?: ReleaseDate;
-    countriesOfOrigin?: MainColumnDataCountriesOfOrigin;
-    detailsExternalLinks?: DetailsExternalLinks;
-    spokenLanguages?: SpokenLanguages;
-    akas?: Akas;
-    filmingLocations?: Keywords;
-    production?: Production;
-    companies?: Credits;
-    productionBudget?: ProductionBudget;
-    lifetimeGross?: Gross;
-    openingWeekendGross?: OpeningWeekendGross;
-    worldwideGross?: Gross;
-    technicalSpecifications?: TechnicalSpecifications;
     runtime?: AboveTheFoldDataRuntime;
     series?: null;
-    news?: News;
-    contributionQuestions?: ContributionQuestions;
+    soundtrack?: Soundtrack;
+    spokenLanguages?: SpokenLanguages;
+    storylineKeywords?: StorylineKeywords;
+    summaries?: Summaries;
+    synopses?: Outlines;
+    taglines?: Keywords;
+    technicalSpecifications?: TechnicalSpecifications;
+    titleMainImages?: TitleMainImages;
+    titleText?: OriginalTitleText;
+    titleType?: PrimaryImageElement;
+    trivia?: Trivia;
+    triviaTotal?: Credits;
     typename?: AboveTheFoldDataTypename;
-};
+    videoStrip?: VideoStrip;
+    videos?: Credits;
+    wins?: Credits;
+    worldwideGross?: Gross;
+    writers?: Director[];
+}
 
-type Akas = {
+interface Akas {
     edges?: KeywordsEdge[];
     typename?: string;
-};
+}
 
-type AlternateVersions = {
-    total?: number;
+interface AlternateVersions {
     edges?: AlternateVersionsEdge[];
+    total?: number;
     typename?: string;
-};
+}
 
-type AlternateVersionsEdge = {
+interface AlternateVersionsEdge {
     node?: StickyNode;
     typename?: string;
-};
+}
 
-type StickyNode = {
+interface StickyNode {
     text?: TextElement;
     typename?: string;
-};
+}
 
-type TextElement = {
+interface TextElement {
     plaidHTML?: string;
     typename?: PlotTextTypename;
-};
+}
 
-type Cast = {
+interface Cast {
     edges?: CastEdge[];
     typename?: string;
-};
+}
 
-type CastEdge = {
+interface CastEdge {
     node?: PrincipalCastNode;
     typename?: PurpleTypename;
-};
+}
 
-type PrincipalCastNode = {
-    name?: FluffyName;
+interface PrincipalCastNode {
     attributes?: OriginalTitleText[] | null;
     characters?: NodeCharacter[];
     episodeCredits?: EpisodeCredits;
+    name?: FluffyName;
     typename?: CreditTypename;
-};
+}
 
-type NodeCharacter = {
+interface NodeCharacter {
     name?: string;
     typename?: CharacterTypename;
-};
+}
 
 type CharacterTypename = "Character";
 
-type EpisodeCredits = {
+interface EpisodeCredits {
     total?: number;
+    typename?: EpisodeCreditsTypename;
     yearRange?: {
         year: number;
         endYear: number;
     };
-    typename?: EpisodeCreditsTypename;
-};
+}
 
 type EpisodeCreditsTypename = "EpisodeCastConnection";
 
 type CreditTypename = "Cast";
 
-type MainColumnDataCertificate = {
+interface MainColumnDataCertificate {
     rating?: Rating;
     ratingReason?: string;
     ratingsBody?: PrimaryImageElement;
     typename?: CertificateTypename;
-};
+}
 
-type Connections = {
+interface Connections {
     edges?: ConnectionsEdge[];
     typename?: string;
-};
+}
 
-type ConnectionsEdge = {
+interface ConnectionsEdge {
     node?: IndigoNode;
     typename?: string;
-};
+}
 
-type IndigoNode = {
+interface IndigoNode {
     associatedTitle?: AssociatedTitle;
     category?: OriginalTitleText;
     typename?: string;
-};
+}
 
-type AssociatedTitle = {
+interface AssociatedTitle {
     id?: string;
-    releaseYear?: AssociatedTitleReleaseYear;
-    titleText?: OriginalTitleText;
     originalTitleText?: OriginalTitleText;
+    releaseYear?: AssociatedTitleReleaseYear;
     series?: AssociatedTitleSeries;
+    titleText?: OriginalTitleText;
     typename?: AboveTheFoldDataTypename;
-};
+}
 
-type AssociatedTitleReleaseYear = {
-    year?: number;
+interface AssociatedTitleReleaseYear {
     typename?: ReleaseYearTypename;
-};
+    year?: number;
+}
 
-type AssociatedTitleSeries = {
+interface AssociatedTitleSeries {
     series?: SeriesSeries;
     typename?: string;
-};
+}
 
-type SeriesSeries = {
-    titleText?: OriginalTitleText;
+interface SeriesSeries {
     originalTitleText?: OriginalTitleText;
+    titleText?: OriginalTitleText;
     typename?: AboveTheFoldDataTypename;
-};
+}
 
-type ContributionQuestions = {
+interface ContributionQuestions {
     contributionLink?: Link;
     edges?: unknown[];
     typename?: string;
-};
+}
 
-type MainColumnDataCountriesOfOrigin = {
+interface MainColumnDataCountriesOfOrigin {
     countries?: CurrentProductionStage[];
     typename?: string;
-};
+}
 
-type CrazyCredits = {
+interface CrazyCredits {
     edges?: AlternateVersionsEdge[];
     typename?: string;
-};
+}
 
-type DetailsExternalLinks = {
+interface DetailsExternalLinks {
     edges?: DetailsExternalLinksEdge[];
     total?: number;
     typename?: string;
-};
+}
 
-type DetailsExternalLinksEdge = {
+interface DetailsExternalLinksEdge {
     node?: IndecentNode;
     typename?: string;
-};
+}
 
-type IndecentNode = {
-    url?: string;
-    label?: string;
+interface IndecentNode {
     externalLinkRegion?: null;
+    label?: string;
     typename?: string;
-};
+    url?: string;
+}
 
-type Director = {
-    totalCredits?: number;
+interface Director {
     category?: OriginalTitleText;
     credits?: Credit[];
+    totalCredits?: number;
     typename?: string;
-};
+}
 
-type Faqs = {
+interface Faqs {
     edges?: FaqsEdge[];
     typename?: string;
-};
+}
 
-type FaqsEdge = {
+interface FaqsEdge {
     node?: HilariousNode;
     typename?: string;
-};
+}
 
-type HilariousNode = {
+interface HilariousNode {
     id?: string;
     question?: PlotText;
     typename?: string;
-};
+}
 
-type MainColumnDataFeaturedReviews = {
+interface MainColumnDataFeaturedReviews {
     edges?: FluffyEdge[];
     typename?: string;
-};
+}
 
-type FluffyEdge = {
+interface FluffyEdge {
     node?: AmbitiousNode;
     typename?: string;
-};
+}
 
-type AmbitiousNode = {
-    id?: string;
+interface AmbitiousNode {
     author?: FluffyAuthor;
+    authorRating?: number;
+    helpfulness?: Helpfulness;
+    id?: string;
+    submissionDate?: Date;
     summary?: Summary;
     text?: FluffyText;
-    authorRating?: number;
-    submissionDate?: Date;
-    helpfulness?: Helpfulness;
     typename?: string;
-};
+}
 
-type FluffyAuthor = {
+interface FluffyAuthor {
     nickName?: string;
-    userID?: string;
     typename?: string;
-};
+    userID?: string;
+}
 
-type Helpfulness = {
-    upVotes?: number;
+interface Helpfulness {
     downVotes?: number;
     typename?: string;
-};
+    upVotes?: number;
+}
 
-type FluffyText = {
+interface FluffyText {
     originalText?: TextElement;
     typename?: string;
-};
+}
 
-type Gross = {
+interface Gross {
     total?: Total;
     typename?: string;
-};
+}
 
-type Total = {
+interface Total {
     amount?: number;
     currency?: string;
     typename?: string;
-};
+}
 
-type MoreLikeThisTitles = {
+interface MoreLikeThisTitles {
     edges?: MoreLikeThisTitlesEdge[];
     typename?: string;
-};
+}
 
-type MoreLikeThisTitlesEdge = {
+interface MoreLikeThisTitlesEdge {
     node?: CunningNode;
     typename?: HilariousTypename;
-};
+}
 
-type CunningNode = {
+interface CunningNode {
+    canHaveEpisodes?: boolean;
+    canRate?: CanRate;
+    certificate?: AboveTheFoldDataCertificate | null;
     id?: string;
-    titleText?: OriginalTitleText;
-    titleType?: CurrentProductionStage;
     originalTitleText?: OriginalTitleText;
     primaryImage?: NodeClass;
-    releaseYear?: AboveTheFoldDataReleaseYear;
-    ratingsSummary?: AboveTheFoldDataRatingsSummary;
-    runtime?: AboveTheFoldDataRuntime | null;
-    certificate?: AboveTheFoldDataCertificate | null;
-    canRate?: CanRate;
-    titleCardGenres?: TitleCardGenres;
-    canHaveEpisodes?: boolean;
     primaryWatchOption?: PrimaryWatchOption | null;
+    ratingsSummary?: AboveTheFoldDataRatingsSummary;
+    releaseYear?: AboveTheFoldDataReleaseYear;
+    runtime?: AboveTheFoldDataRuntime | null;
+    titleCardGenres?: TitleCardGenres;
+    titleText?: OriginalTitleText;
+    titleType?: CurrentProductionStage;
     typename?: AboveTheFoldDataTypename;
-};
+}
 
-type PrimaryWatchOption = {
+interface PrimaryWatchOption {
     additionalWatchOptionsCount?: number;
     typename?: PrimaryWatchOptionTypename;
-};
+}
 
 type PrimaryWatchOptionTypename = "PrimaryWatchOption";
 
-type TitleCardGenres = {
+interface TitleCardGenres {
     genres?: OriginalTitleText[];
     typename?: GenresTypename;
-};
+}
 
 type HilariousTypename = "MoreLikeThisEdge";
 
-type News = {
+interface News {
     edges?: NewsEdge[];
     typename?: string;
-};
+}
 
-type NewsEdge = {
+interface NewsEdge {
     node?: MagentaNode;
     typename?: string;
-};
+}
 
-type MagentaNode = {
-    id?: string;
+interface MagentaNode {
     articleTitle?: PlotText;
     date?: Date;
+    id?: string;
     image?: NodeClass;
     source?: Source;
     typename?: string;
-};
+}
 
-type Source = {
+interface Source {
     homepage?: Homepage;
     typename?: string;
-};
+}
 
-type Homepage = {
+interface Homepage {
     label?: string;
     typename?: string;
-};
+}
 
-type OpeningWeekendGross = {
+interface OpeningWeekendGross {
     gross?: Gross;
-    weekendEndDate?: Date;
     typename?: string;
-};
+    weekendEndDate?: Date;
+}
 
-type Outlines = {
+interface Outlines {
     edges?: OutlinesEdge[];
     typename?: string;
-};
+}
 
-type OutlinesEdge = {
+interface OutlinesEdge {
     node?: FriskyNode;
     typename?: string;
-};
+}
 
-type FriskyNode = {
+interface FriskyNode {
     plotText?: TextElement;
     typename?: string;
-};
+}
 
-type ParentsGuide = {
+interface ParentsGuide {
     guideItems?: Credits;
     typename?: string;
-};
+}
 
-type PrestigiousAwardSummary = {
-    nominations?: number;
-    wins?: number;
+interface PrestigiousAwardSummary {
     award?: CurrentProductionStage;
+    nominations?: number;
     typename?: string;
-};
+    wins?: number;
+}
 
-type PrincipalCast = {
+interface PrincipalCast {
     credits?: PrincipalCastNode[];
     typename?: string;
-};
+}
 
-type ProductionBudget = {
+interface ProductionBudget {
     budget?: Total;
     typename?: string;
-};
+}
 
-type Quotes = {
+interface Quotes {
     edges?: QuotesEdge[];
     typename?: string;
-};
+}
 
-type QuotesEdge = {
+interface QuotesEdge {
     node?: MischievousNode;
     typename?: string;
-};
+}
 
-type MischievousNode = {
+interface MischievousNode {
     lines?: Line[];
     typename?: string;
-};
+}
 
-type Line = {
+interface Line {
     characters?: LineCharacter[];
-    text?: string;
     stageDirection?: null;
+    text?: string;
     typename?: string;
-};
+}
 
-type LineCharacter = {
+interface LineCharacter {
     character?: string;
     name?: PrimaryImageElement;
     typename?: string;
-};
+}
 
-type MainColumnDataRatingsSummary = {
+interface MainColumnDataRatingsSummary {
     topRanking?: TopRanking;
     typename?: RatingsSummaryTypename;
-};
+}
 
-type TopRanking = {
+interface TopRanking {
     id?: string;
-    text?: NameClass;
     rank?: number;
+    text?: NameClass;
     typename?: string;
-};
+}
 
-type Soundtrack = {
+interface Soundtrack {
     edges?: SoundtrackEdge[];
     typename?: string;
-};
+}
 
-type SoundtrackEdge = {
+interface SoundtrackEdge {
     node?: BraggadociousNode;
     typename?: string;
-};
+}
 
-type BraggadociousNode = {
-    text?: string;
+interface BraggadociousNode {
     comments?: TextElement[];
+    text?: string;
     typename?: string;
-};
+}
 
-type SpokenLanguages = {
+interface SpokenLanguages {
     spokenLanguages?: CurrentProductionStage[];
     typename?: string;
-};
+}
 
-type StorylineKeywords = {
+interface StorylineKeywords {
     edges?: StorylineKeywordsEdge[];
     total?: number;
     typename?: string;
-};
+}
 
-type StorylineKeywordsEdge = {
+interface StorylineKeywordsEdge {
     node?: Node1;
     typename?: string;
-};
+}
 
-type Node1 = {
+interface Node1 {
     legacyID?: string;
     text?: string;
     typename?: string;
-};
+}
 
-type Summaries = {
+interface Summaries {
     edges?: SummariesEdge[];
     typename?: string;
-};
+}
 
-type SummariesEdge = {
+interface SummariesEdge {
     node?: Node2;
     typename?: string;
-};
+}
 
-type Node2 = {
-    plotText?: TextElement;
+interface Node2 {
     author?: string;
+    plotText?: TextElement;
     typename?: string;
-};
+}
 
-type TechnicalSpecifications = {
-    soundMixes?: SoundMixes;
+interface TechnicalSpecifications {
     aspectRatios?: AspectRatios;
     colorations?: Colorations;
+    soundMixes?: SoundMixes;
     typename?: string;
-};
+}
 
-type AspectRatios = {
+interface AspectRatios {
     items?: AspectRatiosItem[];
     typename?: string;
-};
+}
 
-type AspectRatiosItem = {
+interface AspectRatiosItem {
     aspectRatio?: string;
     attributes?: unknown[];
     typename?: string;
-};
+}
 
-type Colorations = {
+interface Colorations {
     items?: ColorationsItem[];
     typename?: string;
-};
+}
 
-type ColorationsItem = {
+interface ColorationsItem {
+    attributes?: unknown[];
     conceptID?: string;
     text?: string;
-    attributes?: unknown[];
     typename?: string;
-};
+}
 
-type SoundMixes = {
+interface SoundMixes {
     items?: CurrentProductionStage[];
     typename?: string;
-};
+}
 
-type TitleMainImages = {
-    total?: number;
+interface TitleMainImages {
     edges?: TitleMainImagesEdge[];
+    total?: number;
     typename?: string;
-};
+}
 
-type TitleMainImagesEdge = {
+interface TitleMainImagesEdge {
     node?: NodeClass;
     typename?: AmbitiousTypename;
-};
+}
 
 type AmbitiousTypename = "ImageEdge";
 
-type Trivia = {
+interface Trivia {
     edges?: TriviaEdge[];
     typename?: string;
-};
+}
 
-type TriviaEdge = {
+interface TriviaEdge {
     node?: Node3;
     typename?: string;
-};
+}
 
-type Node3 = {
+interface Node3 {
+    relatedNames?: null;
     text?: TextElement;
     trademark?: null;
-    relatedNames?: null;
     typename?: string;
-};
+}
 
-type VideoStrip = {
+interface VideoStrip {
     edges?: VideoStripEdge[];
     typename?: string;
-};
+}
 
-type VideoStripEdge = {
+interface VideoStripEdge {
     node?: Node4;
     typename?: TentacledTypename;
-};
+}
 
-type Node4 = {
-    id?: string;
+interface Node4 {
     contentType?: FluffyContentType;
+    id?: string;
     name?: NameClass;
     runtime?: PurpleRuntime;
     thumbnail?: NodeClass;
     typename?: StickyTypename;
-};
+}
 
-type FluffyContentType = {
+interface FluffyContentType {
     displayName?: NameClass;
     typename?: ContentTypeTypename;
-};
+}
 
-type RequestContext = {
-    timestamp?: Date;
-    sidecar?: Sidecar;
-    pageType?: string;
-    subPageType?: string;
-    pageConst?: string;
-    refTagPrefix?: string;
+interface RequestContext {
     headers?: Headers;
-    requestID?: string;
     isInternal?: boolean;
-};
+    pageConst?: string;
+    pageType?: string;
+    refTagPrefix?: string;
+    requestID?: string;
+    sidecar?: Sidecar;
+    subPageType?: string;
+    timestamp?: Date;
+}
 
-type Headers = {
-    xForwardedFor?: string;
-    xForwardedProto?: string;
-    xForwardedPort?: string;
-    host?: string;
-    xAmznTraceID?: string;
-    xForwardedHost?: string;
-    xForwardedServer?: string;
-    userAgent?: string;
-    xAmzRid?: string;
-    xAutobahnVia?: string;
-    xAutobahnHeaderOrder?: string;
-    xAmznCiHTTPVersion?: string;
-    xOriginalURI?: string;
-    xOriginalMethod?: string;
-    xOriginalScheme?: string;
-    originalXForwardedFor?: string;
-    cookie?: string;
-    acceptLanguage?: string;
+interface Headers {
     accept?: string;
     acceptEncoding?: string;
-    xAmznHeaderCount?: string;
+    acceptLanguage?: string;
+    cookie?: string;
+    host?: string;
+    originalXForwardedFor?: string;
     secChUa?: string;
     secChUaMobile?: string;
     secChUaPlatform?: string;
-    upgradeInsecureRequests?: string;
-    secFetchSite?: string;
-    secFetchMode?: string;
-    secFetchUser?: string;
     secFetchDest?: string;
+    secFetchMode?: string;
+    secFetchSite?: string;
+    secFetchUser?: string;
+    upgradeInsecureRequests?: string;
+    userAgent?: string;
     xAmazonFrontier?: string;
-    xAmazonWtmTagAtcEnable?: string;
-    xAmazonUrlspace?: string;
-    xAmazonInternalIPLocation?: string;
     xAmazonInternalIPClass?: string;
-};
+    xAmazonInternalIPLocation?: string;
+    xAmazonUrlspace?: string;
+    xAmazonWtmTagAtcEnable?: string;
+    xAmznCiHTTPVersion?: string;
+    xAmznHeaderCount?: string;
+    xAmznTraceID?: string;
+    xAmzRid?: string;
+    xAutobahnHeaderOrder?: string;
+    xAutobahnVia?: string;
+    xForwardedFor?: string;
+    xForwardedHost?: string;
+    xForwardedPort?: string;
+    xForwardedProto?: string;
+    xForwardedServer?: string;
+    xOriginalMethod?: string;
+    xOriginalScheme?: string;
+    xOriginalURI?: string;
+}
 
-type Sidecar = {
+interface Sidecar {
     account?: Account;
-    isFreediveEligible?: boolean;
-    placementMap?: PlacementMap;
-    weblabs?: Weblabs;
     ads?: Ads;
-    localizationResponse?: LocalizationResponse;
+    isFreediveEligible?: boolean;
     isReferenceViewPreferred?: boolean;
+    localizationResponse?: LocalizationResponse;
+    placementMap?: PlacementMap;
     sessionID?: string;
-};
+    weblabs?: Weblabs;
+}
 
-type Account = {
-    userName?: string;
+interface Account {
     isLoggedIn?: boolean;
-};
+    userName?: string;
+}
 
-type Ads = {
-    sisPixelMarkup?: string;
+interface Ads {
     adSlotsInfo?: string;
-};
+    sisPixelMarkup?: string;
+}
 
-type LocalizationResponse = {
-    userCountryCode?: string;
-    userLanguage?: string;
-    languageForTranslations?: string;
+interface LocalizationResponse {
     geolocationCountryCode?: string;
-    latitude?: string;
-    longitude?: string;
-    isOriginalTitlePreferenceSet?: boolean;
     isFullLocalizationEnabled?: boolean;
     isLanguageSelectorEnabled?: boolean;
-};
+    isOriginalTitlePreferenceSet?: boolean;
+    languageForTranslations?: string;
+    latitude?: string;
+    longitude?: string;
+    userCountryCode?: string;
+    userLanguage?: string;
+}
 
-type PlacementMap = {
+interface PlacementMap {
     right3?: PlacementMapRight3;
     right5?: PlacementMapRight5;
-};
+}
 
-type PlacementMapRight3 = {
-    componentName?: string;
+interface PlacementMapRight3 {
     arguments?: ContextClass;
-    symphonyMetadata?: SymphonyMetadata;
-};
-
-type PlacementMapRight5 = {
     componentName?: string;
-    arguments?: Right5_Arguments;
     symphonyMetadata?: SymphonyMetadata;
-};
+}
 
-type Weblabs = {
+interface PlacementMapRight5 {
+    arguments?: Right5_Arguments;
+    componentName?: string;
+    symphonyMetadata?: SymphonyMetadata;
+}
+
+interface Weblabs {
+    imdb418056?: IMDB418056_Class;
     imdbAdsLatencyExperiment419202?: IMDB418056_Class;
+    imdbAdsWebMediaInterop395798?: IMDBADSWEBMEDIAINTEROP395798_Class;
+    imdbBranchKeySelection373673?: IMDB418056_Class;
+    imdbHeroSubnavOrientation418229?: IMDB418056_Class;
+    imdbNextClientSideNavigation323089?: IMDB418056_Class;
     imdbNextTitleMainHeroVideoPlayback369575?: IMDB418056_Class;
     imdbNextTitleMainInlineVideoPlaylisting382226?: IMDB418056_Class;
-    imdbAdsWebMediaInterop395798?: IMDBADSWEBMEDIAINTEROP395798_Class;
     imdbNextWebp421674?: IMDBADSWEBMEDIAINTEROP395798_Class;
-    imdbWebBranchIntegration380339?: IMDBADSWEBMEDIAINTEROP395798_Class;
-    imdbNextClientSideNavigation323089?: IMDB418056_Class;
-    imdb418056?: IMDB418056_Class;
     imdbPersistedQueries417749?: IMDBADSWEBMEDIAINTEROP395798_Class;
-    imdbBranchKeySelection373673?: IMDB418056_Class;
     imdbTrustarcGdprCookieCompliance274700?: IMDB418056_Class;
-    imdbHeroSubnavOrientation418229?: IMDB418056_Class;
+    imdbWebBranchIntegration380339?: IMDBADSWEBMEDIAINTEROP395798_Class;
     imdbZukoVpcEndpointSwap427660?: IMDBADSWEBMEDIAINTEROP395798_Class;
-};
+}
 
-type IMDB418056_Class = {
+interface IMDB418056_Class {
     c?: boolean;
-};
+}
 
-type IMDBADSWEBMEDIAINTEROP395798_Class = {
+interface IMDBADSWEBMEDIAINTEROP395798_Class {
     t1?: boolean;
-};
+}
 
-type TranslationContext = {
+interface TranslationContext {
     i18n?: I18N;
-};
+}
 
-type I18N = {
-    translations?: Translations;
+interface I18N {
     locale?: string;
-};
+    translations?: Translations;
+}
 
-type Translations = {
-    resources?: { [key: string]: string };
+interface Translations {
     default?: Default;
-};
-
-type Default = {
     resources?: { [key: string]: string };
-};
+}
 
-type Query = {
+interface Default {
+    resources?: { [key: string]: string };
+}
+
+interface Query {
     tconst?: string;
-};
+}
 
-type RuntimeConfig = {
-    sidecarHost?: string;
-    env?: string;
-    stage?: string;
-    cachedGraphQLEndpoint?: string;
-    graphQLEndpoint?: string;
-    vpcGraphQLEndpoint?: string;
-    graphQLTimeout?: string;
+interface RuntimeConfig {
     adsPublicSiteHost?: string;
-};
+    cachedGraphQLEndpoint?: string;
+    env?: string;
+    graphQLEndpoint?: string;
+    graphQLTimeout?: string;
+    sidecarHost?: string;
+    stage?: string;
+    vpcGraphQLEndpoint?: string;
+}

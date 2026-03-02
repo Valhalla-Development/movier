@@ -472,12 +472,12 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
     }
 }
 
-type TMDBFindByImdbResponse = {
+interface TMDBFindByImdbResponse {
     movie_results?: Array<{ id?: number }>;
     tv_results?: Array<{ id?: number }>;
-};
+}
 
-type TMDBVideosResponse = {
+interface TMDBVideosResponse {
     results?: Array<{
         id?: string;
         key?: string;
@@ -485,4 +485,4 @@ type TMDBVideosResponse = {
         site?: string;
         type?: string;
     }>;
-};
+}

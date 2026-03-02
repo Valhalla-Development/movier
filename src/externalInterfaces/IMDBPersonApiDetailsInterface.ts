@@ -1,17 +1,17 @@
-export type PersonApiDetailsInterface = {
+export interface PersonApiDetailsInterface {
     name?: Name;
-};
+}
 
-export type Name = {
-    credits?: Credits;
+export interface Name {
+    age?: {
+        text: string;
+    };
     bio?: {
         text?: {
             plainText: string;
         };
     };
-    age?: {
-        text: string;
-    };
+    credits?: Credits;
     deathCause?: {
         text: string;
     };
@@ -29,107 +29,107 @@ export type Name = {
             plainText: string;
         };
     };
-};
+}
 
-export type Credits = {
-    total?: number;
+export interface Credits {
     edges?: CreditsEdge[];
     pageInfo?: PageInfo;
-};
+    total?: number;
+}
 
-export type CreditsEdge = {
+export interface CreditsEdge {
     node?: PurpleNode;
-};
+}
 
-export type PurpleNode = {
-    title?: FluffyTitle;
+export interface PurpleNode {
+    attributes?: Category[] | null;
     category?: Category;
     characters?: Character[];
     episodeCredits?: EpisodeCredits;
-    attributes?: Category[] | null;
-};
+    title?: FluffyTitle;
+}
 
-export type Category = {
+export interface Category {
     text?: string;
-};
+}
 
-export type Character = {
+export interface Character {
     name?: string;
-};
+}
 
-export type EpisodeCredits = {
+export interface EpisodeCredits {
+    edges?: EpisodeCreditsEdge[];
     total?: number;
     yearRange?: YearRange | null;
-    edges?: EpisodeCreditsEdge[];
-};
+}
 
-export type EpisodeCreditsEdge = {
+export interface EpisodeCreditsEdge {
     node?: FluffyNode;
-};
+}
 
-export type FluffyNode = {
+export interface FluffyNode {
     title?: PurpleTitle;
-};
+}
 
-export type PurpleTitle = {
+export interface PurpleTitle {
     id?: string;
     originalTitleText?: Category;
     releaseYear?: ReleaseYear | null;
     series?: Series;
-};
+}
 
-export type ReleaseYear = {
+export interface ReleaseYear {
     year?: number;
-};
+}
 
-export type Series = {
+export interface Series {
     displayableEpisodeNumber?: DisplayableEpisodeNumber;
-};
+}
 
-export type DisplayableEpisodeNumber = {
+export interface DisplayableEpisodeNumber {
     displayableSeason?: Category;
     episodeNumber?: Category;
-};
+}
 
-export type YearRange = {
-    year?: number;
+export interface YearRange {
     endYear?: number | null;
-};
+    year?: number;
+}
 
-export type FluffyTitle = {
+export interface FluffyTitle {
+    genres?: Genres;
     id?: string;
     originalTitleText?: Category;
     primaryImage?: PrimaryImage | null;
-    releaseYear?: YearRange | null;
-    genres?: Genres;
     productionStatus?: ProductionStatus;
-};
+    releaseYear?: YearRange | null;
+}
 
-export type Genres = {
+export interface Genres {
     genres?: Category[];
-};
+}
 
-export type PrimaryImage = {
+export interface PrimaryImage {
+    caption?: Caption;
+    height?: number;
     url?: string;
     width?: number;
-    height?: number;
-    caption?: Caption;
-};
+}
 
-export type Caption = {
+export interface Caption {
     plainText?: string;
-};
+}
 
-export type ProductionStatus = {
+export interface ProductionStatus {
     currentProductionStage?: CurrentProductionStage;
-};
+}
 
-export type CurrentProductionStage = {
+export interface CurrentProductionStage {
     id?: ID;
-};
+}
 
 export type ID = "post_production" | "pre_production" | "released";
 
-export type PageInfo = {
+export interface PageInfo {
     hasNextPage?: boolean;
-};
+}

@@ -325,7 +325,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
     }
 }
 
-type TitleSearchNextData = {
+interface TitleSearchNextData {
     props?: {
         pageProps?: {
             titleResults?: {
@@ -333,9 +333,9 @@ type TitleSearchNextData = {
             };
         };
     };
-};
+}
 
-type TitleSearchNextDataResult = {
+interface TitleSearchNextDataResult {
     index?: string;
     listItem?: {
         titleId?: string;
@@ -352,4 +352,4 @@ type TitleSearchNextDataResult = {
             url?: string;
         };
     };
-};
+}

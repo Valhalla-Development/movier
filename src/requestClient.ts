@@ -4,10 +4,10 @@ import axios from "axios";
 import { GraphQLClient } from "graphql-request";
 import { IMDB_API_BASE_URL, TMDB_API_BASE_URL } from "./constants";
 
-type getRequestResponse = {
+interface getRequestResponse {
     data: string;
     status: number;
-};
+}
 
 const httpAgent = new http.Agent({ keepAlive: false });
 const httpsAgent = new https.Agent({ keepAlive: false });

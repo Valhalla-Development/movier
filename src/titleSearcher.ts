@@ -2,11 +2,11 @@ import type { IFoundedTitleDetails, ITitleSearchResolver } from "./interfaces";
 import type { TitleMainType } from "./literals";
 import { TMDBTitleSearchResolver } from "./resolvers/TMDBTitleSearchResolver";
 
-export type SearchTitleByNameOptions = {
+export interface SearchTitleByNameOptions {
     exactMatch?: boolean;
     specificType?: TitleMainType;
     tmdbReadAccessToken?: string;
-};
+}
 
 export async function searchTitleByName(
     queryName: string,

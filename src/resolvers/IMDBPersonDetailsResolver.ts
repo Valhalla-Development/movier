@@ -431,7 +431,7 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
     }
 }
 
-type MediaIndexNextData = {
+interface MediaIndexNextData {
     props?: {
         pageProps?: {
             contentData?: {
@@ -447,13 +447,13 @@ type MediaIndexNextData = {
             };
         };
     };
-};
+}
 
-type MediaIndexImageNode = {
-    url: string;
+interface MediaIndexImageNode {
     caption?: {
         plainText?: string;
     };
-    width?: number;
     height?: number;
-};
+    url: string;
+    width?: number;
+}

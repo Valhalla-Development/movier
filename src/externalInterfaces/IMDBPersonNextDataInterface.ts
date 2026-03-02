@@ -1,377 +1,377 @@
-export type PersonDetailsNextData = {
-    props?: Props;
-    page?: string;
-    query?: Query;
-    buildId?: string;
+export interface PersonDetailsNextData {
     assetPrefix?: string;
-    runtimeConfig?: RuntimeConfig;
-    isFallback?: boolean;
-    gssp?: boolean;
+    buildId?: string;
     customServer?: boolean;
+    gssp?: boolean;
+    isFallback?: boolean;
+    page?: string;
+    props?: Props;
+    query?: Query;
+    runtimeConfig?: RuntimeConfig;
     scriptLoader?: unknown[];
-};
+}
 
-export type Props = {
-    pageProps?: PageProps;
+export interface Props {
     __N_SSP?: boolean;
-};
+    pageProps?: PageProps;
+}
 
-export type PageProps = {
-    nmconst?: string;
+export interface PageProps {
     aboveTheFold?: AboveTheFold;
+    fetchState?: null;
     mainColumnData?: MainColumnData;
     nameImageUploadLinkData?: NameImageUploadLinkData;
+    nmconst?: string;
     urqlState?: null;
-    fetchState?: null;
-};
+}
 
-export type AboveTheFold = {
-    id?: string;
-    nameText?: NameText;
-    searchIndexing?: SearchIndexing;
-    disambiguator?: null;
-    knownFor?: KnownFor;
-    images?: Images;
-    primaryImage?: PrimaryImage;
-    meta?: Meta;
+export interface AboveTheFold {
+    __typename?: string;
     bio?: Bio;
-    primaryProfessions?: AboveTheFoldPrimaryProfession[];
     birthDate?: AboveTheFoldBirthDate;
     deathDate?: null;
     deathStatus?: string;
+    disambiguator?: null;
+    id?: string;
+    images?: Images;
+    knownFor?: KnownFor;
+    meta?: Meta;
     meterRanking?: MeterRanking;
+    nameText?: NameText;
+    primaryImage?: PrimaryImage;
+    primaryProfessions?: AboveTheFoldPrimaryProfession[];
+    primaryVideos?: PrimaryVideos;
+    searchIndexing?: SearchIndexing;
+    subNavAwardNominations?: Images;
     subNavBio?: SubNavBio;
     subNavTrivia?: Images;
-    subNavAwardNominations?: Images;
     videos?: Images;
-    primaryVideos?: PrimaryVideos;
-    __typename?: string;
-};
+}
 
-export type Bio = {
+export interface Bio {
+    __typename?: string;
     text?: CaptionClass;
-    __typename?: string;
-};
+}
 
-export type CaptionClass = {
-    plainText?: string;
+export interface CaptionClass {
     __typename?: TextTypename;
-};
+    plainText?: string;
+}
 
 export type TextTypename = "Markdown";
 
-export type AboveTheFoldBirthDate = {
-    displayableProperty?: DisplayableProperty;
+export interface AboveTheFoldBirthDate {
+    __typename?: string;
     date?: Date;
     dateComponents?: DateComponents;
-    __typename?: string;
-};
+    displayableProperty?: DisplayableProperty;
+}
 
-export type DateComponents = {
+export interface DateComponents {
+    __typename?: string;
     day?: number;
+    isBCE?: boolean;
     month?: number;
     year?: number;
-    isBCE?: boolean;
-    __typename?: string;
-};
+}
 
-export type DisplayableProperty = {
+export interface DisplayableProperty {
+    __typename?: string;
     value?: CaptionClass;
-    __typename?: string;
-};
+}
 
-export type Images = {
+export interface Images {
+    __typename?: string;
     total?: number;
-    __typename?: string;
-};
+}
 
-export type KnownFor = {
+export interface KnownFor {
+    __typename?: string;
     edges?: AkasEdge[];
-    __typename?: string;
-};
+}
 
-export type AkasEdge = {
+export interface AkasEdge {
+    __typename?: string;
     node?: PurpleNode;
-    __typename?: string;
-};
+}
 
-export type PurpleNode = {
-    title?: PurpleTitle;
+export interface PurpleNode {
+    __typename?: string;
     summary?: PurpleSummary;
-    __typename?: string;
-};
+    title?: PurpleTitle;
+}
 
-export type PurpleSummary = {
+export interface PurpleSummary {
+    __typename?: string;
     principalCategory?: NameText;
-    __typename?: string;
-};
+}
 
-export type NameText = {
-    text?: string;
+export interface NameText {
     __typename?: NameTextTypename;
-};
+    text?: string;
+}
 
 export type NameTextTypename = "CreditCategory" | "Genre" | "NameText" | "TitleText";
 
-export type PurpleTitle = {
-    titleText?: NameText;
+export interface PurpleTitle {
     __typename?: string;
-};
+    titleText?: NameText;
+}
 
-export type Meta = {
+export interface Meta {
+    __typename?: string;
     canonicalId?: string;
     publicationStatus?: string;
-    __typename?: string;
-};
+}
 
-export type MeterRanking = {
+export interface MeterRanking {
+    __typename?: string;
     currentRank?: number;
     rankChange?: RankChange;
-    __typename?: string;
-};
+}
 
-export type RankChange = {
+export interface RankChange {
+    __typename?: string;
     changeDirection?: string;
     difference?: number;
-    __typename?: string;
-};
+}
 
-export type PrimaryImage = {
+export interface PrimaryImage {
+    __typename?: PrimaryImageTypename;
+    caption?: CaptionClass;
+    height?: number;
     id?: string;
     url?: string;
-    height?: number;
     width?: number;
-    caption?: CaptionClass;
-    __typename?: PrimaryImageTypename;
-};
+}
 
 export type PrimaryImageTypename = "Image";
 
-export type AboveTheFoldPrimaryProfession = {
+export interface AboveTheFoldPrimaryProfession {
+    __typename?: string;
     category?: NameText;
-    __typename?: string;
-};
+}
 
-export type PrimaryVideos = {
+export interface PrimaryVideos {
+    __typename?: string;
     edges?: PrimaryVideosEdge[];
-    __typename?: string;
-};
+}
 
-export type PrimaryVideosEdge = {
+export interface PrimaryVideosEdge {
+    __typename?: string;
     node?: FluffyNode;
-    __typename?: string;
-};
+}
 
-export type FluffyNode = {
+export interface FluffyNode {
+    __typename?: string;
+    contentType?: ContentType;
+    description?: Description;
     id?: string;
     isMature?: boolean;
-    thumbnail?: Thumbnail;
-    runtime?: NodeRuntime;
-    description?: Description;
     name?: Description;
     previewURLs?: PreviewURL[];
-    contentType?: ContentType;
     primaryTitle?: PrimaryTitle;
-    __typename?: string;
-};
+    runtime?: NodeRuntime;
+    thumbnail?: Thumbnail;
+}
 
-export type ContentType = {
-    id?: string;
+export interface ContentType {
+    __typename?: string;
     displayName?: DisplayName;
-    __typename?: string;
-};
+    id?: string;
+}
 
-export type DisplayName = {
-    value?: string;
+export interface DisplayName {
     __typename?: string;
-};
-
-export type Description = {
     value?: string;
+}
+
+export interface Description {
+    __typename?: string;
     language?: string;
-    __typename?: string;
-};
+    value?: string;
+}
 
-export type PreviewURL = {
+export interface PreviewURL {
+    __typename?: string;
     displayName?: Description;
     mimeType?: string;
     url?: string;
-    __typename?: string;
-};
+}
 
-export type PrimaryTitle = {
+export interface PrimaryTitle {
+    __typename?: string;
     originalTitleText?: NameText;
-    titleText?: NameText;
     releaseYear?: ReleaseYear;
+    titleText?: NameText;
     titleType?: PrimaryTitleTitleType;
-    __typename?: string;
-};
+}
 
-export type ReleaseYear = {
-    year?: number;
-    endYear?: number | null;
+export interface ReleaseYear {
     __typename?: ReleaseYearTypename;
-};
+    endYear?: number | null;
+    year?: number;
+}
 
 export type ReleaseYearTypename = "YearRange";
 
-export type PrimaryTitleTitleType = {
+export interface PrimaryTitleTitleType {
+    __typename?: string;
     canHaveEpisodes?: boolean;
-    __typename?: string;
-};
+}
 
-export type NodeRuntime = {
+export interface NodeRuntime {
+    __typename?: string;
     value?: number;
-    __typename?: string;
-};
+}
 
-export type Thumbnail = {
-    url?: string;
+export interface Thumbnail {
+    __typename?: string;
     height?: number;
+    url?: string;
     width?: number;
-    __typename?: string;
-};
+}
 
-export type SearchIndexing = {
+export interface SearchIndexing {
+    __typename?: string;
     disableIndexing?: boolean;
-    __typename?: string;
-};
+}
 
-export type SubNavBio = {
-    id?: string;
+export interface SubNavBio {
     __typename?: string;
-};
-
-export type MainColumnData = {
     id?: string;
-    wins?: Images;
-    nominations?: Images;
-    prestigiousAwardSummary?: PrestigiousAwardSummary;
-    images?: Children;
-    primaryImage?: PrimaryImage;
-    imageUploadLink?: null;
-    nameText?: NameText;
-    knownFor?: PurpleKnownFor;
-    primaryProfessions?: MainColumnDataPrimaryProfession[];
-    height?: Height;
+}
+
+export interface MainColumnData {
+    __typename?: string;
+    akas?: KnownFor;
     birthDate?: MainColumnDataBirthDate;
     birthLocation?: BirthLocation;
+    children?: Children;
+    deathCause?: null;
     deathDate?: MainColumnDataBirthDate;
     deathLocation?: BirthLocation;
-    deathCause?: null;
-    akas?: KnownFor;
-    otherWorks?: Children;
-    personalDetailsSpouses?: null;
-    parents?: Others;
-    children?: Children;
-    others?: Others;
-    personalDetailsExternalLinks?: Children;
-    publicityListings?: Images;
-    nameFilmBiography?: Images;
-    namePrintBiography?: Images;
-    namePortrayal?: Images;
-    publicityInterview?: Images;
-    publicityArticle?: Images;
-    publicityPictorial?: Images;
-    publicityMagazineCover?: Images;
     demographicData?: null;
-    triviaTotal?: Images;
-    trivia?: Quotes;
-    quotesTotal?: Images;
-    quotes?: Quotes;
-    trademarksTotal?: Images;
-    trademarks?: Quotes;
+    height?: Height;
+    id?: string;
+    images?: Children;
+    imageUploadLink?: null;
+    knownFor?: PurpleKnownFor;
+    nameFilmBiography?: Images;
+    namePortrayal?: Images;
+    namePrintBiography?: Images;
+    nameText?: NameText;
     nickNames?: Height[];
-    titleSalariesTotal?: Images;
+    nominations?: Images;
+    others?: Others;
+    otherWorks?: Children;
+    parents?: Others;
+    personalDetailsExternalLinks?: Children;
+    personalDetailsSpouses?: null;
+    prestigiousAwardSummary?: PrestigiousAwardSummary;
+    primaryImage?: PrimaryImage;
+    primaryProfessions?: MainColumnDataPrimaryProfession[];
+    publicityArticle?: Images;
+    publicityInterview?: Images;
+    publicityListings?: Images;
+    publicityMagazineCover?: Images;
+    publicityPictorial?: Images;
+    quotes?: Quotes;
+    quotesTotal?: Images;
     titleSalaries?: TitleSalaries;
-    __typename?: string;
-};
+    titleSalariesTotal?: Images;
+    trademarks?: Quotes;
+    trademarksTotal?: Images;
+    trivia?: Quotes;
+    triviaTotal?: Images;
+    wins?: Images;
+}
 
-export type MainColumnDataBirthDate = {
+export interface MainColumnDataBirthDate {
+    __typename?: string;
     dateComponents?: DateComponents;
     displayableProperty?: DisplayableProperty;
-    __typename?: string;
-};
+}
 
-export type BirthLocation = {
+export interface BirthLocation {
+    __typename?: string;
+    displayableProperty?: DisplayableProperty;
     text?: string;
-    displayableProperty?: DisplayableProperty;
-    __typename?: string;
-};
+}
 
-export type Children = {
-    total?: number;
-    pageInfo?: PageInfo;
+export interface Children {
+    __typename?: string;
     edges?: ChildrenEdge[];
-    __typename?: string;
-};
+    pageInfo?: PageInfo;
+    total?: number;
+}
 
-export type ChildrenEdge = {
+export interface ChildrenEdge {
+    __typename?: string;
     node?: TentacledNode;
-    __typename?: string;
-};
+}
 
-export type TentacledNode = {
-    id?: string;
-    url?: string;
+export interface TentacledNode {
+    __typename?: string;
     caption?: CaptionClass;
-    height?: number;
-    width?: number;
-    __typename?: string;
-    season?: string;
-    displayableProperty?: DisplayableProperty;
-    year?: string;
     category?: null;
-    text?: BodyClass;
-    label?: string;
-};
-
-export type BodyClass = {
-    __typename?: TextTypename;
-};
-
-export type PageInfo = {
-    hasNextPage?: boolean;
-    endCursor?: null | string;
-    __typename?: string;
-};
-
-export type Height = {
     displayableProperty?: DisplayableProperty;
-    __typename?: string;
-};
+    height?: number;
+    id?: string;
+    label?: string;
+    season?: string;
+    text?: BodyClass;
+    url?: string;
+    width?: number;
+    year?: string;
+}
 
-export type PurpleKnownFor = {
+export interface BodyClass {
+    __typename?: TextTypename;
+}
+
+export interface PageInfo {
+    __typename?: string;
+    endCursor?: null | string;
+    hasNextPage?: boolean;
+}
+
+export interface Height {
+    __typename?: string;
+    displayableProperty?: DisplayableProperty;
+}
+
+export interface PurpleKnownFor {
+    __typename?: string;
     edges?: PurpleEdge[];
-    __typename?: string;
-};
+}
 
-export type PurpleEdge = {
+export interface PurpleEdge {
+    __typename?: string;
     node?: StickyNode;
-    __typename?: string;
-};
+}
 
-export type StickyNode = {
-    summary?: FluffySummary;
+export interface StickyNode {
+    __typename?: string;
     credit?: Credit;
+    summary?: FluffySummary;
     title?: FluffyTitle;
-    __typename?: string;
-};
+}
 
-export type Credit = {
+export interface Credit {
+    __typename?: string;
     attributes?: null;
     category?: Award;
     characters?: Character[];
     episodeCredits?: EpisodeCredits;
-    __typename?: string;
-};
+}
 
-export type Award = {
-    id?: string;
-    text?: string;
+export interface Award {
     __typename?: AwardTypename;
     event?: SubNavBio;
-};
+    id?: string;
+    text?: string;
+}
 
 export type AwardTypename =
     | "AwardDetails"
@@ -379,201 +379,201 @@ export type AwardTypename =
     | "NameRelationType"
     | "ProductionStage";
 
-export type Character = {
-    name?: string;
+export interface Character {
     __typename?: string;
-};
+    name?: string;
+}
 
-export type EpisodeCredits = {
+export interface EpisodeCredits {
+    __typename?: string;
+    displayableSeasons?: Children;
+    displayableYears?: Children;
     total?: number;
     yearRange?: ReleaseYear | null;
-    displayableYears?: Children;
-    displayableSeasons?: Children;
-    __typename?: string;
-};
+}
 
-export type FluffySummary = {
+export interface FluffySummary {
+    __typename?: string;
     attributes?: null;
     episodeCount?: number | null;
     principalCategory?: Award;
     principalCharacters?: Character[];
     principalJobs?: null;
     yearRange?: ReleaseYear;
-    __typename?: string;
-};
+}
 
-export type FluffyTitle = {
-    id?: string;
+export interface FluffyTitle {
+    __typename?: string;
     canRate?: CanRate;
     certificate?: Certificate;
-    originalTitleText?: NameText;
-    titleText?: NameText;
-    titleType?: TitleTitleType;
-    primaryImage?: PrimaryImage;
-    ratingsSummary?: RatingsSummary;
+    episodes?: Episodes | null;
+    genres?: Genres;
+    id?: string;
     latestTrailer?: SubNavBio;
+    originalTitleText?: NameText;
+    primaryImage?: PrimaryImage;
+    productionStatus?: ProductionStatus;
+    ratingsSummary?: RatingsSummary;
     releaseYear?: ReleaseYear;
     runtime?: TitleRuntime;
     series?: null;
-    episodes?: Episodes | null;
-    genres?: Genres;
-    productionStatus?: ProductionStatus;
-    __typename?: string;
-};
+    titleText?: NameText;
+    titleType?: TitleTitleType;
+}
 
-export type CanRate = {
+export interface CanRate {
+    __typename?: string;
     isRatable?: boolean;
-    __typename?: string;
-};
+}
 
-export type Certificate = {
+export interface Certificate {
+    __typename?: string;
     rating?: string;
-    __typename?: string;
-};
+}
 
-export type Episodes = {
+export interface Episodes {
+    __typename?: string;
     displayableSeasons?: Children;
     displayableYears?: Children;
-    __typename?: string;
-};
+}
 
-export type Genres = {
+export interface Genres {
+    __typename?: string;
     genres?: NameText[];
-    __typename?: string;
-};
+}
 
-export type ProductionStatus = {
+export interface ProductionStatus {
+    __typename?: string;
     currentProductionStage?: Award;
-    __typename?: string;
-};
+}
 
-export type RatingsSummary = {
+export interface RatingsSummary {
+    __typename?: string;
     aggregateRating?: number;
     voteCount?: number;
-    __typename?: string;
-};
+}
 
-export type TitleRuntime = {
+export interface TitleRuntime {
+    __typename?: string;
     seconds?: number;
-    __typename?: string;
-};
+}
 
-export type TitleTitleType = {
+export interface TitleTitleType {
+    __typename?: string;
     canHaveEpisodes?: boolean;
     displayableProperty?: DisplayableProperty;
-    text?: string;
     id?: string;
-    __typename?: string;
-};
+    text?: string;
+}
 
-export type Others = {
-    total?: number;
-    pageInfo?: PageInfo;
+export interface Others {
+    __typename?: string;
     edges?: OthersEdge[];
-    __typename?: string;
-};
+    pageInfo?: PageInfo;
+    total?: number;
+}
 
-export type OthersEdge = {
+export interface OthersEdge {
+    __typename?: string;
     node?: IndigoNode;
-    __typename?: string;
-};
+}
 
-export type IndigoNode = {
-    relationshipType?: Award;
+export interface IndigoNode {
+    __typename?: string;
     relationName?: RelationName;
-    __typename?: string;
-};
+    relationshipType?: Award;
+}
 
-export type RelationName = {
-    name?: SubNavBio | null;
+export interface RelationName {
+    __typename?: string;
     displayableProperty?: DisplayableProperty;
-    __typename?: string;
-};
+    name?: SubNavBio | null;
+}
 
-export type PrestigiousAwardSummary = {
+export interface PrestigiousAwardSummary {
+    __typename?: string;
+    award?: Award;
     nominations?: number;
     wins?: number;
-    award?: Award;
-    __typename?: string;
-};
+}
 
-export type MainColumnDataPrimaryProfession = {
+export interface MainColumnDataPrimaryProfession {
+    __typename?: string;
     category?: Award;
-    __typename?: string;
-};
+}
 
-export type Quotes = {
+export interface Quotes {
+    __typename?: string;
     edges?: QuotesEdge[];
-    __typename?: string;
-};
+}
 
-export type QuotesEdge = {
+export interface QuotesEdge {
+    __typename?: string;
     node?: IndecentNode;
-    __typename?: string;
-};
+}
 
-export type IndecentNode = {
+export interface IndecentNode {
+    __typename?: string;
     displayableArticle?: DisplayableArticle;
-    __typename?: string;
-};
+}
 
-export type DisplayableArticle = {
+export interface DisplayableArticle {
+    __typename?: string;
     body?: BodyClass;
-    __typename?: string;
-};
+}
 
-export type TitleSalaries = {
+export interface TitleSalaries {
+    __typename?: string;
     edges?: TitleSalariesEdge[];
-    __typename?: string;
-};
+}
 
-export type TitleSalariesEdge = {
+export interface TitleSalariesEdge {
+    __typename?: string;
     node?: HilariousNode;
-    __typename?: string;
-};
+}
 
-export type HilariousNode = {
-    title?: TentacledTitle;
+export interface HilariousNode {
+    __typename?: string;
     displayableProperty?: DisplayableProperty;
-    __typename?: string;
-};
+    title?: TentacledTitle;
+}
 
-export type TentacledTitle = {
+export interface TentacledTitle {
+    __typename?: string;
     id?: string;
-    titleText?: NameText;
     originalTitleText?: NameText;
     releaseYear?: PurpleReleaseYear;
-    __typename?: string;
-};
+    titleText?: NameText;
+}
 
-export type PurpleReleaseYear = {
-    year?: number;
+export interface PurpleReleaseYear {
     __typename?: ReleaseYearTypename;
-};
+    year?: number;
+}
 
-export type NameImageUploadLinkData = {
+export interface NameImageUploadLinkData {
+    __typename?: string;
     id?: string;
     imageUploadLink?: null;
-    __typename?: string;
-};
+}
 
-export type Query = {
-    ref_?: string;
+export interface Query {
+    nmconst?: string;
     opfInternalRedirectIsNewUser?: string;
     opfInternalRedirectSessionId?: string;
     opfInternalRedirectSessionToken?: string;
-    opfInternalRedirectUbid?: string;
     opfInternalRedirectSourceHost?: string;
-    nmconst?: string;
-};
+    opfInternalRedirectUbid?: string;
+    ref_?: string;
+}
 
-export type RuntimeConfig = {
-    sidecarHost?: string;
-    env?: string;
-    stage?: string;
-    cachedGraphQLEndpoint?: string;
-    graphQLEndpoint?: string;
-    vpcGraphQLEndpoint?: string;
-    graphQLTimeout?: string;
+export interface RuntimeConfig {
     adsPublicSiteHost?: string;
-};
+    cachedGraphQLEndpoint?: string;
+    env?: string;
+    graphQLEndpoint?: string;
+    graphQLTimeout?: string;
+    sidecarHost?: string;
+    stage?: string;
+    vpcGraphQLEndpoint?: string;
+}

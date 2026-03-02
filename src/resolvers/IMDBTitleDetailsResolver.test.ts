@@ -2,27 +2,13 @@ import type { IPersonDetails } from "../interfaces";
 import { Genre, Language, Source, TitleMainType } from "../literals";
 import { IMDBTitleDetailsResolver } from "./IMDBTitleDetailsResolver";
 
-type ITitleTestData = {
-    url: string;
-    name: string;
-    worldWideName?: string;
-    sourceId: string;
-    titleYear?: number;
-    sourcesMinLength?: number;
-    otherNamesMinLength?: number;
-    genres?: Genre[];
-    directors?: {
-        length: number;
-        firstOneName: string;
-        firstOneId: string;
-    };
-    writers?: {
-        length: number;
-        firstOneName: string;
-        firstONeSourceId: string;
-    };
-    mainType?: TitleMainType;
-    plotContains?: string;
+interface ITitleTestData {
+    ageCategory?: string;
+    allImagesMinLength?: number;
+    allRatesMinLength?: number;
+    allReleaseDatesMinLength?: number;
+    awardsMinLength?: number;
+    boxofficeBudget?: number;
     casts?: {
         minLength: number;
         tests: {
@@ -37,47 +23,61 @@ type ITitleTestData = {
             endYear?: number;
         }[];
     };
-    mainRate?: {
-        rate: number;
-        minVotesCount: number;
-    };
-    metaScore?: number;
-    producersMinLength?: number;
-    allRatesMinLength?: number;
     dates?: {
         isEnded: boolean;
         startYear: number;
         startCountry: string;
         endYear: number;
     };
-    allReleaseDatesMinLength?: number;
-    ageCategory?: string;
-    languages?: string[];
-    firstCountriesOfOrigin?: string;
-    posterImageUrl?: string;
-    posterImageThumbnailsMinLength?: number;
-    allImagesMinLength?: number;
-    boxofficeBudget?: number;
-    worldWideSellMin?: number;
-    mainCountriesSellMin?: number;
-    firstProductionCompanyName?: string;
-    productionCompaniesLength?: number;
-    taglinesMinLength?: number;
-    firstTagline?: string;
-    runtimeTitle?: string;
-    runtimeSeconds?: number;
-    keywordsMinLength?: number;
-    onOfKeywords?: string;
-    postersMinLength?: number;
-    stillFrameMinLength?: number;
-    awardsMinLength?: number;
-    oscars?: number;
+    directors?: {
+        length: number;
+        firstOneName: string;
+        firstOneId: string;
+    };
     emmys?: number;
-    minNominations?: number;
-    quotesLength?: number;
-    spoilerQuotes?: number;
+    firstCountriesOfOrigin?: string;
+    firstProductionCompanyName?: string;
+    firstTagline?: string;
+    genres?: Genre[];
     goofsLength?: number;
-};
+    keywordsMinLength?: number;
+    languages?: string[];
+    mainCountriesSellMin?: number;
+    mainRate?: {
+        rate: number;
+        minVotesCount: number;
+    };
+    mainType?: TitleMainType;
+    metaScore?: number;
+    minNominations?: number;
+    name: string;
+    onOfKeywords?: string;
+    oscars?: number;
+    otherNamesMinLength?: number;
+    plotContains?: string;
+    posterImageThumbnailsMinLength?: number;
+    posterImageUrl?: string;
+    postersMinLength?: number;
+    producersMinLength?: number;
+    productionCompaniesLength?: number;
+    quotesLength?: number;
+    runtimeSeconds?: number;
+    runtimeTitle?: string;
+    sourceId: string;
+    sourcesMinLength?: number;
+    spoilerQuotes?: number;
+    stillFrameMinLength?: number;
+    taglinesMinLength?: number;
+    titleYear?: number;
+    url: string;
+    worldWideName?: string;
+    worldWideSellMin?: number;
+    writers?: {
+        length: number;
+        firstOneName: string;
+        firstONeSourceId: string;
+    };
+}
 
 const titlesToTest: ITitleTestData[] = [
     {

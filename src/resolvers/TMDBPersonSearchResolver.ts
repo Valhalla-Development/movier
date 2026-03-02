@@ -77,17 +77,17 @@ export class TMDBPersonSearchResolver implements IPersonSearchResolver {
     }
 }
 
-type TMDBPersonSearchResponse = {
+interface TMDBPersonSearchResponse {
     results?: TMDBPersonSearchResult[];
-};
+}
 
-type TMDBPersonSearchResult = {
+interface TMDBPersonSearchResult {
     id: number;
     name?: string;
-    profile_path?: string | null;
     popularity?: number;
-};
+    profile_path?: string | null;
+}
 
-type TMDBExternalIdsResponse = {
+interface TMDBExternalIdsResponse {
     imdb_id?: string | null;
-};
+}

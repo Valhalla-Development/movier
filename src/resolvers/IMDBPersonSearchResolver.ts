@@ -173,7 +173,7 @@ export class IMDBPersonSearchResolver implements IPersonSearchResolver {
     }
 }
 
-type PersonSearchNextData = {
+interface PersonSearchNextData {
     props?: {
         pageProps?: {
             nameResults?: {
@@ -181,9 +181,9 @@ type PersonSearchNextData = {
             };
         };
     };
-};
+}
 
-type PersonSearchNextDataResult = {
+interface PersonSearchNextDataResult {
     index?: string;
     listItem?: {
         nameId?: string;
@@ -192,4 +192,4 @@ type PersonSearchNextDataResult = {
             url?: string;
         };
     };
-};
+}

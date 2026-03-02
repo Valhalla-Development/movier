@@ -1,10 +1,10 @@
 import type { IFoundedPersonDetails, IPersonSearchResolver } from "./interfaces";
 import { TMDBPersonSearchResolver } from "./resolvers/TMDBPersonSearchResolver";
 
-export type SearchPersonByNameOptions = {
+export interface SearchPersonByNameOptions {
     exactMatch?: boolean;
     tmdbReadAccessToken?: string;
-};
+}
 
 export async function searchPersonByName(
     queryName: string,

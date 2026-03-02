@@ -1,145 +1,144 @@
 import type { AwardOutcome, Genre, Language, Source, TitleMainType } from "./literals";
 
-export type ITrailerDetails = {
+export interface ITrailerDetails {
+    contentType?: string;
+    description?: string;
     id?: string;
     name?: string;
-    description?: string;
-    contentType?: string;
-    runtimeSeconds?: number;
-    thumbnailUrl?: string;
-    sourceUrl?: string;
     playbackUrls?: string[];
-};
+    runtimeSeconds?: number;
+    sourceUrl?: string;
+    thumbnailUrl?: string;
+}
 
-export type ITitle = {
-    detailsLang: Language;
-    mainSource: ISourceDetails;
-    allSources: ISourceDetails[];
-    name: string;
-    worldWideName: string;
-    otherNames: string[];
-    titleYear: number;
-    genres: Genre[];
-    directors: IPersonDetails[];
-    writers: IPersonDetails[];
-    mainType: TitleMainType;
-    plot: string;
-    casts: ICastDetails[];
-    producers: IPersonDetails[];
-    mainRate: IRateDetails;
-    allRates: IRateDetails[];
-    dates: IDatesDetails;
-    allReleaseDates: IReleaseDateDetails[];
+export interface ITitle {
     ageCategoryTitle: string;
-    languages: string[];
-    countriesOfOrigin: string[];
-    posterImage: IImageDetails;
     allImages: IImageDetails[];
-    boxOffice?: IBoxOfficeDetails;
-    productionCompanies: IProductionCompanyDetails[];
-    taglines: string[];
-    runtime: IRuntimeDetails;
-    keywords: string[];
+    allRates: IRateDetails[];
+    allReleaseDates: IReleaseDateDetails[];
+    allSources: ISourceDetails[];
     awards: IAwardDetails[];
     awardsSummary: IAwardsSummaryDetails;
-    quotes: ITitleQuoteItem[];
+    boxOffice?: IBoxOfficeDetails;
+    casts: ICastDetails[];
+    countriesOfOrigin: string[];
+    dates: IDatesDetails;
+    detailsLang: Language;
+    directors: IPersonDetails[];
+    genres: Genre[];
     goofs: ITitleGoofItem[];
+    keywords: string[];
+    languages: string[];
+    mainRate: IRateDetails;
+    mainSource: ISourceDetails;
+    mainType: TitleMainType;
+    name: string;
+    otherNames: string[];
+    plot: string;
+    posterImage: IImageDetails;
+    producers: IPersonDetails[];
+    productionCompanies: IProductionCompanyDetails[];
+    quotes: ITitleQuoteItem[];
+    runtime: IRuntimeDetails;
+    taglines: string[];
+    titleYear: number;
     trailers: ITrailerDetails[];
-};
+    worldWideName: string;
+    writers: IPersonDetails[];
+}
 
 export type ITitleKey = keyof ITitle;
 
-export type ITitleDetailsResolverOptions = {
-    tmdbReadAccessToken?: string;
+export interface ITitleDetailsResolverOptions {
     select?: Partial<{
         [key in ITitleKey]: boolean;
     }>;
-};
+    tmdbReadAccessToken?: string;
+}
 
-export type ITitleLocale = {
+export interface ITitleLocale {
     detailsLang: Language;
     mainSource: ISourceDetails;
     name: string;
     otherNames: string[];
     plot: string;
-};
+}
 
-export type ISourceDetails = {
+export interface ISourceDetails {
     sourceId: string;
     sourceType: Source;
     sourceUrl: string;
-};
+}
 
-export type IPersonDetails = {
-    source?: ISourceDetails;
-    name: string;
+export interface IPersonDetails {
     extraInfo?: string;
-};
-
-export type IRoleDetails = {
-    source?: ISourceDetails;
     name: string;
-};
+    source?: ISourceDetails;
+}
+
+export interface IRoleDetails {
+    name: string;
+    source?: ISourceDetails;
+}
 
 export interface ICastDetails extends IPersonDetails {
-    roles: IRoleDetails[];
-    otherNames?: string[];
     episodeCredits?: EpisodeCreditsDetails;
+    otherNames?: string[];
+    roles: IRoleDetails[];
     thumbnailImageUrl?: string;
 }
 
-export type EpisodeCreditsDetails = {
-    totalEpisodes: number;
-    startYear: number;
+export interface EpisodeCreditsDetails {
     endYear: number;
-};
+    startYear: number;
+    totalEpisodes: number;
+}
 
-export type IRateAndVotesCount = {
+export interface IRateAndVotesCount {
     rate: number;
     votesCount: number;
-};
+}
 
-export type IAgesRateAndVotesCount = {
+export interface IAgesRateAndVotesCount {
     allAges?: IRateAndVotesCount;
-    under18?: IRateAndVotesCount;
     between18And29?: IRateAndVotesCount;
     between30And44?: IRateAndVotesCount;
     over44?: IRateAndVotesCount;
-};
+    under18?: IRateAndVotesCount;
+}
 
 export interface IRateDetailsForSpecificAge extends IRateAndVotesCount {
     percent?: number;
 }
 
 export interface IRateDetails extends IRateAndVotesCount {
-    rateSource: Source;
     assortedByGender?: {
         allGenders?: IAgesRateAndVotesCount;
         male?: IAgesRateAndVotesCount;
         female?: IAgesRateAndVotesCount;
     };
     assortedByRate?: IRateDetailsForSpecificAge[];
+    rateSource: Source;
 }
 
-export type IDatesDetails = {
-    titleYear: number;
-    startYear: number;
-    startCountry: string;
-    startExtraInfo?: string;
+export interface IDatesDetails {
     endYear?: number;
-    startDate: Date;
     isEnded?: boolean;
-};
+    startCountry: string;
+    startDate: Date;
+    startExtraInfo?: string;
+    startYear: number;
+    titleYear: number;
+}
 
-export type IReleaseDateDetails = {
+export interface IReleaseDateDetails {
     country: string;
     date: Date;
     extraInfo?: string;
-};
+}
 
-export type IBoxOfficeDetails = {
+export interface IBoxOfficeDetails {
     budget: number;
-    worldwide: number;
     mainCountries: {
         countries: string[];
         amount: number;
@@ -149,143 +148,144 @@ export type IBoxOfficeDetails = {
         amount: number;
         date: Date;
     };
-};
+    worldwide: number;
+}
 
-export type IProductionCompanyDetails = {
-    name: string;
+export interface IProductionCompanyDetails {
     extraInfo?: string;
-};
+    name: string;
+}
 
-export type IImageDetails = {
-    type: string;
-    title: string;
-    sourceType: Source;
-    url: string;
+export interface IImageDetails {
     isThumbnail: boolean;
     names?: IPersonDetails[];
     size?: {
         width: number;
         height: number;
     };
+    sourceType: Source;
     thumbnails?: IImageDetails[];
-};
-
-export type IFoundedTitleDetails = {
-    source: ISourceDetails;
-    name: string;
-    titleYear: number;
-    aka: string;
-    url: string;
-    titleType: TitleMainType;
-    matchScore: number;
-    thumbnailImageUrl: string;
-};
-
-export type IFoundedPersonDetails = {
-    source: ISourceDetails;
-    name: string;
-    url: string;
-    matchScore: number;
-    thumbnailImageUrl: string;
-};
-
-export type IRuntimeDetails = {
     title: string;
+    type: string;
+    url: string;
+}
+
+export interface IFoundedTitleDetails {
+    aka: string;
+    matchScore: number;
+    name: string;
+    source: ISourceDetails;
+    thumbnailImageUrl: string;
+    titleType: TitleMainType;
+    titleYear: number;
+    url: string;
+}
+
+export interface IFoundedPersonDetails {
+    matchScore: number;
+    name: string;
+    source: ISourceDetails;
+    thumbnailImageUrl: string;
+    url: string;
+}
+
+export interface IRuntimeDetails {
     seconds: number;
-};
+    title: string;
+}
 
-export type IAwardDetails = {
-    mainEvent: string;
-    eventYear: number;
-    subEvent: string;
+export interface IAwardDetails {
     awardTitle: string;
-    outcome: AwardOutcome;
     details?: string;
-};
+    eventYear: number;
+    mainEvent: string;
+    outcome: AwardOutcome;
+    subEvent: string;
+}
 
-export type IAwardsSummaryDetails = {
-    eventName: string;
+export interface IAwardsSummaryDetails {
     awardName: string;
+    eventName: string;
     totalNominations: number;
     wins: number;
-};
+}
 
-export type ITitleDetailsResolver = {
+export interface ITitleDetailsResolver {
     getDetails(opts?: ITitleDetailsResolverOptions): Promise<ITitle | undefined>;
-};
+}
 
-export type ITitleSearchResolver = {
+export interface ITitleSearchResolver {
     getResult(): Promise<IFoundedTitleDetails[]>;
-};
-export type IPersonSearchResolver = {
+}
+export interface IPersonSearchResolver {
     getResult(): Promise<IFoundedPersonDetails[]>;
-};
+}
 
-export type IPersonDetailsResolver = {
+export interface IPersonDetailsResolver {
     getDetails(): Promise<IPerson | undefined>;
-};
+}
 
-export type IPerson = {
-    detailsLang: Language;
-    mainSource: ISourceDetails;
-    name: string;
+export interface IPerson {
+    allImages: IImageDetails[];
     birthDate?: Date;
     birthPlace?: string;
-    miniBio: string[];
-    knownFor: IKnownForItem[];
-    filmography: IFilmographyItem[];
-    personalDetails: IPersonalDetailItem[];
-    profileImage?: IImageDetails;
-    allImages: IImageDetails[];
     deathDate?: Date;
     deathPlace?: string;
-};
+    detailsLang: Language;
+    filmography: IFilmographyItem[];
+    knownFor: IKnownForItem[];
+    mainSource: ISourceDetails;
+    miniBio: string[];
+    name: string;
+    personalDetails: IPersonalDetailItem[];
+    profileImage?: IImageDetails;
+}
 
-export type IKnownForItem = {
-    source: ISourceDetails;
+export interface IKnownForItem {
+    endYear: number;
+    name: string;
     posterImage: IImageDetails;
-    name: string;
     role: string;
-    startYear: number;
-    endYear: number;
-};
-
-export type IFilmographyItem = {
     source: ISourceDetails;
-    name: string;
-    type: TitleMainType;
     startYear: number;
+}
+
+export interface IFilmographyItem {
+    category: string; // TODO: make an enum for this
     endYear: number;
+    name: string;
     productionStatus: string;
     roles: string[];
-    category: string; // TODO: make an enum for this
-};
+    source: ISourceDetails;
+    startYear: number;
+    type: TitleMainType;
+}
 
-export type IPersonalDetailItem = {
-    title: string;
+export interface IPersonalDetailItem {
     details: string;
     relatedSources: ISourceDetails[];
-};
+    title: string;
+}
 
-export type ITitleQuoteItem = {
+export interface ITitleQuoteItem {
     isSpoiler: boolean;
     lines: ITitleQuoteLineItemDetails[];
-};
+}
 
-export type ITitleQuoteLineItemDetails = {
+export interface ITitleQuoteLineItemDetails {
     characters: IQuoteCharacterDetails[];
     line?: string;
     stageDirection?: string;
-};
+}
 
-export type IQuoteCharacterDetails = {
+export interface IQuoteCharacterDetails {
     name: string;
     playerName: string;
     playerSource: ISourceDetails;
-};
+}
 
-export type ITitleGoofItem = {
+export interface ITitleGoofItem {
+    details: string;
     groupName: string;
     isSpoiler: boolean;
-    details: string;
-};
+}

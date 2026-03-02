@@ -1,11 +1,4 @@
-export type IMDBTitleApiRawData = {
-    id: string;
-    titleText: {
-        text: string;
-    };
-    originalTitleText?: {
-        text: string;
-    };
+export interface IMDBTitleApiRawData {
     akas: {
         edges: {
             node: {
@@ -16,69 +9,30 @@ export type IMDBTitleApiRawData = {
             };
         }[];
     };
-    releaseDate?: {
-        month: number;
-        year: number;
-        day: number;
-        country?: {
-            text: string;
-        };
-    };
-    genres?: {
-        genres: {
-            text: string;
-        }[];
-    };
-    directors: {
+    awardNominations?: {
         edges: {
             node: {
-                category?: {
-                    text: string;
-                };
-                name?: {
-                    id: string;
-                    nameText: {
+                award?: {
+                    category?: {
                         text: string;
                     };
-                };
-            };
-        }[];
-    };
-    writers: {
-        edges: {
-            node: {
-                category?: {
-                    text: string;
-                };
-                name?: {
-                    id: string;
-                    nameText: {
+                    event?: {
                         text: string;
                     };
+                    eventEditionId?: string;
+                    text?: string;
+                    year?: number;
                 };
+                id: string;
+                forEpisodes?: {
+                    titleText: {
+                        text: string;
+                    };
+                }[];
+                forSongTitles?: string[];
+                isWinner?: boolean;
             };
         }[];
-    };
-    meta?: {
-        publicationStatus?: string;
-    };
-    certificate?: {
-        rating?: string;
-    };
-    titleType?: {
-        categories?: {
-            text: string;
-        }[];
-        id?: string;
-        canHaveEpisodes?: boolean;
-        isEpisode?: boolean;
-        isSeries?: boolean;
-        text?: string;
-    };
-    plot?: {
-        plotText?: {
-            plainText: string;
-        };
     };
     casts: {
         edges: {
@@ -113,7 +67,30 @@ export type IMDBTitleApiRawData = {
             };
         }[];
     };
-    producers: {
+    certificate?: {
+        rating?: string;
+    };
+    companyCredits?: {
+        edges: {
+            node: {
+                category?: {
+                    text: string;
+                };
+                company?: {
+                    id: string;
+                    companyText?: {
+                        text: string;
+                    };
+                };
+            };
+        }[];
+    };
+    countriesOfOrigin?: {
+        countries?: {
+            text: string;
+        }[];
+    };
+    directors: {
         edges: {
             node: {
                 category?: {
@@ -128,51 +105,66 @@ export type IMDBTitleApiRawData = {
             };
         }[];
     };
-    ratingsSummary?: {
-        aggregateRating?: number;
-        voteCount?: number;
+    genres?: {
+        genres: {
+            text: string;
+        }[];
     };
-    releaseYear?: {
-        year?: number;
-        endYear?: number;
-    };
-    releaseDates: {
+    goofs?: {
         edges: {
             node: {
-                day?: number;
-                month?: number;
-                year?: number;
-                country?: {
+                text?: {
+                    plainText: string;
+                };
+                category?: {
                     text: string;
                 };
+                isSpoiler?: boolean;
             };
         }[];
     };
-    spokenLanguages?: {
-        spokenLanguages?: {
-            text: string;
-        }[];
-    };
-    countriesOfOrigin?: {
-        countries?: {
-            text: string;
-        }[];
-    };
-    primaryImage?: {
-        caption?: {
-            plainText: string;
-        };
-        height?: number;
-        width?: number;
-        id: string;
-        type?: string;
-        url?: string;
-        names?: {
-            nameText: {
+    id: string;
+    keywords: {
+        edges: {
+            node: {
                 text: string;
             };
-            id: string;
         }[];
+    };
+    lifetimeGross?: {
+        total?: {
+            currency?: string;
+            amount?: number;
+        };
+    };
+    meta?: {
+        publicationStatus?: string;
+    };
+    metacritic?: {
+        metascore?: {
+            score?: number;
+            reviewCount?: number;
+        };
+        url?: string;
+    };
+    openingWeekendGross?: {
+        gross?: {
+            total?: {
+                currency?: string;
+                amount?: number;
+            };
+        };
+        theaterCount?: number;
+        weekendEndDate?: string;
+        weekendStartDate?: string;
+    };
+    originalTitleText?: {
+        text: string;
+    };
+    plot?: {
+        plotText?: {
+            plainText: string;
+        };
     };
     posterImages?: {
         edges: {
@@ -192,6 +184,128 @@ export type IMDBTitleApiRawData = {
                     id: string;
                 }[];
             };
+        }[];
+    };
+    prestigiousAwardSummary?: {
+        award?: {
+            category?: {
+                text: string;
+            };
+            event?: {
+                text: string;
+            };
+            eventEditionId?: string;
+            text?: string;
+            year?: number;
+        };
+        nominations?: number;
+        wins?: number;
+    };
+    primaryImage?: {
+        caption?: {
+            plainText: string;
+        };
+        height?: number;
+        width?: number;
+        id: string;
+        type?: string;
+        url?: string;
+        names?: {
+            nameText: {
+                text: string;
+            };
+            id: string;
+        }[];
+    };
+    producers: {
+        edges: {
+            node: {
+                category?: {
+                    text: string;
+                };
+                name?: {
+                    id: string;
+                    nameText: {
+                        text: string;
+                    };
+                };
+            };
+        }[];
+    };
+    productionBudget?: {
+        budget?: {
+            currency?: string;
+            amount?: number;
+        };
+    };
+    quotes: {
+        edges: {
+            node: {
+                isSpoiler?: boolean;
+                lines: {
+                    characters?: {
+                        character?: string;
+                        name?: {
+                            id: string;
+                            nameText: {
+                                text: string;
+                            };
+                        };
+                    }[];
+                    stageDirection?: string;
+                    text?: string;
+                }[];
+            };
+        }[];
+    };
+    rankedLifetimeGross?: {
+        boxOfficeAreaType?: {
+            text: string;
+        };
+        total?: {
+            currency?: string;
+            amount?: number;
+        };
+    };
+    ratingsSummary?: {
+        aggregateRating?: number;
+        voteCount?: number;
+    };
+    releaseDate?: {
+        month: number;
+        year: number;
+        day: number;
+        country?: {
+            text: string;
+        };
+    };
+    releaseDates: {
+        edges: {
+            node: {
+                day?: number;
+                month?: number;
+                year?: number;
+                country?: {
+                    text: string;
+                };
+            };
+        }[];
+    };
+    releaseYear?: {
+        year?: number;
+        endYear?: number;
+    };
+    runtime?: {
+        seconds?: number;
+        displayableProperty?: {
+            value: {
+                plainText: string;
+            };
+        };
+    };
+    spokenLanguages?: {
+        spokenLanguages?: {
+            text: string;
         }[];
     };
     stillFrameImages?: {
@@ -221,146 +335,32 @@ export type IMDBTitleApiRawData = {
             };
         }[];
     };
-    keywords: {
-        edges: {
-            node: {
-                text: string;
-            };
-        }[];
+    titleText: {
+        text: string;
     };
-    quotes: {
-        edges: {
-            node: {
-                isSpoiler?: boolean;
-                lines: {
-                    characters?: {
-                        character?: string;
-                        name?: {
-                            id: string;
-                            nameText: {
-                                text: string;
-                            };
-                        };
-                    }[];
-                    stageDirection?: string;
-                    text?: string;
-                }[];
-            };
-        }[];
-    };
-    goofs?: {
-        edges: {
-            node: {
-                text?: {
-                    plainText: string;
-                };
-                category?: {
-                    text: string;
-                };
-                isSpoiler?: boolean;
-            };
-        }[];
-    };
-    prestigiousAwardSummary?: {
-        award?: {
-            category?: {
-                text: string;
-            };
-            event?: {
-                text: string;
-            };
-            eventEditionId?: string;
-            text?: string;
-            year?: number;
-        };
-        nominations?: number;
-        wins?: number;
-    };
-    awardNominations?: {
-        edges: {
-            node: {
-                award?: {
-                    category?: {
-                        text: string;
-                    };
-                    event?: {
-                        text: string;
-                    };
-                    eventEditionId?: string;
-                    text?: string;
-                    year?: number;
-                };
-                id: string;
-                forEpisodes?: {
-                    titleText: {
-                        text: string;
-                    };
-                }[];
-                forSongTitles?: string[];
-                isWinner?: boolean;
-            };
-        }[];
-    };
-    runtime?: {
-        seconds?: number;
-        displayableProperty?: {
-            value: {
-                plainText: string;
-            };
-        };
-    };
-    companyCredits?: {
-        edges: {
-            node: {
-                category?: {
-                    text: string;
-                };
-                company?: {
-                    id: string;
-                    companyText?: {
-                        text: string;
-                    };
-                };
-            };
-        }[];
-    };
-    lifetimeGross?: {
-        total?: {
-            currency?: string;
-            amount?: number;
-        };
-    };
-    openingWeekendGross?: {
-        gross?: {
-            total?: {
-                currency?: string;
-                amount?: number;
-            };
-        };
-        theaterCount?: number;
-        weekendEndDate?: string;
-        weekendStartDate?: string;
-    };
-    rankedLifetimeGross?: {
-        boxOfficeAreaType?: {
+    titleType?: {
+        categories?: {
             text: string;
-        };
-        total?: {
-            currency?: string;
-            amount?: number;
-        };
+        }[];
+        id?: string;
+        canHaveEpisodes?: boolean;
+        isEpisode?: boolean;
+        isSeries?: boolean;
+        text?: string;
     };
-    productionBudget?: {
-        budget?: {
-            currency?: string;
-            amount?: number;
-        };
+    writers: {
+        edges: {
+            node: {
+                category?: {
+                    text: string;
+                };
+                name?: {
+                    id: string;
+                    nameText: {
+                        text: string;
+                    };
+                };
+            };
+        }[];
     };
-    metacritic?: {
-        metascore?: {
-            score?: number;
-            reviewCount?: number;
-        };
-        url?: string;
-    };
-};
+}
