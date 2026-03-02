@@ -1,24 +1,25 @@
 import type { IFoundedPersonDetails, IPersonSearchResolver } from "./interfaces";
-import { Source } from "./literals";
-import { IMDBPersonSearchResolver } from "./resolvers/IMDBPersonSearchResolver";
+import { TMDBPersonSearchResolver } from "./resolvers/TMDBPersonSearchResolver";
 
 export type SearchPersonByNameOptions = {
     exactMatch?: boolean;
-    sourceType?: Source;
+    tmdbReadAccessToken?: string;
 };
 
 export async function searchPersonByName(
     queryName: string,
-    { exactMatch = false, sourceType = Source.IMDB }: SearchPersonByNameOptions = {}
+    { exactMatch = false, tmdbReadAccessToken }: SearchPersonByNameOptions = {}
 ): Promise<IFoundedPersonDetails[]> {
-    //  select the resolver
-    let resolver: IPersonSearchResolver;
-    switch (sourceType) {
-        default:
-            resolver = new IMDBPersonSearchResolver(queryName, {
-                exactMatch,
-            });
+    if (!tmdbReadAccessToken?.trim()) {
+        const errorMessage =
+            "TMDB Read Access Token is required for person search. Create one at https://www.themoviedb.org/settings/api and pass it via { tmdbReadAccessToken }.";
+        console.error(errorMessage);
+        throw new Error(errorMessage);
     }
+    const resolver: IPersonSearchResolver = new TMDBPersonSearchResolver(queryName, {
+        exactMatch,
+        tmdbReadAccessToken,
+    });
 
     // get details from resolver
     return await resolver.getResult();
