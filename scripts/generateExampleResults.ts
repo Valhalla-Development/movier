@@ -18,19 +18,27 @@ async function dumpExample(filename: string, data: unknown) {
 async function main() {
     await dumpExample(
         "interstellarTitleResults.json",
-        await getTitleDetailsByName("interstellar 2014")
+        await getTitleDetailsByName("interstellar 2014", {
+            tmdbReadAccessToken: process.env.TMDB_ACCESS_TOKEN,
+        })
     );
     await dumpExample(
         "interstellarTitleSearchResults.json",
-        await searchTitleByName("interstellar 2014")
+        await searchTitleByName("interstellar 2014", {
+            tmdbReadAccessToken: process.env.TMDB_ACCESS_TOKEN,
+        })
     );
     await dumpExample(
         "jenniferLawrencePersonResults.json",
-        await getPersonDetailsByName("jennifer lawrence")
+        await getPersonDetailsByName("jennifer lawrence", {
+            tmdbReadAccessToken: process.env.TMDB_ACCESS_TOKEN,
+        })
     );
     await dumpExample(
         "jenniferLawrencePersonSerachResults.json",
-        await searchPersonByName("jennifer lawrence")
+        await searchPersonByName("jennifer lawrence", {
+            tmdbReadAccessToken: process.env.TMDB_ACCESS_TOKEN,
+        })
     );
 }
 
