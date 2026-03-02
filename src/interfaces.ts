@@ -50,6 +50,7 @@ export type ITitle = {
 export type ITitleKey = keyof ITitle;
 
 export type ITitleDetailsResolverOptions = {
+    tmdbReadAccessToken?: string;
     select?: Partial<{
         [key in ITitleKey]: boolean;
     }>;
