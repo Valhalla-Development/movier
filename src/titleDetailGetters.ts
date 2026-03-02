@@ -45,12 +45,13 @@ export function getTitleDetailsByFoundedTitleDetails(
 
 export async function getTitleDetailsByName(
     titleName: string,
-    { exactMatch = false, specificType }: SearchTitleByNameOptions = {},
+    { exactMatch = false, specificType, tmdbReadAccessToken }: SearchTitleByNameOptions = {},
     opts?: ITitleDetailsResolverOptions
 ): Promise<ITitle> {
     const allResults = await searchTitleByName(titleName, {
         exactMatch,
         specificType,
+        tmdbReadAccessToken,
     });
     if (!allResults.length) {
         throw new Error(`there wasn't any matched title with the given name : '${titleName}'`);
