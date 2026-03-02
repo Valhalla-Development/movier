@@ -118,7 +118,9 @@ export class IMDBTitleDetailsResolver implements ITitleDetailsResolver {
         const trailerCandidates = trailersOnly.length
             ? trailersOnly
             : youtubeVideos.filter((video) => video.type === "Teaser");
-        return trailerCandidates.map((video) => ({
+        // Match TMDB website order (API returns reverse of site)
+        const ordered = [...trailerCandidates].reverse();
+        return ordered.map((video) => ({
             id: video.id,
             name: video.name,
             description: video.name,
