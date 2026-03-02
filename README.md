@@ -19,7 +19,11 @@
 ---
 ## 🌟 Welcome to movier, an IMDb Data Scraping Library!
 
-> **Note:** We recommend not using this package directly in production, as it scrapes IMDB page content. Requests can take a couple of seconds to complete. Instead, use this package to fetch and cache the information in your local database for faster retrieval.
+> **Note:** IMDb web search scraping is no longer reliable. `searchTitleByName`, `searchPersonByName`, `getTitleDetailsByName`, and `getPersonDetailsByName` now require a TMDB Read Access Token passed per call via `tmdbReadAccessToken`.
+>
+> Create a TMDB token here: https://www.themoviedb.org/settings/api
+>
+> Trailer data in title details now uses TMDB when `tmdbReadAccessToken` is provided. Without a token, `trailers` returns an empty array.
 
 ## 🛠️ Installation
 
@@ -80,13 +84,20 @@ Pull every detail from an IMDB title page—plot, ratings, cast, crew, release i
 ```typescript
 // Search and get details by name
 const title = await getTitleDetailsByName("interstellar 2014");
+const titleWithToken = await getTitleDetailsByName("interstellar 2014", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN
+});
 
 // Or get details directly by URL or IMDB ID
-await getTitleDetailsByUrl("https://www.imdb.com/title/tt0816692/");
+await getTitleDetailsByUrl("https://www.imdb.com/title/tt0816692/", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN
+});
 await getTitleDetailsByIMDBId("tt0816692");
 
 // Or use search results
-const searchResults = await searchTitleByName("interstellar 2014");
+const searchResults = await searchTitleByName("interstellar 2014", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN
+});
 const titleFromSearch = await getTitleDetailsByFoundedTitleDetails(searchResults[0]);
 ```
 
@@ -97,9 +108,12 @@ Each call resolves to a structured title object. See the example in [examples/re
 Search by name and receive match metadata (IMDB url, score, thumbnail) so you can select the correct entry before fetching the full payload.
 
 ```typescript
-const results = await searchTitleByName("interstellar 2014");
+const results = await searchTitleByName("interstellar 2014", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN
+});
 // Optionally filter by exact match or specific type
 const movieResults = await searchTitleByName("interstellar", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN,
   exactMatch: false,
   specificType: TitleMainType.Movie
 });
@@ -113,14 +127,18 @@ Grab bios, birth info, filmography, personal details, and imagery for any celebr
 
 ```typescript
 // Search and get details by name
-const person = await getPersonDetailsByName("jennifer lawrence");
+const person = await getPersonDetailsByName("jennifer lawrence", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN
+});
 
 // Or get details directly by URL or IMDB ID
 await getPersonDetailsByUrl("https://www.imdb.com/name/nm2225369/");
 await getPersonDetailsByIMDBId("nm2225369");
 
 // Or use search results
-const searchResults = await searchPersonByName("jennifer lawrence");
+const searchResults = await searchPersonByName("jennifer lawrence", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN
+});
 const personFromSearch = await getPersonDetailsByFoundedPersonDetails(searchResults[0]);
 ```
 
@@ -129,9 +147,12 @@ Each method resolves to a consistent person object. Reference [examples/results/
 ### Search for people
 
 ```typescript
-const results = await searchPersonByName("jennifer lawrence");
+const results = await searchPersonByName("jennifer lawrence", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN
+});
 // Optionally filter by exact match
 const exactResults = await searchPersonByName("jennifer lawrence", {
+  tmdbReadAccessToken: process.env.TMDB_READ_ACCESS_TOKEN,
   exactMatch: true
 });
 ```
