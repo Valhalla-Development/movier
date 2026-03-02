@@ -2,7 +2,7 @@ import http from "node:http";
 import https from "node:https";
 import axios from "axios";
 import { GraphQLClient } from "graphql-request";
-import { IMDB_API_BASE_URL } from "./constants";
+import { IMDB_API_BASE_URL, TMDB_API_BASE_URL } from "./constants";
 
 type getRequestResponse = {
     data: string;
@@ -27,6 +27,27 @@ export function getRequest(
         httpAgent,
         httpsAgent,
     });
+}
+
+export async function tmdbGetRequest<T = unknown>(
+    path: string,
+    readAccessToken: string,
+    params: { [key: string]: number | boolean | string | undefined } = {}
+): Promise<T> {
+    const result = await axios.get(`${TMDB_API_BASE_URL}${path}`, {
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${readAccessToken}`,
+        },
+        params: {
+            language: "en-US",
+            include_adult: false,
+            ...params,
+        },
+        httpAgent,
+        httpsAgent,
+    });
+    return result.data as T;
 }
 
 const gqlClient = new GraphQLClient(IMDB_API_BASE_URL, {
