@@ -3,6 +3,9 @@ import { gql } from "graphql-request";
 export const personDetailsQuery = gql`
   query PersonDetails($id: ID!) {
     name(id: $id) {
+      nameText {
+        text
+      }
       credits(
         first: 5000
         filter: { excludeCategories: ["self", "archive_footage"] }
@@ -97,6 +100,26 @@ export const personDetailsQuery = gql`
         }
       }
       age {
+        text
+      }
+      birthDate {
+        dateComponents {
+          day
+          month
+          year
+        }
+      }
+      birthLocation {
+        text
+      }
+      deathDate {
+        dateComponents {
+          day
+          month
+          year
+        }
+      }
+      deathLocation {
         text
       }
       deathCause {
