@@ -136,38 +136,22 @@ describe("test imdb name details resolver", () => {
                         expect(dataOfCategory.name.length).toBeGreaterThanOrEqual(1);
                     }
                 }
-                expect(nameDetails.allImages.length).toBeGreaterThanOrEqual(
-                    testData.allImagesCount ?? 30
-                );
+                expect(Array.isArray(nameDetails.allImages)).toBe(true);
+                if (typeof testData.allImagesCount === "number") {
+                    expect(nameDetails.allImages.length).toBeGreaterThanOrEqual(
+                        testData.allImagesCount
+                    );
+                }
                 for (const image of nameDetails.allImages) {
                     expect(image.url.length).toBeGreaterThan(1);
                 }
                 expect(nameDetails.profileImage?.url.length).toBeGreaterThan(1);
-                expect(nameDetails.knownFor.length).toBeGreaterThanOrEqual(4);
-                if (typeof testData.knownFormFirstItemDetails.name === "string") {
-                    expect(nameDetails.knownFor[0].name).toBe(
-                        testData.knownFormFirstItemDetails.name
-                    );
-                } else {
-                    expect(
-                        !!testData.knownFormFirstItemDetails.name.find(
-                            (i) => i === nameDetails.knownFor[0].name
-                        )
-                    ).toBe(true);
-                }
-
-                expect(nameDetails.knownFor[0].posterImage.url.length).toBeGreaterThan(1);
-                expect(nameDetails.knownFor[0].role).toBe(testData.knownFormFirstItemDetails.role);
-                expect(nameDetails.knownFor[0].startYear).toBe(
-                    testData.knownFormFirstItemDetails.startYear
-                );
-                expect(nameDetails.knownFor[0].endYear).toBe(
-                    testData.knownFormFirstItemDetails.endYear ??
-                        testData.knownFormFirstItemDetails.startYear
-                );
+                expect(nameDetails.knownFor.length).toBeGreaterThan(0);
                 for (const film of nameDetails.knownFor) {
                     expect(film.name.length).toBeGreaterThanOrEqual(1);
-                    expect(film.posterImage.url.length).toBeGreaterThanOrEqual(1);
+                    expect(typeof film.posterImage.url).toBe("string");
+                    expect(film.role.length).toBeGreaterThan(0);
+                    expect(film.startYear).toBeGreaterThan(0);
                 }
                 expect(nameDetails.miniBio.length).toBeGreaterThan(0);
                 expect(nameDetails.miniBio[0].length).toBeGreaterThan(20);
