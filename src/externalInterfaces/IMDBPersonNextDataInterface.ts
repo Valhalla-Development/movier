@@ -29,7 +29,7 @@ export interface AboveTheFold {
     __typename?: string;
     bio?: Bio;
     birthDate?: AboveTheFoldBirthDate;
-    deathDate?: null;
+    deathDate?: AboveTheFoldBirthDate | null;
     deathStatus?: string;
     disambiguator?: null;
     id?: string;
