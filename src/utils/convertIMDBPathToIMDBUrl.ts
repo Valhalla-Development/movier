@@ -9,7 +9,7 @@ export function convertIMDBPathToIMDBUrl(path?: string): string {
         url.searchParams.delete("ref_");
         url.searchParams.delete("ref");
         return url.href;
-    } catch (_e) {
+    } catch {
         // handling invalid urls
         return "";
     }

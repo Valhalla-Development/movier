@@ -189,24 +189,22 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
 
         if (!knownForItems.length) {
             const fallbackKnownFor = this.personApiDetails?.name?.credits?.edges
-                ?.map((credit): IKnownForItem | undefined => {
+                ?.filter((credit) => Boolean(credit.node?.title?.id))
+                .map((credit): IKnownForItem => {
                     const title = credit.node?.title;
                     const sourceId = title?.id ?? "";
-                    if (!sourceId) {
-                        return undefined;
-                    }
                     const startYear =
                         credit.node?.episodeCredits?.yearRange?.year ??
-                        title.releaseYear?.year ??
+                        title?.releaseYear?.year ??
                         0;
                     const endYear =
                         credit.node?.episodeCredits?.yearRange?.endYear ??
-                        title.releaseYear?.endYear ??
+                        title?.releaseYear?.endYear ??
                         startYear;
-                    const primaryImage = title.primaryImage;
+                    const primaryImage = title?.primaryImage;
                     const primaryImageUrl = primaryImage?.url ?? "";
                     return {
-                        name: title.originalTitleText?.text ?? "",
+                        name: title?.originalTitleText?.text ?? "",
                         role:
                             credit.node?.characters?.[0]?.name ??
                             credit.node?.category?.text?.toLocaleLowerCase() ??
@@ -228,7 +226,7 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
                         },
                     };
                 })
-                .filter((item): item is IKnownForItem => !!item?.name?.length)
+                .filter((item): item is IKnownForItem => !!item.name.length)
                 .filter(
                     (item, index, arr) =>
                         arr.findIndex((i) => i.source.sourceId === item.source.sourceId) === index
@@ -435,14 +433,14 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
             this.personApiDetails.name?.birthDate?.dateComponents ??
             this.mainPageNextData?.props?.pageProps?.mainColumnData?.birthDate?.dateComponents ??
             this.mainPageNextData?.props?.pageProps?.aboveTheFold?.birthDate?.dateComponents;
-        if (!(birthDateRaw?.year && birthDateRaw?.month && birthDateRaw?.day)) {
-            return undefined;
-        }
-        const birthDate = dayjs(
-            `${birthDateRaw?.year}-${birthDateRaw?.month}-${birthDateRaw?.day}`,
-            "YYYY-M-D"
-        ).toDate();
-        return cacheDataManager.cacheAndReturnData(birthDate);
+        const birthDate =
+            birthDateRaw?.year && birthDateRaw?.month && birthDateRaw?.day
+                ? dayjs(
+                      `${birthDateRaw.year}-${birthDateRaw.month}-${birthDateRaw.day}`,
+                      "YYYY-M-D"
+                  ).toDate()
+                : undefined;
+        return birthDate ? cacheDataManager.cacheAndReturnData(birthDate) : birthDate;
     }
 
     get birthPlace(): string | undefined {

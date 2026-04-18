@@ -274,7 +274,7 @@ export class IMDBTitleSearchResolver implements ITitleSearchResolver {
         const url = convertIMDBTitleIdToUrl(titleId);
         const displayName = formatHTMLText(listItem.titleText ?? listItem.originalTitleText ?? "");
         const akaText = formatHTMLText(listItem.originalTitleText ?? "");
-        const aka = akaText !== displayName ? akaText : "";
+        const aka = akaText === displayName ? "" : akaText;
         const releaseYear = listItem.releaseYear ?? listItem.releaseDate?.year;
         const titleYear = releaseYear ?? 0;
         let matchScore = Math.max(1, 20 - index);

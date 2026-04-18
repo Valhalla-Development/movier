@@ -63,7 +63,7 @@ export class TMDBTitleSearchResolver implements ITitleSearchResolver {
                 }
                 const name = formatHTMLText(item.title ?? item.name ?? "");
                 const akaText = formatHTMLText(item.original_title ?? item.original_name ?? "");
-                const aka = akaText !== name ? akaText : "";
+                const aka = akaText === name ? "" : akaText;
                 const titleType =
                     item.media_type === "tv" ? TitleMainType.Series : TitleMainType.Movie;
                 const titleYear = this.extractYear(item.release_date ?? item.first_air_date);
