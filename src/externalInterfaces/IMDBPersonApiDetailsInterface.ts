@@ -11,14 +11,37 @@ export interface Name {
             plainText: string;
         };
     };
+    birthDate?: {
+        dateComponents?: {
+            day?: number;
+            month?: number;
+            year?: number;
+        };
+    };
+    birthLocation?: {
+        text?: string;
+    };
     credits?: Credits;
     deathCause?: {
         text: string;
+    };
+    deathDate?: {
+        dateComponents?: {
+            day?: number;
+            month?: number;
+            year?: number;
+        };
+    };
+    deathLocation?: {
+        text?: string;
     };
     height?: {
         measurement: {
             value: string;
         };
+    };
+    nameText?: {
+        text?: string;
     };
     nickNames?: {
         text: string;
