@@ -127,7 +127,8 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
             return cacheDataManager.data as string;
         }
         const name = formatHTMLText(
-            this.mainPageNextData.props?.pageProps?.aboveTheFold?.nameText?.text
+            this.personApiDetails.name?.nameText?.text ??
+                this.mainPageNextData.props?.pageProps?.aboveTheFold?.nameText?.text
         );
 
         return cacheDataManager.cacheAndReturnData(name);
@@ -185,6 +186,56 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
                 ),
             });
         });
+
+        if (!knownForItems.length) {
+            const fallbackKnownFor = this.personApiDetails?.name?.credits?.edges
+                ?.map((credit): IKnownForItem | undefined => {
+                    const title = credit.node?.title;
+                    const sourceId = title?.id ?? "";
+                    if (!sourceId) {
+                        return undefined;
+                    }
+                    const startYear =
+                        credit.node?.episodeCredits?.yearRange?.year ??
+                        title.releaseYear?.year ??
+                        0;
+                    const endYear =
+                        credit.node?.episodeCredits?.yearRange?.endYear ??
+                        title.releaseYear?.endYear ??
+                        startYear;
+                    const primaryImage = title.primaryImage;
+                    const primaryImageUrl = primaryImage?.url ?? "";
+                    return {
+                        name: title.originalTitleText?.text ?? "",
+                        role:
+                            credit.node?.characters?.[0]?.name ??
+                            credit.node?.category?.text?.toLocaleLowerCase() ??
+                            "",
+                        startYear,
+                        endYear,
+                        posterImage: {
+                            isThumbnail: false,
+                            sourceType: Source.IMDB,
+                            title: primaryImage?.caption?.plainText ?? "",
+                            type: ImageType.Poster,
+                            url: primaryImageUrl,
+                            thumbnails: [],
+                        },
+                        source: {
+                            sourceId,
+                            sourceType: Source.IMDB,
+                            sourceUrl: convertIMDBTitleIdToUrl(sourceId, IMDBPathType.Title),
+                        },
+                    };
+                })
+                .filter((item): item is IKnownForItem => !!item?.name?.length)
+                .filter(
+                    (item, index, arr) =>
+                        arr.findIndex((i) => i.source.sourceId === item.source.sourceId) === index
+                )
+                .slice(0, 4);
+            knownForItems.push(...(fallbackKnownFor ?? []));
+        }
 
         return cacheDataManager.cacheAndReturnData(knownForItems);
     }
@@ -381,7 +432,12 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
             return cacheDataManager.data as Date;
         }
         const birthDateRaw =
-            this.mainPageNextData?.props?.pageProps?.mainColumnData?.birthDate?.dateComponents;
+            this.personApiDetails.name?.birthDate?.dateComponents ??
+            this.mainPageNextData?.props?.pageProps?.mainColumnData?.birthDate?.dateComponents ??
+            this.mainPageNextData?.props?.pageProps?.aboveTheFold?.birthDate?.dateComponents;
+        if (!(birthDateRaw?.year && birthDateRaw?.month && birthDateRaw?.day)) {
+            return undefined;
+        }
         const birthDate = dayjs(
             `${birthDateRaw?.year}-${birthDateRaw?.month}-${birthDateRaw?.day}`,
             "YYYY-M-D"
@@ -395,7 +451,9 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
             return cacheDataManager.data as string;
         }
         const birthPlace =
-            this.mainPageNextData?.props?.pageProps?.mainColumnData?.birthLocation?.text ?? "";
+            this.personApiDetails.name?.birthLocation?.text ??
+            this.mainPageNextData?.props?.pageProps?.mainColumnData?.birthLocation?.text ??
+            "";
         return birthPlace.length
             ? cacheDataManager.cacheAndReturnData(formatHTMLText(birthPlace))
             : undefined;
@@ -407,8 +465,10 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
             return cacheDataManager.data as Date;
         }
         const deathDateRaw =
-            this.mainPageNextData?.props?.pageProps?.mainColumnData?.deathDate?.dateComponents;
-        return deathDateRaw
+            this.personApiDetails.name?.deathDate?.dateComponents ??
+            this.mainPageNextData?.props?.pageProps?.mainColumnData?.deathDate?.dateComponents ??
+            this.mainPageNextData?.props?.pageProps?.aboveTheFold?.deathDate?.dateComponents;
+        return deathDateRaw?.year && deathDateRaw?.month && deathDateRaw?.day
             ? cacheDataManager.cacheAndReturnData(
                   dayjs(
                       `${deathDateRaw.year}-${deathDateRaw.month}-${deathDateRaw.day}`,
@@ -424,7 +484,9 @@ export class IMDBPersonDetailsResolver implements IPersonDetailsResolver {
             return cacheDataManager.data as string;
         }
         const deathLocation =
-            this.mainPageNextData?.props?.pageProps?.mainColumnData?.deathLocation?.text ?? "";
+            this.personApiDetails.name?.deathLocation?.text ??
+            this.mainPageNextData?.props?.pageProps?.mainColumnData?.deathLocation?.text ??
+            "";
         return deathLocation.length
             ? cacheDataManager.cacheAndReturnData(formatHTMLText(deathLocation))
             : undefined;
