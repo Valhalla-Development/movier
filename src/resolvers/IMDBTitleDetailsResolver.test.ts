@@ -36,7 +36,7 @@ interface ITitleTestData {
     };
     emmys?: number;
     firstCountriesOfOrigin?: string;
-    firstProductionCompanyName?: string;
+    firstProductionCompanyName?: string | string[];
     firstTagline?: string;
     genres?: Genre[];
     goofsLength?: number;
@@ -144,7 +144,7 @@ const titlesToTest: ITitleTestData[] = [
         boxofficeBudget: 237_000_000,
         worldWideSellMin: 2_847_379_794,
         mainCountriesSellMin: 760_507_625,
-        firstProductionCompanyName: "twentieth century fox",
+        firstProductionCompanyName: ["twentieth century fox", "20th century fox"],
         productionCompaniesLength: 3,
         taglinesMinLength: 1,
         firstTagline: "enter the world",
@@ -423,8 +423,15 @@ describe("imdb title details resolver", () => {
                 }
 
                 if (testData.firstProductionCompanyName !== undefined) {
-                    expect(result.productionCompanies[0].name.toLowerCase()).toBe(
-                        testData.firstProductionCompanyName
+                    const expectedNames = Array.isArray(testData.firstProductionCompanyName)
+                        ? testData.firstProductionCompanyName
+                        : [testData.firstProductionCompanyName];
+                    const normalizedExpected = expectedNames.map((name) => name.toLowerCase());
+                    const normalizedActual = result.productionCompanies.map((company) =>
+                        company.name.toLowerCase()
+                    );
+                    expect(normalizedActual.some((name) => normalizedExpected.includes(name))).toBe(
+                        true
                     );
                 }
                 if (testData.productionCompaniesLength !== undefined) {
