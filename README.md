@@ -27,7 +27,7 @@
 
 ## 🛠️ Installation
 
-> Requires Node.js **>= 20.18.1** (we recommend Bun; if you’re using another runtime, make sure it’s at least 20.18.1).
+> Requires Node.js **>= 22.12.0** (we recommend Bun; if you’re using another runtime, make sure it’s at least 22.12.0).
 
 Install movier using your preferred package manager:
 
