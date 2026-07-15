@@ -21,7 +21,7 @@
     "tv shows"
   ],
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.13.0"
   },
   "scripts": {
     "test": "jest --config jest.config.ts --detectOpenHandles",
